@@ -1,0 +1,10 @@
+# __pycache__
+__pycache__
+Castle_Apartments/__pycache__
+
+# misc.
+db.sqlite3
+
+# not sure 
+venv
+.idea
