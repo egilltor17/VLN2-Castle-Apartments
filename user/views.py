@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello from the index function within the user app")
+    return render(request, 'user/index.html')
 
 def profile(request):
     return  HttpResponse("This will be a profile page")

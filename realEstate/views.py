@@ -3,9 +3,20 @@ from django.http import HttpResponse
 
 # Create your views here.
 
+properties = [
+    {
+        'name': 'cool house',
+        'price': 44000000
+    },
+    {
+        'name': 'cooler house',
+        'price': 74000000
+    }
+]
 
 def index(request):
-    return HttpResponse("Hello from the index function within the realEstate app")
+    context = {'properties': properties}
+    return render(request, 'realEstate/index.html', context)
 
 def property(request):
-    return  HttpResponse("This will be a property listing")
+    return HttpResponse("This will be a property listing")
