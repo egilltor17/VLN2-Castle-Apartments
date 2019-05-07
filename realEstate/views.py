@@ -9,5 +9,6 @@ def index(request):
     context = {'properties': Property.objects.order_by('name')}
     return render(request, 'realEstate/index.html', context)
 
-def property(request):
+
+def property_details(request):
     return HttpResponse("This will be a property listing")
