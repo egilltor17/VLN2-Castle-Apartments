@@ -1,3 +1,31 @@
-.test {
-    /* background: red; */
+#navbar {
+    position: fixed;
+    width: 100%;
 }
+
+#logo {
+    max-width: 60px;
+}
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 6.5rem; /* Footer height. */
+}
+
+#body-container {
+    padding-top: 100px;
+}
+
+#footer {
+    position: absolute;
+    padding: 5px;
+    height: 6.5rem; /* Footer height. */
+    width: 100%;
+    bottom: 0; /* Place footer on bottom of site. */
+    background-color: rgb(142, 200, 199);
+    color: white;
+    text-align: right;
+    font-size: 0.8rem;
+}
+
