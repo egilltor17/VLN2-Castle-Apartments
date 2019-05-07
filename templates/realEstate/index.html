@@ -3,15 +3,7 @@
 {% block content %}
 
     {% for property in properties %}
-        <h4>{{ property.name }}</h4>
-        {% if property.address.country == 'Iceland' %}
-            <p>{{ property.price }} kr.</p>
-        {% else %}
-            <p>{{ property.price }} $</p>
-        {% endif %}
-        <p>{{ property.description }}</p>
-        <p>{{ property.address.country }}</p>
-        <br />
+        {% include 'realEstate/single_property.html' with property=property %}
     {% endfor %}
 
 {% endblock %}
