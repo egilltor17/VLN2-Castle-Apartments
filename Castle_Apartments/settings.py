@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'Castle_Apartments.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'lzmppbat',
+        'USER': 'lzmppbat',
+        'PASSWORD': 'eBfKFNLFswzVq-SzMq1IwSBERKr_k31i',
+        'HOST': 'manny.db.elephantsql.com',
+        'PORT': '5432',
     }
 }
 
