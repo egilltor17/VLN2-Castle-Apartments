@@ -5,7 +5,14 @@
     <h3 class="test">Hello from the index function within the realEstate app!</h3>
     {% for property in properties %}
         <h4>{{ property.name }}</h4>
-        <p>{{ property.price }}$</p>
+        {% if property.address.country == 'Iceland' %}
+            <p>{{ property.price }} kr.</p>
+        {% else %}
+            <p>{{ property.price }} $</p>
+        {% endif %}
+        <p>{{ property.description }}</p>
+        <p>{{ property.address.country }}</p>
+        <br />
     {% endfor %}
 
 {% endblock %}
