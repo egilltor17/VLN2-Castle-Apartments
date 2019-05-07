@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
     <div id = "filters">
         <form method="GET">
             <fieldset>
@@ -344,16 +345,9 @@
         </form>
     </div>
     <h3 class="test">Hello from the index function within the realEstate app!</h3>
+
     {% for property in properties %}
-        <h4>{{ property.name }}</h4>
-        {% if property.address.country == 'Iceland' %}
-            <p>{{ property.price }} kr.</p>
-        {% else %}
-            <p>{{ property.price }} $</p>
-        {% endif %}
-        <p>{{ property.description }}</p>
-        <p>{{ property.address.country }}</p>
-        <br />
+        {% include 'realEstate/single_property.html' with property=property %}
     {% endfor %}
 
 {% endblock %}
