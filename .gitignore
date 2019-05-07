@@ -7,3 +7,5 @@ db.sqlite3
 
 # not sure 
 .idea
+
+.DS_Store
