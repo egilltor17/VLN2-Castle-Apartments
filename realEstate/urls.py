@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
     path('', views.index, name='property-index'),
     path('<int:id>', views.property_details, name='property-details'),
+    path('filter', views.filter, name="filter")
 ]
