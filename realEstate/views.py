@@ -2,7 +2,6 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from realEstate.models import Property, PropertyAttribute, Attribute
 from realEstate.forms.filter_form import *
-from django.
 # Create your views here.
 
 
