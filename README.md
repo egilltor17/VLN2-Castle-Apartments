@@ -11,10 +11,10 @@
 - [ ] 6  | A buyer should be able to order properties by price
 - [ ] 7  | A buyer should be able to order properties by name
 - [ ] 8  | A buyer should be able to see his search history.
-- [ ] 9  | A buyer should be able to view a property
-- [ ] 10 | A buyer should be able to see an description of a property
-- [ ] 11 | A buyer should be able to see images of a property
-- [ ] 12 | A buyer should be able to see who the seller is for a property
+- [x] 9  | A buyer should be able to view a property
+- [x] 10 | A buyer should be able to see an description of a property
+- [x] 11 | A buyer should be able to see images of a property
+- [x] 12 | A buyer should be able to see who the seller is for a property
 - [ ] 13 | A buyer should be able to see a seller profile 
 - [ ] 14 | A buyer should be able to buy a property
 - [ ] 15 | A buyer should be able to fill in his personal info when buying a property: street name, house number, city, country, postal code, social security number
@@ -48,12 +48,12 @@
 
 ### Priority A requirements
 - [ ] 1  | The site should allow easy navigation between steps
-- [ ] 2  | The site should have a navigation bar
-- [ ] 3  | The site should have a footer
-- [ ] 4  | The application must use a database to store the data
-- [ ] 5  | Django Model API must be used
-- [ ] 6  | The MTV pattern must be used 
-- [ ] 7  | Git is mandatory for version control and GitHub for a repository
+- [x] 2  | The site should have a navigation bar
+- [x] 3  | The site should have a footer
+- [x] 4  | The application must use a database to store the data
+- [x] 5  | Django Model API must be used
+- [x] 6  | The MTV pattern must be used 
+- [x] 7  | Git is mandatory for version control and GitHub for a repository
 - [ ] 8  | All exceptions should be handled in a proper manner
 - [ ] 9  | The site should be designed for mobiles, laptops, desktops and tablets in mind
 - [ ] 10 | The site should be user friendly and simple to use
