@@ -15,6 +15,8 @@ class Address(models.Model):
 
 class Attribute(models.Model):
     description = models.CharField(max_length=255)
+    def __str__(self):
+        return self.description
 
 
 class Property(models.Model):
