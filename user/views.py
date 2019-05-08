@@ -5,7 +5,8 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return render(request, 'user/index.html')
+    context = {"signin": "active"}
+    return render(request, 'user/index.html', context)
 
 def profile(request):
     return  HttpResponse("This will be a profile page")

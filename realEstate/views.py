@@ -5,7 +5,7 @@ from realEstate.models import Property, PropertyAttribute, Attribute
 
 
 def index(request):
-    context = {'properties': Property.objects.order_by('name')}
+    context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active"}
     return render(request, 'realEstate/index.html', context)
 
 
