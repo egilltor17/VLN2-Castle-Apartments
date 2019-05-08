@@ -29,3 +29,12 @@
     font-size: 0.8rem;
 }
 
+/* Filter CSS */
+#filters {
+    border: 2px solid black;
+    padding: 2%;
+    text-align: center;
+}
+
+
+
