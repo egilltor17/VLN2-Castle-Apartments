@@ -35,9 +35,21 @@
 
                 <div class="form-inline my-2 my-lg-0">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item {{ signin }}">
-                            <a class="nav-link" href="{% url 'user-index' %}">Sign in<span class="sr-only">(current)</span></a>
-                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item {{ profile }}">
+                                <a class="nav-link" href="{% url 'user-profile' %}">Profile<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Logout<span class="sr-only">(current)</span></a>
+                            </li>
+                            {% else %}
+                            <li class="nav-item {{ sign_in }}">
+                                <a class="nav-link" href="{% url 'login' %}">Sign in<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item {{ register }}">
+                                <a class="nav-link" href="{% url 'register' %}">Register<span class="sr-only">(current)</span></a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
