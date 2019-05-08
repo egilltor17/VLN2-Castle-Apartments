@@ -3,15 +3,18 @@
 {% block content %}
 
     <img class="property-img" src="{{ property.propertyimage_set.first.image }}"/>
+
     <h4>{{ property.name }}</h4>
     <p>{{ property.price }} $</p>
     <p>{{ property.description }}</p>
     <p>{{ property.address.country }}</p>
     <br />
+
     <h4>Contact Information</h4>
     <p>{{ property.sellerName }}</p>
     <p>{{ property.sellerEmail }}</p>
     <p>{{ property.sellerPhone }}</p>
+    <br />
 
     <h4>Attributes</h4>
     <ul>
@@ -23,7 +26,7 @@
             {% endfor %}
         {% endfor %}
     </ul>
-
+    <!-- All images, TODO: image carousel -->
     {% for property_image in property.propertyimage_set.all %}
         <img class="property-img" src="{{ property_image.image }}"/>
     {% endfor %}
