@@ -8,6 +8,8 @@ class User(models.Model):
     email = models.CharField(max_length=255),
     phone = models.CharField(max_length=32),
     password = models.CharField(max_length=255, blank=True)
+    def __str__(self):
+        return self.name
 
 
 class RecentlyViewed(models.Model):
@@ -33,6 +35,8 @@ class PaymentInfo(models.Model):
     cardExpiryMonth = models.IntegerField()
     cardExpiryYear = models.IntegerField()
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.cardNumber
 
 
 class Purchase(models.Model):

@@ -4,6 +4,13 @@
 
     {% include 'realEstate/filter.html' with property=property %}
 
+    <div class="input-group">
+        <input type="search" class="form-control" id="search-box" placeholder="Search by name.."/>
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-default" id="search-btn">Search</button>
+        </div>
+    </div>
+
     {% for property in properties %}
         {% include 'realEstate/single_property.html' with property=property %}
     {% endfor %}
