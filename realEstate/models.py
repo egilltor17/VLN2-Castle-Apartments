@@ -5,7 +5,7 @@ from django.db import models
 
 class Address(models.Model):
     country = models.CharField(max_length=255)
-    municipality = models.CharField(max_length=255, blank=True)  # State, provance, region.
+    municipality = models.CharField(max_length=255, blank=True)  # State, province, region.
     city = models.CharField(max_length=255)
     postCode = models.CharField(max_length=16)
     streetName = models.CharField(max_length=255)

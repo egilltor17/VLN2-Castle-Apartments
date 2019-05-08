@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Welcome to /VLN2-Castle-Apartments/templates/user/create_property.html</h1>
+    <h2>Thank you for listing your property with Castle Apartments!</h2>
+    <p>Please fill out the form below</p>
+
+    <form class="form form-horizontal" action="{% url 'list_property' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input class="btn btn-primary pull-right" type="submit" value="List Property">
+    </form>
 
 {% endblock %}
