@@ -13,7 +13,18 @@
     <p>{{ property.sellerEmail }}</p>
     <p>{{ property.sellerPhone }}</p>
 
-    {% for property_image in Property.propertyimage_set.all %}
+    <h4>Attributes</h4>
+    <ul>
+        {% for proAtt in propertyAttributes %}
+            {% for attribute in attributes %}
+                {% if attribute.id == proAtt.attribute_id %}
+                    <li>{{ attribute.description }}</li>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </ul>
+
+    {% for property_image in property.propertyimage_set.all %}
         <img class="property-img" src="{{ property_image.image }}"/>
     {% endfor %}
 
