@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from realEstate.models import Property, PropertyAttribute, Attribute, Address
@@ -6,19 +7,31 @@ from realEstate.forms.filter_form import FilterForm
 # Create your views here.
 
 def index(request):
-    # form = FilterForm(initial={
-    #     'country': {[
-    #         (
-    #             (x.country, x.country)
-    #         ) for x in Address.objects.all()
-    #     ]}
-    # })
-    # print(form)
-    # form = FilterForm(initial= {'country': Address.country})
     country_list = Address.objects.distinct('country')
     type_list = Property.objects.distinct('type')
-    if 'search_filter' in request.GET:
+    if request.is_ajax():
+        print(request.GET)
         search_filter = request.GET['search_filter']
+        country = request.GET['country_field']
+        price_from = request.GET['price_from_field']
+        price_to = request.GET['price_to_field']
+        size_from = request.GET['size_from_field']
+        size_to = request.GET['size_to_field']
+        rooms_from = request.GET['rooms_from_field']
+        rooms_to = request.GET['rooms_to_field']
+        prop_type = request.GET['type_field']
+        if price_from > price_to:
+            price_temp = price_from
+            price_from = price_to
+            price_to = price_temp
+        if size_from > size_to:
+            size_temp = size_from
+            size_from = size_to
+            size_to = size_temp
+        if rooms_from > rooms_to:
+            rooms_temp = rooms_from
+            rooms_from = rooms_to
+            rooms_to = rooms_temp
         properties = [{
             'id':  x.id,
             'name': x.name,
@@ -46,8 +59,20 @@ def index(request):
                 'apartmentNumber': x.address.apartmentNumber,
             },
             'firstImage': ('' if x.propertyattribute_set else x.propertyimage_set.first().image)
-        } for x in Property.objects.filter(name__icontains=search_filter)]
+        } for x in Property.objects.filter(
+            name__contains=search_filter,
+            address__country__contains=country,
+            price__gte=price_from,
+            price__lte=price_to,
+            squareMeters__gte=size_from,
+            squareMeters__lte=size_to,
+            nrBedrooms__gte=rooms_from,
+            nrBedrooms__lte=rooms_to,
+            type__contains=prop_type
+
+        )]
         return JsonResponse({'data': properties})
+
 
     context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active", 'country_list': country_list,
                'type_list': type_list}
