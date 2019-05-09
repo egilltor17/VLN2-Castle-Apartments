@@ -1,11 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, reverse
-from django import forms
+from django.contrib.auth.models import User
+
 
 from user.forms.list_property_form import ListPropertyForm, AddressForm
-from realEstate.models import PropertyImage, Address
 
 # Create your views here.
 
@@ -55,9 +54,14 @@ def add_property(request):
 #    })
 
 
+# # Work in progress
+
 # class UserCreateForm(UserCreationForm):
-#     email = forms.CharField(max_length=100, required=True)
-#      = forms.IntegerField(required=True)
+#     first_name = forms.CharField(max_length=30, required=True)
+#     last_name = forms.CharField(max_length=150, required=True)
+#     email = forms.EmailField(max_length=254, required=True)
+#     phone = forms.CharField(max_length=32, required=False)
+#     image = forms.ImageField(max_length=100, required=False)
 #
 #     class Meta:
 #         model = User
@@ -66,8 +70,7 @@ def add_property(request):
 #         if not commit:
 #             raise NotImplementedError("Can't create User and UserProfile without database save")
 #         user = super(UserCreateForm, self).save(commit=True)
-#         user_profile = UserProfile(user=user, email=self.cleaned_data['job_title'],
-#             age=self.cleaned_data['age'])
+#         user_profile = Profile(user=user, phone=self.cleaned_data['phone'], image=self.cleaned_data['image'])
 #         user_profile.save()
 #         return user, user_profile
 
