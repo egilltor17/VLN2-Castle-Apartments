@@ -14,7 +14,12 @@ class Address(models.Model):
     apartmentNumber = models.CharField(max_length=16, blank=True, null=True)
 
     def __str__(self):
-        return self.streetName + ' ' + self.houseNumber + (', apartment ' + self.apartmentNumber if self.apartmentNumber != ' ' else '') + ', ' + self.postCode + ', ' + self.city + ', ' + (self.municipality if self.apartmentNumber != ' ' else '') + ', ' + self.country
+        return ', '.join([self.streetName + ' ' + self.houseNumber,
+                          ('apartment ' + self.apartmentNumber if self.apartmentNumber else ' '),
+                          self.postCode,
+                          self.city,
+                          (self.municipality if self.municipality else ' '),
+                          self.country])
 
 
 class Attribute(models.Model):
