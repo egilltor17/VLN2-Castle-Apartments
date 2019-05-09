@@ -1,11 +1,11 @@
 from django.http import JsonResponse
 from django.shortcuts import render, get_list_or_404, get_object_or_404
-from realEstate.models import Property, PropertyAttribute, Attribute
-from realEstate.forms.filter_form import *
+from realEstate.models import Property, PropertyAttribute, Attribute, Address
+from realEstate.forms.filter_form import FilterForm
 # Create your views here.
 
-
 def index(request):
+    form = FilterForm()
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
         properties = [{
@@ -35,7 +35,7 @@ def index(request):
             'firstImage': x.propertyimage_set.first().image
         } for x in Property.objects.filter(name__icontains=search_filter)]
         return JsonResponse({'data': properties})
-    context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active"}
+    context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active", 'form':form}
     return render(request, 'realEstate/index.html', context)
 
 
@@ -46,8 +46,5 @@ def property_details(request, id):
         'attributes': Attribute.objects.order_by('description')
     })
 
-def filter(request):
-    form = FilterForm()
-    return render(request, 'realEstate/index.html', {
-        'form': form
-    })
+
+

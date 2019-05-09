@@ -26,4 +26,7 @@ $(document).ready(function () {
           },
       });
    });
+   // $('#filter_props').on('click', function(e) {
+   //
+   // });
 });
