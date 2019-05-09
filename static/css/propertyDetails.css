@@ -1,0 +1,35 @@
+.propDetPage {
+    padding: 20px;
+}
+
+.carousel-item {
+
+    background-color: rgba(224, 224, 224, 0.7);
+}
+
+.carousel-img {
+    display:block;
+    margin: auto;
+    height: 500px;
+    position: center;
+}
+
+.card {
+    margin: 15px 0px;
+}
+
+/*Photo Gallery */
+.photoGallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.photoGallery img {
+    width: 500px;
+}
+
+.photoGallery > div {
+    justify-content: center;
+    padding: 5px;
+}
