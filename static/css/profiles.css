@@ -1,0 +1,23 @@
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.profile-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#profile-img-square-wrapper {
+    max-width: 30%;
+}
+
+.property {
+    max-width: 400rem;
+}
+
+.property-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
