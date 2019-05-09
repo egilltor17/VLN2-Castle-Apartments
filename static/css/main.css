@@ -9,7 +9,8 @@
 } */
 
 #navbar {
-    position: fixed;
+    position: relative;
+    overflow: hidden;
     width: 100%;
     /*background-color: rgba(52, 58, 64, 0.9) !important; */
     font-size: 1.1rem;
@@ -30,7 +31,7 @@
 }
 
 #body-container {
-    padding-top: 100px;
+    padding-top: 10px;
 }
 
 #footer {
