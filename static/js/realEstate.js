@@ -26,9 +26,18 @@ $(document).ready(function () {
           },
       });
    });
-   // $('#filter_props').on('click', function(e) {
-   //
-   // });
+   $('#filter_props').on('click', function(e) {
+        let country = $('#country_dropd').val();
+        let price_from = $('#price_from_dropd').val();
+        let price_to = $('#price_to_dropd').val();
+        let size_from = $('#size_from_dropd').val();
+        let size_to = $('#size_to_dropd').val();
+        let rooms_from = $('#rooms_from_dropd').val();
+        let rooms_to = $('#rooms_to_dropd').val();
+        let type = $('#type_dropd').val();
+        $.ajax()
+
+   });
     function search(e) {
         let searchText = $('#search-box').val();
         $.ajax({

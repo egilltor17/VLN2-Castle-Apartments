@@ -5,7 +5,7 @@
             <legend><h2>Filters</h2></legend>
             <label>
                 Country:
-                <select>
+                <select id="country_dropd">
                     {% for countries in country_list %}
                     <option value="{{ countries.country }}">{{ countries.country }}</option>
                     {% endfor %}
@@ -13,7 +13,7 @@
             </label>
             <label>
                 Price from:
-                <select>
+                <select id="price_from_dropd">
                     <option value="0" selected>0 USD</option>
                     <option value="10000">10000 USD</option>
                     <option value="20000">20000 USD</option>
@@ -30,7 +30,7 @@
             </label>
             <label>
                 Price to:
-                <select>
+                <select id="price_to_dropd">
                     <option value="10000">10000 USD</option>
                     <option value="20000">20000 USD</option>
                     <option value="30000">30000 USD</option>
@@ -46,7 +46,7 @@
             </label>
             <label>
                 Size from (m<sup>2</sup>):
-                <select>
+                <select id="size_from_dropd">
                     <option value="60">60 m2</option>
                     <option value="70">70 m2</option>
                     <option value="80">80 m2</option>
@@ -59,7 +59,7 @@
             </label>
             <label>
                 Size to (m<sup>2</sup>):
-                <select>
+                <select id="size_to_dropd">
                     <option value="60">60 m2</option>
                     <option value="70">70 m2</option>
                     <option value="80">80 m2</option>
@@ -72,7 +72,7 @@
             </label>
             <label>
                 Rooms from:
-                <select>
+                <select id="rooms_from_dropd">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -87,7 +87,7 @@
             </label>
             <label>
                 Rooms To:
-                <select>
+                <select id="rooms_to_dropd">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -102,7 +102,7 @@
             </label>
             <label>
                 Type:
-                <select>
+                <select id="type_dropd">
                     {% for types in type_list %}
                     <option value="{{ types.type }}">{{ types.type }}</option>
                     {% endfor %}
