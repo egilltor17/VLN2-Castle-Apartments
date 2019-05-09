@@ -19,11 +19,13 @@ def index(request):
             'nrBathrooms': x.nrBathrooms,
             'squareMeters': x.squareMeters,
             'constructionYear': x.constructionYear,
-            'sellerName': x.sellerName,
-            'sellerEmail': x.sellerEmail,
-            'sellerPhone': x.sellerPhone,
             'dateCreated': x.dateCreated,
-            # 'sold': x.sold,
+            'sold': x.sold,
+            'seller': {
+                'name': x.seller.first_name + ' ' + x.seller.last_name,
+                'email': x.seller.email,
+                'phone': x.seller.profile.phone,
+            },
             'address': {
                 'country': x.address.country,
                 'municipality': x.address.municipality,
