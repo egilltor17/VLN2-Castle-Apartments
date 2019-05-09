@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django import forms
 
 from user.forms.list_property_form import ListPropertyForm, AddressForm
@@ -25,9 +25,12 @@ def add_property(request):
         address_form = AddressForm(data=request.POST)
         if property_form.is_valid() and address_form.is_valid():
             prop = property_form.save(commit=False)
+            seller = User.objects.get(pk=request.user.id)
+            prop.seller = seller
             address = address_form.save()
             prop.address = address
             prop.save()
+            return redirect(reverse('user-profile'))
         else:
             context = {'property_form': property_form, 'address_form': address_form}
             return render(request, 'user/add_property.html', context)

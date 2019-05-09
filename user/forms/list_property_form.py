@@ -15,7 +15,8 @@ class ListPropertyForm(ModelForm):
     prefix = 'property'
     class Meta:
         model = Property
-        exclude = [ 'id', 'address' ]
+        exclude = [ 'id', 'address', 'seller' ]
+
         #model = Address
         #fields = ['__all__']
 
