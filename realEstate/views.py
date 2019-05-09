@@ -19,11 +19,13 @@ def index(request):
             'nrBathrooms': x.nrBathrooms,
             'squareMeters': x.squareMeters,
             'constructionYear': x.constructionYear,
-            'sellerName': x.sellerName,
-            'sellerEmail': x.sellerEmail,
-            'sellerPhone': x.sellerPhone,
             'dateCreated': x.dateCreated,
-            # 'sold': x.sold,
+            'sold': x.sold,
+            'seller': {
+                'name': x.seller.first_name + ' ' + x.seller.last_name,
+                'email': x.seller.email,
+                'phone': x.seller.profile.phone,
+            },
             'address': {
                 'country': x.address.country,
                 'municipality': x.address.municipality,
@@ -33,7 +35,7 @@ def index(request):
                 'houseNumber': x.address.houseNumber,
                 'apartmentNumber': x.address.apartmentNumber,
             },
-            'firstImage': x.propertyimage_set.first().image
+            'firstImage': ('' if x.propertyattribute_set else x.propertyimage_set.first().image)
         } for x in Property.objects.filter(name__icontains=search_filter)]
         return JsonResponse({'data': properties})
     context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active"}

@@ -34,8 +34,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ property.name }}</h5>
-                        <p class="card-text">{{ property.description }}
-                        </p>
+                        <p class="card-text">{{ property.address }}</p>
+                        <p class="card-text">{{ property.description }}</p>
 
                     </div>
                 </div>
@@ -58,15 +58,15 @@
                     <div class="card-body">
                         <h5 class="card-title">Seller Information</h5>
                         <p class="card-text">
-                            {{ property.sellerName }} <br>
-                            {{ property.sellerEmail }} <br>
-                            {{ property.sellerPhone }}
+                            UserN: {{ property.seller.username }} <br/>
+                            Name:  {{ property.seller.first_name }} {{ property.seller.last_name }} <br/>
+                            Email: {{ property.seller.email }} <br/>
+                            Phone: {{ property.seller.profile.phone }}
                         </p>
                         <a href="#" class="btn btn-primary">View Profile</a>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- Image Gallery -->
@@ -75,13 +75,22 @@
             <div>
                 <img class="property-img" src="{{ property_image.image }}"/>
             </div>
-
-        {% endfor %}
         </div>
 
+
+        <h4>Attributes</h4>
+        <ul>
+            {% for proAtt in propertyAttributes %}
+                {% for attribute in attributes %}
+                    {% if attribute.id == proAtt.attribute_id %}
+                        <li>{{ attribute.description }}</li>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        {% endfor %}
+
+
     </div>
-
-
-
 
 {% endblock %}
