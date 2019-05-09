@@ -26,7 +26,7 @@ class Property(models.Model):
     nrBathrooms = models.IntegerField()
     squareMeters = models.IntegerField()
     constructionYear = models.IntegerField()
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    address = models.OneToOneField(Address, on_delete=models.CASCADE)   # ATH
     # seller = models.ForeignKey(User, on_delete=models.CASCADE)
     sellerName = models.CharField(max_length=255)
     sellerEmail = models.CharField(max_length=255)

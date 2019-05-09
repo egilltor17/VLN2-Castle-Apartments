@@ -6,7 +6,8 @@
 
     <form class="form form-horizontal" action="{% url 'list_property' %}" method="post">
         {% csrf_token %}
-        {{ form }}
+        {{ form.as_p }}
+
         <input class="btn btn-primary pull-right" type="submit" value="List Property">
     </form>
 
