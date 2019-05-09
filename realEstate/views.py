@@ -48,6 +48,7 @@ def index(request):
             'firstImage': ('' if x.propertyattribute_set else x.propertyimage_set.first().image)
         } for x in Property.objects.filter(name__icontains=search_filter)]
         return JsonResponse({'data': properties})
+
     context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active", 'country_list': country_list,
                'type_list': type_list}
     return render(request, 'realEstate/index.html', context)
