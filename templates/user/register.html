@@ -5,7 +5,13 @@
     <h2>Sign up</h2>
     <form class="form form-horizontal", method="post">
         {% csrf_token %}
-        {{ form }}
+        <fieldset>
+            <legend>
+                User information
+            </legend>
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+        </fieldset>
         <input type="submit", class="btn btn-primary" value="Sing up" />
     </form>
 
