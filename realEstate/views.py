@@ -35,7 +35,7 @@ def index(request):
                 'houseNumber': x.address.houseNumber,
                 'apartmentNumber': x.address.apartmentNumber,
             },
-            'firstImage': x.propertyimage_set.first().image
+            'firstImage': ('' if x.propertyattribute_set else x.propertyimage_set.first().image)
         } for x in Property.objects.filter(name__icontains=search_filter)]
         return JsonResponse({'data': properties})
     context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active"}
