@@ -9,15 +9,10 @@ from user.forms.list_property_form import ListPropertyForm, AddressForm
 # Create your views here.
 
 
-def index(request):
-    context = {"sign_in": "active"}
-    return render(request, 'user/index.html', context)
-
-
 def profile(request):
     return render(request, 'user/profile.html', {'profile': 'active'})
 
-
+@login_required
 def add_property(request):
     if request.method == 'POST':
         property_form = ListPropertyForm(data=request.POST)
@@ -32,10 +27,10 @@ def add_property(request):
             return redirect(reverse('user-profile'))
         else:
             context = {'property_form': property_form, 'address_form': address_form}
-            return render(request, 'user/add_property.html', context)
+            return render(request, 'user/add-property.html', context)
     else:
         context = {'property_form': ListPropertyForm(), 'address_form': AddressForm()}
-        return render(request, 'user/add_property.html', context)
+        return render(request, 'user/add-property.html', context)
 
 #def list_property(request):
 #    if request.method == 'POST':
@@ -86,7 +81,3 @@ def register(request):
         'form': UserCreationForm()
     })
 
-
-@login_required
-def create_property(request):
-    return render(request, 'user/create_property.html')
