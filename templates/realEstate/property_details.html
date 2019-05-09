@@ -75,20 +75,11 @@
             <div>
                 <img class="property-img" src="{{ property_image.image }}"/>
             </div>
+        {% endfor %}
         </div>
 
 
-        <h4>Attributes</h4>
-        <ul>
-            {% for proAtt in propertyAttributes %}
-                {% for attribute in attributes %}
-                    {% if attribute.id == proAtt.attribute_id %}
-                        <li>{{ attribute.description }}</li>
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-        </ul>
-        {% endfor %}
+
 
 
     </div>
