@@ -1,9 +1,10 @@
-<div class="well property">
-    <a href="/property/{{ property.id }}">
+<a href="/property/{{ property.id }}" class="link-to-property">
+    <div class="card" >
         <img class="property-img" src="{{ property.propertyimage_set.first.image }}"/>
-        <h4>{{ property.name }}</h4>
-        <p>{{ property.price }} $</p>
-        <p>{{ property.description }}</p>
-        <p>{{ property.address.country }}</p>
-    </a>
-</div>
+        <div class="card-body">
+            <h5 class="card-title">{{ property.name }}</h5>
+            <h6 class="card-subtitle mb-2">{{ property.price }} $</h6>
+            <p class="card-text">{{ property.squareMeters }}, {{ property.nrBedrooms }}, {{ property.nrBathrooms }}</p>
+        </div>
+    </div>
+</a>
