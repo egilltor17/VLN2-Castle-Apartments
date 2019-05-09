@@ -1,15 +1,16 @@
+from django.contrib.auth.models import User
 from django.db import models
 from realEstate.models import Property, Address
 # Create your models here.
 
 
-class User(models.Model):
-    name = models.CharField(max_length=255),
-    email = models.CharField(max_length=255),
-    phone = models.CharField(max_length=32),
-    password = models.CharField(max_length=255, blank=True)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=32)
+    profileImage = models.CharField(max_length=1024)
+
     def __str__(self):
-        return self.name
+        return self.user.username
 
 
 class RecentlyViewed(models.Model):
@@ -23,9 +24,9 @@ class Favorites(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
-class ActiveListings(models.Model):
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+# class ActiveListings(models.Model):
+#     property = models.ForeignKey(Property, on_delete=models.CASCADE)
+#     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
 
 class PaymentInfo(models.Model):
@@ -34,13 +35,17 @@ class PaymentInfo(models.Model):
     cardCVC = models.IntegerField()
     cardExpiryMonth = models.IntegerField()
     cardExpiryYear = models.IntegerField()
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    address = models.OneToOneField(Address, on_delete=models.CASCADE)
+
     def __str__(self):
-        return self.cardNumber
+        return '**** **** **** ' + self.cardNumber[-4:]
 
 
 class Purchase(models.Model):
     SSN = models.CharField(max_length=32)
-    userInfo = models.ForeignKey(User,on_delete=models.CASCADE)
-    paymentInfo = models.ForeignKey(PaymentInfo, on_delete=models.CASCADE)
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    userInfo = models.ForeignKey(User, on_delete=models.CASCADE)
+    paymentInfo = models.OneToOneField(PaymentInfo, on_delete=models.CASCADE)
+    property = models.OneToOneField(Property, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.id

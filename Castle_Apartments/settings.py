@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'miscellaneous.apps.MiscellaneousConfig',
     'user.apps.UsersConfig',
     'realEstate.apps.RealestateConfig',
 ]
@@ -128,3 +129,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+LOGIN_URL = 'user/login'
+LOGIN_REDIRECT_URL = '/user/profile'

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from realEstate.models import Property, PropertyAttribute, Attribute, Address
@@ -46,5 +47,10 @@ def property_details(request, id):
         'attributes': Attribute.objects.order_by('description')
     })
 
+@login_required
+def create():
+    return 0
 
-
+@login_required
+def update():
+    return 0
