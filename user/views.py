@@ -8,7 +8,7 @@ from user.forms.list_property_form import ListPropertyForm, AddressForm
 
 # Create your views here.
 
-
+@login_required
 def profile(request):
     return render(request, 'user/profile.html', {'profile': 'active'})
 
