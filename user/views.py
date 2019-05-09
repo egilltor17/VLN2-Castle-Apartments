@@ -1,5 +1,8 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django import forms
 
 from user.forms.list_property_form import ListPropertyForm, AddressForm
 from realEstate.models import PropertyImage, Address
@@ -8,10 +11,13 @@ from realEstate.models import PropertyImage, Address
 
 
 def index(request):
-    return render(request, 'user/index.html')
+    context = {"sign_in": "active"}
+    return render(request, 'user/index.html', context)
+
 
 def profile(request):
-    return HttpResponse("This will be a profile page")
+    return render(request, 'user/profile.html', {'profile': 'active'})
+
 
 def add_property(request):
     if request.method == 'POST':
@@ -44,3 +50,37 @@ def add_property(request):
 #    return render(request, 'user/list_property.html', {
 #        'form': form
 #    })
+
+
+# class UserCreateForm(UserCreationForm):
+#     email = forms.CharField(max_length=100, required=True)
+#      = forms.IntegerField(required=True)
+#
+#     class Meta:
+#         model = User
+#
+#     def save(self, commit=True):
+#         if not commit:
+#             raise NotImplementedError("Can't create User and UserProfile without database save")
+#         user = super(UserCreateForm, self).save(commit=True)
+#         user_profile = UserProfile(user=user, email=self.cleaned_data['job_title'],
+#             age=self.cleaned_data['age'])
+#         user_profile.save()
+#         return user, user_profile
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    return render(request, 'user/register.html', {
+        'register': 'active',
+        'form': UserCreationForm()
+    })
+
+
+@login_required
+def create_property(request):
+    return render(request, 'user/create_property.html')
