@@ -1,112 +1,114 @@
 <div id = "filters">
     <form method="get">
-        {{ form }}
-{#        <fieldset>#}
-{#            <legend><h2>Filters</h2></legend>#}
-{#            <label>#}
-{#                Country:#}
-{#                <select>#}
-{#                    <option>#}
-{##}
-{#                    </option>#}
-{#                </select>#}
-{#            </label>#}
-{#            <label>#}
-{#                Price from:#}
-{#                <select>#}
-{#                    <option value="0" selected>0 USD</option>#}
-{#                    <option value="10000">10000 USD</option>#}
-{#                    <option value="20000">20000 USD</option>#}
-{#                    <option value="30000">30000 USD</option>#}
-{#                    <option value="40000">40000 USD</option>#}
-{#                    <option value="50000">50000 USD</option>#}
-{#                    <option value="60000">60000 USD</option>#}
-{#                    <option value="70000">70000 USD</option>#}
-{#                    <option value="80000">80000 USD</option>#}
-{#                    <option value="90000">90000 USD</option>#}
-{#                    <option value="100000">100000 USD</option>#}
-{##}
-{#                </select>#}
-{#            </label>#}
-{#            <label>#}
-{#                Price to:#}
-{#                <select>#}
-{#                    <option value="10000">10000 USD</option>#}
-{#                    <option value="20000">20000 USD</option>#}
-{#                    <option value="30000">30000 USD</option>#}
-{#                    <option value="40000">40000 USD</option>#}
-{#                    <option value="50000">50000 USD</option>#}
-{#                    <option value="60000">60000 USD</option>#}
-{#                    <option value="70000">70000 USD</option>#}
-{#                    <option value="80000">80000 USD</option>#}
-{#                    <option value="90000">90000 USD</option>#}
-{#                    <option value="100000">100000 USD</option>#}
-{#                    <option value="2147483647‬" selected>∞ USD</option>#}
-{#                </select>#}
-{#            </label>#}
-{#            <label>#}
-{#                Size from (m<sup>2</sup>):#}
-{#                <select>#}
-{#                    <option value="60">60 m2</option>#}
-{#                    <option value="70">70 m2</option>#}
-{#                    <option value="80">80 m2</option>#}
-{#                    <option value="90">90 m2</option>#}
-{#                    <option value="100">100 m2</option>#}
-{#                    <option value="115">115 m2</option>#}
-{#                    <option value="130">130 m2</option>#}
-{#                    <option value="150">150 m2</option>#}
-{#                </select>#}
-{#            </label>#}
-{#            <label>#}
-{#                Size to (m<sup>2</sup>):#}
-{#                <select>#}
-{#                    <option value="60">60 m2</option>#}
-{#                    <option value="70">70 m2</option>#}
-{#                    <option value="80">80 m2</option>#}
-{#                    <option value="90">90 m2</option>#}
-{#                    <option value="100">100 m2</option>#}
-{#                    <option value="115">115 m2</option>#}
-{#                    <option value="130">130 m2</option>#}
-{#                    <option value="150">150 m2</option>#}
-{#                </select>#}
-{#            </label>#}
-{#            <label>#}
-{#                Rooms from:#}
-{#                <select>#}
-{#                    <option value="1">1</option>#}
-{#                    <option value="2">2</option>#}
-{#                    <option value="3">3</option>#}
-{#                    <option value="4">4</option>#}
-{#                    <option value="5">5</option>#}
-{#                    <option value="6">6</option>#}
-{#                    <option value="7">7</option>#}
-{#                    <option value="8">8</option>#}
-{#                    <option value="9">9</option>#}
-{#                    <option value="10">10</option>#}
-{#                </select>#}
-{#            </label>#}
-{#            <label>#}
-{#                Rooms To:#}
-{#                <select>#}
-{#                    <option value="1">1</option>#}
-{#                    <option value="2">2</option>#}
-{#                    <option value="3">3</option>#}
-{#                    <option value="4">4</option>#}
-{#                    <option value="5">5</option>#}
-{#                    <option value="6">6</option>#}
-{#                    <option value="7">7</option>#}
-{#                    <option value="8">8</option>#}
-{#                    <option value="9">9</option>#}
-{#                    <option value="10">10</option>#}
-{#                </select>#}
-{#            </label>#}
-{#            <label>#}
-{#                Type:#}
-{#                <select>#}
-{#                        <option></option>#}
-{#                </select>#}
-{#            </label>#}
-{#        </fieldset>#}
+{#        {{ form }}#}
+        <fieldset>
+            <legend><h2>Filters</h2></legend>
+            <label>
+                Country:
+                <select>
+                    {% for countries in country_list %}
+                    <option value="{{ countries.country }}">{{ countries.country }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                Price from:
+                <select>
+                    <option value="0" selected>0 USD</option>
+                    <option value="10000">10000 USD</option>
+                    <option value="20000">20000 USD</option>
+                    <option value="30000">30000 USD</option>
+                    <option value="40000">40000 USD</option>
+                    <option value="50000">50000 USD</option>
+                    <option value="60000">60000 USD</option>
+                    <option value="70000">70000 USD</option>
+                    <option value="80000">80000 USD</option>
+                    <option value="90000">90000 USD</option>
+                    <option value="100000">100000 USD</option>
+
+                </select>
+            </label>
+            <label>
+                Price to:
+                <select>
+                    <option value="10000">10000 USD</option>
+                    <option value="20000">20000 USD</option>
+                    <option value="30000">30000 USD</option>
+                    <option value="40000">40000 USD</option>
+                    <option value="50000">50000 USD</option>
+                    <option value="60000">60000 USD</option>
+                    <option value="70000">70000 USD</option>
+                    <option value="80000">80000 USD</option>
+                    <option value="90000">90000 USD</option>
+                    <option value="100000">100000 USD</option>
+                    <option value="2147483647‬" selected>∞ USD</option>
+                </select>
+            </label>
+            <label>
+                Size from (m<sup>2</sup>):
+                <select>
+                    <option value="60">60 m2</option>
+                    <option value="70">70 m2</option>
+                    <option value="80">80 m2</option>
+                    <option value="90">90 m2</option>
+                    <option value="100">100 m2</option>
+                    <option value="115">115 m2</option>
+                    <option value="130">130 m2</option>
+                    <option value="150">150 m2</option>
+                </select>
+            </label>
+            <label>
+                Size to (m<sup>2</sup>):
+                <select>
+                    <option value="60">60 m2</option>
+                    <option value="70">70 m2</option>
+                    <option value="80">80 m2</option>
+                    <option value="90">90 m2</option>
+                    <option value="100">100 m2</option>
+                    <option value="115">115 m2</option>
+                    <option value="130">130 m2</option>
+                    <option value="150">150 m2</option>
+                </select>
+            </label>
+            <label>
+                Rooms from:
+                <select>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </label>
+            <label>
+                Rooms To:
+                <select>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </label>
+            <label>
+                Type:
+                <select>
+                    {% for types in type_list %}
+                    <option value="{{ types.type }}">{{ types.type }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </fieldset>
         <input type = "submit" value="Filter" class="btn btn-primary pull-right" id="filter_props">
     </form>
 </div>

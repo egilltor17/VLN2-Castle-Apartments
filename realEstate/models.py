@@ -12,7 +12,6 @@ class Address(models.Model):
     streetName = models.CharField(max_length=255)
     houseNumber = models.CharField(max_length=16)
     apartmentNumber = models.CharField(max_length=16, blank=True, null=True)
-
     def __str__(self):
         return self.streetName + ' ' + self.houseNumber + (', apartment ' + self.apartmentNumber if self.apartmentNumber != ' ' else ' ') + self.postCode
 

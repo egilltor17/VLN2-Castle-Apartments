@@ -6,7 +6,17 @@ from realEstate.forms.filter_form import FilterForm
 # Create your views here.
 
 def index(request):
-    form = FilterForm()
+    # form = FilterForm(initial={
+    #     'country': {[
+    #         (
+    #             (x.country, x.country)
+    #         ) for x in Address.objects.all()
+    #     ]}
+    # })
+    # print(form)
+    # form = FilterForm(initial= {'country': Address.country})
+    country_list = Address.objects.distinct('country')
+    type_list = Property.objects.distinct('type')
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
         properties = [{
@@ -36,7 +46,8 @@ def index(request):
             'firstImage': x.propertyimage_set.first().image
         } for x in Property.objects.filter(name__icontains=search_filter)]
         return JsonResponse({'data': properties})
-    context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active", 'form':form}
+    context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active", 'country_list': country_list,
+               'type_list': type_list}
     return render(request, 'realEstate/index.html', context)
 
 
