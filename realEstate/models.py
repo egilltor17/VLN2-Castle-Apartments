@@ -13,7 +13,7 @@ class Address(models.Model):
     houseNumber = models.CharField(max_length=16)
     apartmentNumber = models.CharField(max_length=16, blank=True, null=True)
     def __str__(self):
-        return self.streetName + ' ' + self.houseNumber + (', apartment ' + self.apartmentNumber if self.apartmentNumber != ' ' else ' ') + self.postCode
+        return self.streetName + ' ' + self.houseNumber + (', apartment ' + self.apartmentNumber if self.apartmentNumber != ' ' else '') + ', ' + self.postCode + ', ' + self.city + ', ' + (self.municipality if self.apartmentNumber != ' ' else '') + ', ' + self.country
 
 
 class Attribute(models.Model):
@@ -43,6 +43,8 @@ class Property(models.Model):
 
 class PropertyImage(models.Model):
     image = models.CharField(max_length=1024)
+    # TODO: change property images
+    # image = models.ImageField(upload_to='propertyImages/', blank=True, null=True)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
 
 

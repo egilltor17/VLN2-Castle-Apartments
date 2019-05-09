@@ -6,8 +6,9 @@ from realEstate.models import Property, Address
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=32)
-    profileImage = models.CharField(max_length=1024)
+    phone = models.CharField(max_length=32, blank=True, null=True)
+    # A better way to store images
+    profileImage = models.ImageField(upload_to='profileImages/', blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -22,11 +23,6 @@ class RecentlyViewed(models.Model):
 class Favorites(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
-# class ActiveListings(models.Model):
-#     property = models.ForeignKey(Property, on_delete=models.CASCADE)
-#     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
 
 class PaymentInfo(models.Model):

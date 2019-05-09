@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h2>Thank you for ADDDING your property with Castle Apartments!</h2>
+    <p>Please fill out the form below</p>
+
+    <form class="form form-horizontal" action="{% url 'add_property' %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>
+                Property
+            </legend>
+            {{ property_form.as_p }}
+        </fieldset>
+        <fieldset>
+            <legend>
+                Address
+            </legend>
+            {{ address_form.as_p }}
+        </fieldset>
+        <input class="btn btn-primary pull-right" type="submit" value="Add Property">
+    </form>
+
+{% endblock %}
