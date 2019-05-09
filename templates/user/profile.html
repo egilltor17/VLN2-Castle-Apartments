@@ -4,6 +4,12 @@
 
     <h2>Profile</h2>
     {% csrf_token %}
+    <img src="" />
+    <p>{{ user.username }}</p>
+    <p>{{ user.first_name }} {{ user.last_name }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.profile.phone }}</p>
+
     <a href="{% url 'add_property' %}" class="block btn btn-primary">Add Property</a>
 
 
