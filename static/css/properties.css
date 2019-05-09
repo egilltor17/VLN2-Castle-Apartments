@@ -1,6 +1,3 @@
- .card-deck {
-}
-
 a {
     color: black;
 }
@@ -13,12 +10,6 @@ a:hover {
 .link-to-property {
     width: 30%;
     margin: 10px auto;
-}
-
-
-
-.card {
-
 }
 
 .property-img {
