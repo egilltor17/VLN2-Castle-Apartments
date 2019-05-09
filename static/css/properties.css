@@ -7,12 +7,15 @@ a {
 
 a:hover {
     text-decoration: none;
+    color: rgb(125,195,200);
 }
 
 .link-to-property {
     width: 30%;
     margin: 10px auto;
 }
+
+
 
 .card {
 
