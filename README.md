@@ -3,11 +3,11 @@
 ## Functional requirements
 
 ### Priority A requirements
-- [ ] 1  | A buyer should be able to register an account on the site
+- [x] 1* | A buyer should be able to register an account on the site
 - [ ] 2  | A buyer should be able to edit his name
 - [ ] 3  | A buyer should be able to add/update his image
-- [ ] 4  | A buyer should be able to filter properties by postal code
-- [ ] 5  | A buyer should be able to search properties
+- [x] 4  | A buyer should be able to filter properties by postal code
+- [x] 5  | A buyer should be able to search properties
 - [ ] 6  | A buyer should be able to order properties by price
 - [ ] 7  | A buyer should be able to order properties by name
 - [ ] 8  | A buyer should be able to see his search history.
@@ -25,11 +25,11 @@
 
 ### Priority B requirements
 - [ ] 20 | A buyer should be able to see recently viewed properties. 
-- [ ] 21 | A buyer should be able to filter properties by type: apartment, row house, detached house.
-- [ ] 22 | A buyer should be able to filter properties by size
-- [ ] 23 | A buyer should be able to filter properties by number of bedrooms
+- [x] 21 | A buyer should be able to filter properties by type: apartment, row house, detached house.
+- [x] 22 | A buyer should be able to filter properties by size
+- [x] 23 | A buyer should be able to filter properties by number of bedrooms
 - [ ] 24 | A buyer should be able to sort by newest property
-- [ ] 25 | An admin should be able to add a property on the site
+- [x] 25 | An admin should be able to add a property on the site
 - [ ] 26 | An admin should be able to edit any property on the site
 - [ ] 27 | An admin should be able to remove any property on the site
 
@@ -47,7 +47,7 @@
 ## Non-functional requirements
 
 ### Priority A requirements
-- [ ] 1  | The site should allow easy navigation between steps
+- [x] 1  | The site should allow easy navigation between steps
 - [x] 2  | The site should have a navigation bar
 - [x] 3  | The site should have a footer
 - [x] 4  | The application must use a database to store the data

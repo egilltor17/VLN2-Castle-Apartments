@@ -1,16 +1,11 @@
-/* body {
-    background-image: url("../images/background.jpg");
-    height: 100%;
-    width: 100%;
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-attachment: fixed;
-    background-position: center;
-} */
+* {
+    font-family: 'Roboto', sans-serif;
+}
 
 #navbar {
     position: fixed;
     overflow: hidden;
+    z-index: 1000; /* Set navbar as top layer */
     width: 100%;
     /*background-color: rgba(52, 58, 64, 0.9) !important; */
     z-index: 1000; /* Set body of page under the navigation bar */
@@ -33,8 +28,6 @@
 
 #body-container {
     padding-top: 70px;
-    /*z-index: -1; !* Set body of page under the navigation bar *!*/
-    /*position:fixed;*/
 }
 
 #footer {
