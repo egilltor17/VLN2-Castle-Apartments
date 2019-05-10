@@ -1,5 +1,5 @@
 <div id = "filters">
-    <form method="get">
+    <form method="get" id="filter-form">
 {#        {{ form }}#}
         <fieldset>
             <legend><h2>Filters</h2></legend>
@@ -41,12 +41,13 @@
                     <option value="80000">80000 USD</option>
                     <option value="90000">90000 USD</option>
                     <option value="100000">100000 USD</option>
-                    <option value="2147483647‬" selected>∞ USD</option>
+                    <option value="2000000000" selected>∞ USD</option>
                 </select>
             </label>
             <label>
                 Size from (m<sup>2</sup>):
                 <select id="size_from_dropd">
+                    <option value="0" selected>0 m2</option>
                     <option value="60">60 m2</option>
                     <option value="70">70 m2</option>
                     <option value="80">80 m2</option>
@@ -68,11 +69,13 @@
                     <option value="115">115 m2</option>
                     <option value="130">130 m2</option>
                     <option value="150">150 m2</option>
+                    <option value="2000000000" selected>∞ m2</option>
                 </select>
             </label>
             <label>
                 Rooms from:
                 <select id="rooms_from_dropd">
+                    <option value="0" selected>0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -98,6 +101,7 @@
                     <option value="8">8</option>
                     <option value="9">9</option>
                     <option value="10">10</option>
+                    <option value="2000000000" selected>∞</option>
                 </select>
             </label>
             <label>
