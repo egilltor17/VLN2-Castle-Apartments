@@ -10,6 +10,8 @@
     /*background-color: rgba(52, 58, 64, 0.9) !important; */
     z-index: 1000; /* Set body of page under the navigation bar */
     font-size: 1.1rem;
+    z-index: 100; /* Set body of page under the navigation bar */
+
 }
 
 .nav-item :hover, .nav-item :active {
