@@ -50,6 +50,13 @@
     padding: 2%;
     text-align: center;
 }
-
-
-
+/* Change primary color of all buttons */
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: rgb(125,195,200) !important;
+    border-color: rgb(125,195,200) !important;
+}
+/* Change primary hover of all buttons */
+.btn-primary:hover {
+    background-color: rgb(111, 172, 177) !important;
+    border-color: rgb(111, 172, 177) !important;
+}
