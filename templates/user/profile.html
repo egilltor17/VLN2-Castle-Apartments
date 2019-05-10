@@ -37,6 +37,28 @@
             {% csrf_token %}
             <a href="{% url 'add_property' %}" class="block btn btn-primary" id="add-property-button">Add Property</a>
 
+            <!-- Active properties -->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 mt-3">
+                        <div class="card">
+                            <div class="card-horizontal">
+                                <div class="img-square-wrapper" id="profile-img-square-wrapper">
+                                    <img class="profile-image" src="/media/{{ user.profile.profileImage }}" alt="Card image cap">
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ user.first_name }} {{ user.last_name }}'s profile</h4>
+                                    <p class="card-text">
+                                        Username: {{ user.username }} <br>
+                                        Email: {{ user.email }}<br>
+                                        Tel: {{ user.profile.phone }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-sm-4">
