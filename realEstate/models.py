@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 # from user.models import Profile
 # Create your models here.
+from django.utils import timezone
 
 
 class Address(models.Model):
@@ -15,11 +16,9 @@ class Address(models.Model):
 
     def __str__(self):
         return ', '.join([self.streetName + ' ' + self.houseNumber,
-                          ('apartment ' + self.apartmentNumber if self.apartmentNumber else ' '),
-                          self.postCode,
+                          ('apartment ' + self.apartmentNumber + ', ' if self.apartmentNumber else '') + self.postCode,
                           self.city,
-                          (self.municipality if self.municipality else ' '),
-                          self.country])
+                          (self.municipality + ', ' if self.municipality else '') + self.country])
 
 
 class Attribute(models.Model):
@@ -40,8 +39,8 @@ class Property(models.Model):
     constructionYear = models.IntegerField()
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
-    dateCreated = models.DateTimeField()
-    sold = models.BooleanField()
+    dateCreated = models.DateTimeField(default=timezone.now)
+    sold = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

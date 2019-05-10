@@ -1,10 +1,10 @@
 <a href="/property/{{ property.id }}" class="link-to-property">
-    <div class="card" >
+    <div class="card property" >
         <img class="property-img" src="{{ property.propertyimage_set.first.image }}"/>
         <div class="card-body">
             <h5 class="card-title">{{ property.name }}</h5>
             <h6 class="card-subtitle mb-2">{{ property.price }} $</h6>
-            <p class="card-text">{{ property.squareMeters }}, {{ property.nrBedrooms }}, {{ property.nrBathrooms }}</p>
+            <p class="card-text">Size {{ property.squareMeters }}m<sup>2</sup>, {{ property.nrBedrooms }} bedrooms, {{ property.nrBathrooms }} bathrooms</p>
         </div>
     </div>
 </a>

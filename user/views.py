@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, reverse
+from django.utils import timezone
+
 from user.forms.registration_form import CustomUserCreateForm, ProfileForm, UserForm
 from user.forms.list_property_form import ListPropertyForm, AddressForm
 
@@ -59,16 +61,22 @@ def register(request):
 
 
 
+
     if request.method == 'POST':
         profile_form = ProfileForm(data=request.POST)
         user_form = UserForm(data=request.POST)
         print('hello world')
         if profile_form.is_valid() and user_form.is_valid():
             prof = profile_form.save(commit=False)
-            print('hello world2')
-            print(prof.profileImage)
-
-            prof.user = user_form.save()
+            user = user_form.save()
+            user.last_login = timezone.now()
+            user.is_superuser = False
+            user.is_staff = False
+            user.is_active = True
+            user.date_joined = timezone.now()
+            user.groups = ['']
+            user.user_permissions = ['']
+            prof.user = user
             prof.save()
             return redirect(reverse('login'))
 
