@@ -24,7 +24,7 @@
                                         Email: {{ user.email }}<br>
                                         Tel: {{ user.profile.phone }}</p>
                                     <!-- Button to edit profile -->
-                                    <a href="" class="block btn btn-primary" id="edit-profile-button">Edit profile</a>
+                                    <a href="{% url 'edit-profile' %}" class="block btn btn-primary" id="edit-profile-button">Edit profile</a>
 
                                 </div>
                             </div>
@@ -89,11 +89,7 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-
     </div>
 
 {% endblock %}

@@ -7,6 +7,8 @@ from realEstate.models import Property, PropertyAttribute, Attribute
 
 
 def index(request):
+    if 'filter' in request.GET:
+        filter = request.GET['filter']
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
         properties = [{
@@ -35,7 +37,8 @@ def index(request):
                 'houseNumber': x.address.houseNumber,
                 'apartmentNumber': x.address.apartmentNumber,
             },
-            'firstImage': ('' if x.propertyattribute_set else x.propertyimage_set.first().image)
+            'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
+            'attributes': [y for y in PropertyAttribute.objects.filter(property_id=x.id)]
         } for x in Property.objects.filter(name__icontains=search_filter)]
         return JsonResponse({'data': properties})
     context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active"}

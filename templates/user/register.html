@@ -3,10 +3,18 @@
 {% block content %}
 
     <h2>Sign up</h2>
-    <form class="form form-horizontal", method="post">
+    <form class="form form-horizontal", method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit", class="btn btn-primary" value="Sing up" />
+        {{ registration_form }}
+
+        <fieldset>
+            <legend>
+                User information
+            </legend>
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+        </fieldset>
+        <input type="submit", class="btn btn-primary" value="Sign up" />
     </form>
 
 {% endblock %}
