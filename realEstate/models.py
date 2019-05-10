@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 # from user.models import Profile
 # Create your models here.
+from django.utils import timezone
 
 
 class Address(models.Model):
@@ -14,11 +15,9 @@ class Address(models.Model):
     apartmentNumber = models.CharField(max_length=16, blank=True, null=True)
     def __str__(self):
         return ', '.join([self.streetName + ' ' + self.houseNumber,
-                          ('apartment ' + self.apartmentNumber if self.apartmentNumber else ' '),
-                          self.postCode,
+                          ('apartment ' + self.apartmentNumber + ', ' if self.apartmentNumber else '') + self.postCode,
                           self.city,
-                          (self.municipality if self.municipality else ' '),
-                          self.country])
+                          (self.municipality + ', ' if self.municipality else '') + self.country])
 
 
 class Attribute(models.Model):
@@ -39,8 +38,8 @@ class Property(models.Model):
     constructionYear = models.IntegerField()
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
-    dateCreated = models.DateTimeField()
-    sold = models.BooleanField()
+    dateCreated = models.DateTimeField(default=timezone.now)
+    sold = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -48,6 +47,7 @@ class Property(models.Model):
 
 class PropertyImage(models.Model):
     image = models.CharField(max_length=1024)
+    # image = models.CharField(max_length=1024, default='https://image.flaticon.com/icons/svg/149/149445.svg')
     # TODO: change property images
     # image = models.ImageField(upload_to='propertyImages/', blank=True, null=True)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)

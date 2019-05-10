@@ -14,7 +14,9 @@
     </div>
     <div class="card-deck property-overview">
     {% for property in properties %}
-        {% include 'realEstate/single_property.html' with property=property %}
+        {% if not property.sold %}
+            {% include 'realEstate/single_property.html' with property=property %}
+        {% endif %}
     {% endfor %}
     </div>
 {% endblock %}

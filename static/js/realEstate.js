@@ -6,15 +6,17 @@ $(document).ready(function () {
             type: 'GET',
             success: function (resp) {
                 let newHTML = resp.data.map(d => {
-                    return `<div class="well property">
-                                <a href="/property/${d.id}">
+                    console.log(d) // temp
+                    return `<a href="/property/${d.id}" class="link-to-property">
+                                <div class="card property">
                                     <img class="property-img" src="${d.firstImage}"/>
-                                    <h4>${d.name}</h4>
-                                    <p>${d.price} $</p>
-                                    <p>${d.description}</p>
-                                    <p>${d.address.country}</p>
-                                </a>
-                            </div>`
+                                    <div class="card-body">    
+                                        <h5 class="card-title">${d.name}</h5>
+                                        <h6 class="card-subtitle mb-2">${d.price} $</h6>
+                                        <p class="card-text">Size ${d.squareMeters}m<sup>2</sup>, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms</p>
+                                    </div>
+                                </div>
+                            </a>`
                 });
                 $('.property-overview').html(newHTML.join(''));
                 $('#search-box').val('');
@@ -38,7 +40,7 @@ $(document).ready(function () {
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
-        // let search_field = document.getElementById('search-box')
+        let search_filter = document.getElementById('search-box')
         let country_field = document.getElementById('country_dropd');
         let price_from_field = document.getElementById('price_from_dropd');
         let price_to_field = document.getElementById('price_to_dropd');
@@ -48,6 +50,7 @@ $(document).ready(function () {
         let rooms_to_field = document.getElementById('rooms_to_dropd');
         let type_field = document.getElementById('type_dropd');
         let request_data = {
+            search_filter: search_filter.value,
             country_field: country_field.value,
             price_from_field: price_from_field.value,
             price_to_field: price_to_field.value,
@@ -55,27 +58,26 @@ $(document).ready(function () {
             size_to_field: size_to_field.value,
             rooms_from_field: rooms_from_field.value,
             rooms_to_field: rooms_to_field.value,
-            type_field: type_field.value
-            //search_field: search_field.value
+            type_field: type_field.value,
         };
-        //
         $.ajax({
             url: '/property?' + $.param(request_data),
             type: 'GET',
             success: function (resp) {
                 let newHTML = resp.data.map(function(d) {
-                    return `<div class="card">
-                                <a href="/property/${d.id}">
+                    return `<a href="/property/${d.id}" class="link-to-property">
+                                <div class="card property">
                                     <img class="property-img" src="${d.firstImage}"/>
-                                    <h4>${d.name}</h4>
-                                    <p>${d.price} $</p>
-                                    <p>${d.description}</p>
-                                    <p>${d.address.country}</p>
-                                </a>
-                            </div>`
+                                    <div class="card-body">    
+                                        <h5 class="card-title">${d.name}</h5>
+                                        <h6 class="card-subtitle mb-2">${d.price} $</h6>
+                                        <p class="card-text">Size ${d.squareMeters}m<sup>2</sup>, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms</p>
+                                    </div>
+                                </div>
+                            </a>`
                 });
                 $('.property-overview').html(newHTML.join(''));
-                // $('#search-box').val('');
+                $('#search-box').val('');
             },
             error: function (xhr, status, error) {
                 // TODO: show toastr

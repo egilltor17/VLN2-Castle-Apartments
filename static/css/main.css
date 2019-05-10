@@ -1,18 +1,14 @@
-/* body {
-    background-image: url("../images/background.jpg");
-    height: 100%;
-    width: 100%;
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-attachment: fixed;
-    background-position: center;
-} */
+* {
+    font-family: 'Roboto', sans-serif;
+}
 
 #navbar {
     position: fixed;
     overflow: hidden;
+    z-index: 1000; /* Set navbar as top layer */
     width: 100%;
     /*background-color: rgba(52, 58, 64, 0.9) !important; */
+    z-index: 1000; /* Set body of page under the navigation bar */
     font-size: 1.1rem;
     z-index: 100; /* Set body of page under the navigation bar */
 
@@ -34,7 +30,6 @@
 
 #body-container {
     padding-top: 70px;
-    position:relative;
 }
 
 #footer {
@@ -59,6 +54,13 @@
     padding: 2%;
     text-align: center;
 }
-
-
-
+/* Change primary color of all buttons */
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: rgb(125,195,200) !important;
+    border-color: rgb(125,195,200) !important;
+}
+/* Change primary hover of all buttons */
+.btn-primary:hover {
+    background-color: rgb(111, 172, 177) !important;
+    border-color: rgb(111, 172, 177) !important;
+}

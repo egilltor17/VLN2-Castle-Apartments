@@ -4,13 +4,16 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from realEstate.models import Property, PropertyAttribute, Attribute, Address
 from realEstate.forms.filter_form import FilterForm
+
+
 # Create your views here.
 
 def index(request):
     country_list = Address.objects.distinct('country')
     type_list = Property.objects.distinct('type')
     if request.is_ajax():
-        #search_filter = request.GET['search_filter']
+    # if 'search_filter' in request.GET:
+        search_filter = request.GET['search_filter']
         country = request.GET['country_field']
         price_from = request.GET['price_from_field']
         price_to = request.GET['price_to_field']
@@ -19,8 +22,12 @@ def index(request):
         rooms_from = request.GET['rooms_from_field']
         rooms_to = request.GET['rooms_to_field']
         prop_type = request.GET['type_field']
+
+        # if 'filter' in request.GET:
+        #     filter = request.GET['filter']
+
         properties = [{
-            'id':  x.id,
+            'id': x.id,
             'name': x.name,
             'description': x.description,
             'type': x.type,
@@ -45,9 +52,10 @@ def index(request):
                 'houseNumber': x.address.houseNumber,
                 'apartmentNumber': x.address.apartmentNumber,
             },
-            'firstImage': ('' if x.propertyattribute_set else x.propertyimage_set.first().image)
+            'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
+            'attributes': [y for y in PropertyAttribute.objects.filter(property_id=x.id)]
         } for x in Property.objects.filter(
-            #name__contains=search_filter,
+            name__contains=search_filter,
             address__country__contains=country,
             price__gte=price_from,
             price__lte=price_to,
@@ -55,11 +63,8 @@ def index(request):
             squareMeters__lte=size_to,
             nrBedrooms__gte=rooms_from,
             nrBedrooms__lte=rooms_to,
-            type__contains=prop_type
-
-        )]
+            type__contains=prop_type)]
         return JsonResponse({'data': properties})
-
 
     context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active", 'country_list': country_list,
                'type_list': type_list}
@@ -73,9 +78,11 @@ def property_details(request, id):
         'attributes': Attribute.objects.order_by('description')
     })
 
+
 @login_required
 def create():
     return 0
+
 
 @login_required
 def update():
