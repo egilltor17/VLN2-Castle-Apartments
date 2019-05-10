@@ -21,16 +21,9 @@
     max-height: 100%;
 }
 
-#edit-profile-button {
-    background-color: rgb(125,195,200);
-    border-color: rgb(125,195,200);
-    margin: 10px 5px 10px 15px;
-}
-
-#add-property-button {
-    background-color: rgb(125,195,200);
-    border-color: rgb(125,195,200);
-
+/* So active listing header is in line with rest of page */
+#active-listings-header {
+    padding-left: 20px;
 }
 
 a {
@@ -40,4 +33,8 @@ a {
 a:hover {
     text-decoration: none;
     color: rgb(125,195,200);
+}
+
+.card {
+    margin: 5px;
 }
