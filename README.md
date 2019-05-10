@@ -3,9 +3,9 @@
 ## Functional requirements
 
 ### Priority A requirements
-- [x] 1* | A buyer should be able to register an account on the site
-- [ ] 2  | A buyer should be able to edit his name
-- [ ] 3  | A buyer should be able to add/update his image
+- [x] 1 | A buyer should be able to register an account on the site
+- [x] 2  | A buyer should be able to edit his name
+- [x] 3  | A buyer should be able to add/update his image
 - [x] 4  | A buyer should be able to filter properties by postal code
 - [x] 5  | A buyer should be able to search properties
 - [ ] 6  | A buyer should be able to order properties by price
@@ -15,7 +15,7 @@
 - [x] 10 | A buyer should be able to see an description of a property
 - [x] 11 | A buyer should be able to see images of a property
 - [x] 12 | A buyer should be able to see who the seller is for a property
-- [ ] 13 | A buyer should be able to see a seller profile 
+- [x]* 13 | A buyer should be able to see a seller profile 
 - [ ] 14 | A buyer should be able to buy a property
 - [ ] 15 | A buyer should be able to fill in his personal info when buying a property: street name, house number, city, country, postal code, social security number
 - [ ] 16 | A buyer should be able to pay with a credit card
