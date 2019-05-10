@@ -5,6 +5,8 @@
     <h2>Sign up</h2>
     <form class="form form-horizontal", method="post">
         {% csrf_token %}
+        {{ registration_form }}
+
         <fieldset>
             <legend>
                 User information

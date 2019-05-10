@@ -9,6 +9,7 @@ from user.forms.list_property_form import ListPropertyForm, AddressForm
 # Create your views here.
 
 
+@login_required
 def profile(request):
     return render(request, 'user/profile.html', {'profile': 'active'})
 
@@ -31,22 +32,6 @@ def add_property(request):
         context = {'property_form': ListPropertyForm(), 'address_form': AddressForm()}
         return render(request, 'user/add-property.html', context)
 
-#def list_property(request):
-#    if request.method == 'POST':
-#        form = ListPropertyForm(data=request.POST)
-#        if form.is_valid():
-#            prop = form.save()
-#            prop_image = PropertyImage(image=request.POST['image'], property=prop)
-#            prop_image.save()
-            #prop_address = Address(data=request.POST)
-            #prop_address.save()
-#            return redirect('user-index')
-#    else:
-#        form = ListPropertyForm()
-#    return render(request, 'user/list_property.html', {
-#        'form': form
-#    })
-
 
 def register(request):
     # if request.method == 'POST':
@@ -59,9 +44,6 @@ def register(request):
     #     'registration_form': CustomUserCreateForm()
     # })
 
-
-
-
     if request.method == 'POST':
         profile_form = ProfileForm(data=request.POST)
         user_form = UserForm(data=request.POST)
@@ -69,13 +51,13 @@ def register(request):
         if profile_form.is_valid() and user_form.is_valid():
             prof = profile_form.save(commit=False)
             user = user_form.save()
-            user.last_login = timezone.now()
+            # user.last_login = timezone.now()
             user.is_superuser = False
             user.is_staff = False
             user.is_active = True
             user.date_joined = timezone.now()
-            user.groups = ['']
-            user.user_permissions = ['']
+            # user.groups = ['']
+            # user.user_permissions = ['']
             prof.user = user
             prof.save()
             return redirect(reverse('login'))
