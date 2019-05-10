@@ -7,6 +7,8 @@ from realEstate.models import Property, PropertyAttribute, Attribute
 
 
 def index(request):
+    if 'filter' in request.GET:
+        filter = request.GET['filter']
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
         properties = [{

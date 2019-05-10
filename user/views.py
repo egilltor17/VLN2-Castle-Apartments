@@ -1,18 +1,39 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, reverse
-from django.utils import timezone
 
-from user.forms.registration_form import CustomUserCreateForm, ProfileForm, UserForm
+from user.forms.registration_form import UserForm, ProfileForm, UserForm
 from user.forms.list_property_form import ListPropertyForm, AddressForm
 
+from user.models import Profile
 # Create your views here.
 
 
 @login_required
 def profile(request):
-    return render(request, 'user/profile.html', {'profile': 'active'})
+    return render(request, 'user/profile.html', {'profile': 'active',})
 
+
+@login_required
+def editProfile(request):
+    profileInstance = Profile.objects.filter(user=request.user).first()
+    if request.method == 'POST':
+        profile_form = ProfileForm(instance=profileInstance, data=request.POST, files=request.FILES)
+        user_form = UserForm(instance=request.user, data=request.POST)
+        if profile_form.is_valid() and user_form.is_valid():
+            profile_form.save()
+            user_form.save()
+            new_user = authenticate(username=user_form.cleaned_data['username'],
+                                    password=user_form.cleaned_data['password1'],
+                                    )
+            login(request, new_user)
+            return redirect('user-profile')
+    return render(request, 'user/editProfile.html', {
+        'profile': 'active',
+        'profile_form': ProfileForm(instance=profileInstance),
+        'user_form': UserForm(instance=request.user)
+    })
 
 @login_required
 def add_property(request):
@@ -34,38 +55,18 @@ def add_property(request):
 
 
 def register(request):
-    # if request.method == 'POST':
-    #     registration_form = CustomUserCreateForm(data=request.POST)
-    #     if registration_form.is_valid():
-    #         registration_form.save()
-    #         return redirect('login')
-    # return render(request, 'user/register.html', {
-    #     'register': 'active',
-    #     'registration_form': CustomUserCreateForm()
-    # })
-
     if request.method == 'POST':
-        profile_form = ProfileForm(data=request.POST)
+        profile_form = ProfileForm(data=request.POST, files=request.FILES)
         user_form = UserForm(data=request.POST)
-        print('hello world')
         if profile_form.is_valid() and user_form.is_valid():
             prof = profile_form.save(commit=False)
-            user = user_form.save()
-            # user.last_login = timezone.now()
-            user.is_superuser = False
-            user.is_staff = False
-            user.is_active = True
-            user.date_joined = timezone.now()
-            # user.groups = ['']
-            # user.user_permissions = ['']
-            prof.user = user
+            prof.user = user_form.save()
             prof.save()
-            return redirect(reverse('login'))
-
-            # prop = property_form.save(commit=False)
-            # prop.seller = User.objects.get(pk=request.user.id)
-            # prop.address = address_form.save()
-            # prop.save()
+            new_user = authenticate(username=user_form.cleaned_data['username'],
+                                    password=user_form.cleaned_data['password1'],
+                                    )
+            login(request, new_user)
+            return redirect(reverse('user-profile'))
         else:
             context = {'profile_form': profile_form, 'user_form': user_form}
             return render(request, 'user/register.html', context)

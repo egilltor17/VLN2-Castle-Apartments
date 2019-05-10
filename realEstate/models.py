@@ -48,6 +48,7 @@ class Property(models.Model):
 
 class PropertyImage(models.Model):
     image = models.CharField(max_length=1024)
+    # image = models.CharField(max_length=1024, default='https://image.flaticon.com/icons/svg/149/149445.svg')
     # TODO: change property images
     # image = models.ImageField(upload_to='propertyImages/', blank=True, null=True)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)

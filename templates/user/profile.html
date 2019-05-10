@@ -2,16 +2,6 @@
 
 {% block content %}
 
-{#    <h2>Profile</h2>#}
-{#    {% csrf_token %}#}
-{#    <img src="/media/{{ user.profile.profileImage }}" />#}
-{#    <p>Username: {{ user.username }}</p>#}
-{#    <p>Name: {{ user.first_name }} {{ user.last_name }}</p>#}
-{#    <p>Email: {{ user.email }}</p>#}
-{#    <p>Phone: {{ user.profile.phone }}</p>#}
-{##}
-{#    <a href="{% url 'add_property' %}" class="block btn btn-primary">Add Property</a>#}
-
     <link rel="stylesheet" type="text/css" href="/static/css/profiles.css">
 
     <!-- Rows and cols used to display profile to the left and properties to the right -->
@@ -34,7 +24,7 @@
                                         Email: {{ user.email }}<br>
                                         Tel: {{ user.profile.phone }}</p>
                                     <!-- Button to edit profile -->
-                                    <a href="" class="block btn btn-primary" id="edit-profile-button">Edit profile</a>
+                                    <a href="{% url 'edit-profile' %}" class="block btn btn-primary" id="edit-profile-button">Edit profile</a>
 
                                 </div>
                             </div>
@@ -99,11 +89,7 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-
     </div>
 
 {% endblock %}
