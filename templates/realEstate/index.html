@@ -6,12 +6,6 @@
 
     {% include 'realEstate/filter.html' with property=property %}
 
-    <div class="input-group">
-        <input type="search" class="form-control" id="search-box" placeholder="Search by name.."/>
-        <div class="input-group-btn">
-            <input type="submit" class="btn btn-default" id="search-btn" value="Search" />
-        </div>
-    </div>
     <div class="card-deck property-overview">
     {% for property in properties %}
         {% if not property.sold %}

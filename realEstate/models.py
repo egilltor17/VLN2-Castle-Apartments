@@ -40,6 +40,7 @@ class Property(models.Model):
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
     dateCreated = models.DateTimeField(default=timezone.now)
     sold = models.BooleanField(default=False)
+    image = models.CharField(max_length=2048)
 
     def __str__(self):
         return self.name

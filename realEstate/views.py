@@ -12,20 +12,7 @@ def index(request):
     country_list = Address.objects.distinct('country')
     type_list = Property.objects.distinct('type')
     if request.is_ajax():
-    # if 'search_filter' in request.GET:
-        search_filter = request.GET['search_filter']
-        country = request.GET['country_field']
-        price_from = request.GET['price_from_field']
-        price_to = request.GET['price_to_field']
-        size_to = request.GET['size_to_field']
-        size_from = request.GET['size_from_field']
-        rooms_from = request.GET['rooms_from_field']
-        rooms_to = request.GET['rooms_to_field']
-        prop_type = request.GET['type_field']
-
-        # if 'filter' in request.GET:
-        #     filter = request.GET['filter']
-
+        filters = request.GET
         properties = [{
             'id': x.id,
             'name': x.name,
@@ -55,18 +42,20 @@ def index(request):
             'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
             'attributes': [y for y in PropertyAttribute.objects.filter(property_id=x.id)]
         } for x in Property.objects.filter(
-            name__contains=search_filter,
-            address__country__contains=country,
-            price__gte=price_from,
-            price__lte=price_to,
-            squareMeters__gte=size_from,
-            squareMeters__lte=size_to,
-            nrBedrooms__gte=rooms_from,
-            nrBedrooms__lte=rooms_to,
-            type__contains=prop_type)]
+            name__contains=filters.get('search_box'),
+            address__country__contains=filters.get('country'),
+            price__gte=filters.get('price_from'),
+            price__lte=filters.get('price_to'),
+            squareMeters__gte=filters.get('size_from'),
+            squareMeters__lte=filters.get('size_to'),
+            nrBedrooms__gte=filters.get('rooms_from'),
+            nrBedrooms__lte=filters.get('rooms_to'),
+            type__contains=filters.get('type')).order_by(request.GET.get('order'))]
         return JsonResponse({'data': properties})
 
-    context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active", 'country_list': country_list,
+    context = {'properties': Property.objects.order_by('name'),
+               'propertiesNav': 'active',
+               'country_list': country_list,
                'type_list': type_list}
     return render(request, 'realEstate/index.html', context)
 
