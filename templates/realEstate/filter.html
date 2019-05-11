@@ -1,11 +1,10 @@
 <div id = "filters">
     <form method="get" id="filter-form">
-{#        {{ form }}#}
         <fieldset>
             <legend><h2>Filters</h2></legend>
             <label>
                 Country:
-                <select id="country_dropd">
+                <select id="country_dropd" name="country">
                     {% for countries in country_list %}
                     <option value="{{ countries.country }}">{{ countries.country }}</option>
                     {% endfor %}
@@ -13,7 +12,7 @@
             </label>
             <label>
                 Price from:
-                <select id="price_from_dropd">
+                <select id="price_from_dropd" name="price_from">
                     <option value="0" selected>0 USD</option>
                     <option value="10000">10000 USD</option>
                     <option value="20000">20000 USD</option>
@@ -30,7 +29,7 @@
             </label>
             <label>
                 Price to:
-                <select id="price_to_dropd">
+                <select id="price_to_dropd" name="price_to">
                     <option value="10000">10000 USD</option>
                     <option value="20000">20000 USD</option>
                     <option value="30000">30000 USD</option>
@@ -46,7 +45,7 @@
             </label>
             <label>
                 Size from (m<sup>2</sup>):
-                <select id="size_from_dropd">
+                <select id="size_from_dropd" name="size_from">
                     <option value="0" selected>0 m2</option>
                     <option value="60">60 m2</option>
                     <option value="70">70 m2</option>
@@ -60,7 +59,7 @@
             </label>
             <label>
                 Size to (m<sup>2</sup>):
-                <select id="size_to_dropd">
+                <select id="size_to_dropd" name="size_to">
                     <option value="60">60 m2</option>
                     <option value="70">70 m2</option>
                     <option value="80">80 m2</option>
@@ -74,7 +73,7 @@
             </label>
             <label>
                 Rooms from:
-                <select id="rooms_from_dropd">
+                <select id="rooms_from_dropd" name="rooms_from">
                     <option value="0" selected>0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -90,7 +89,7 @@
             </label>
             <label>
                 Rooms To:
-                <select id="rooms_to_dropd">
+                <select id="rooms_to_dropd" name="rooms_to">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -106,7 +105,7 @@
             </label>
             <label>
                 Type:
-                <select id="type_dropd">
+                <select id="type_dropd" name="type">
                     {% for types in type_list %}
                     <option value="{{ types.type }}">{{ types.type }}</option>
                     {% endfor %}
@@ -114,14 +113,17 @@
             </label>
             <label>
                 Order By:
-                <select id="order_by_dropd">
-                    <option value="id" selected>New</option>
+                <select id="order_by_dropd" name="order">
+                    <option value="-id" selected>New</option>
                     <option value="name">Name</option>
-                    <option value="price">Price</option>
-                    <option value="size">Size</option>
+                    <option value=-"price">Price Highest</option>
+                    <option value="price">Price Lowest</option>
+                    <option value="-size">Size Highest</option>
+                    <option value="size">Size Lowest</option>
                 </select>
             </label>
         </fieldset>
-        <input type = "submit" value="Filter" class="btn btn-primary pull-right" id="filter_props">
+        <input type="search" name="search_box" class="form-control" id="search-box" placeholder="Search by name.."/>
+        <input type = "submit" value="Search" class="btn btn-primary pull-right" id="filter_props">
     </form>
 </div>
