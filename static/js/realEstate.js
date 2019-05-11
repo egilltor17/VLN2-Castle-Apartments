@@ -37,32 +37,15 @@ $(document).ready(function () {
         }
     });
     $('#filter_props').on('click', function(e) {
-        let filter = $('#filter-form').serialize()
+        let filter = $('#filter-form').serializeArray();
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
-        let search_filter = document.getElementById('search-box');
-        let country_field = document.getElementById('country_dropd');
-        let price_from_field = document.getElementById('price_from_dropd');
-        let price_to_field = document.getElementById('price_to_dropd');
-        let size_from_field = document.getElementById('size_from_dropd');
-        let size_to_field = document.getElementById('size_to_dropd');
-        let rooms_from_field = document.getElementById('rooms_from_dropd');
-        let rooms_to_field = document.getElementById('rooms_to_dropd');
-        let type_field = document.getElementById('type_dropd');
-        let order_by_field = document.getElementById('order_by_dropd');
-        let request_data = {
-            search_filter: search_filter.value,
-            country_field: country_field.value,
-            price_from_field: price_from_field.value,
-            price_to_field: price_to_field.value,
-            size_from_field: size_from_field.value,
-            size_to_field: size_to_field.value,
-            rooms_from_field: rooms_from_field.value,
-            rooms_to_field: rooms_to_field.value,
-            type_field: type_field.value,
-            order_by_field: order_by_field.value,
-        };
+        let request_data = {};
+        $(filter).each(function(index, obj){
+            request_data[obj.name] = obj.value
+        });
+        console.log(request_data);
         $.ajax({
             url: '/property?' + $.param(request_data),
             type: 'GET',
