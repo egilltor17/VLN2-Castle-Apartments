@@ -37,6 +37,7 @@ $(document).ready(function () {
         }
     });
     $('#filter_props').on('click', function(e) {
+        let filter = $('#filter-form').serialize()
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
