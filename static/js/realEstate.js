@@ -41,7 +41,7 @@ $(document).ready(function () {
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
-        let search_filter = document.getElementById('search-box')
+        let search_filter = document.getElementById('search-box');
         let country_field = document.getElementById('country_dropd');
         let price_from_field = document.getElementById('price_from_dropd');
         let price_to_field = document.getElementById('price_to_dropd');
@@ -50,6 +50,7 @@ $(document).ready(function () {
         let rooms_from_field = document.getElementById('rooms_from_dropd');
         let rooms_to_field = document.getElementById('rooms_to_dropd');
         let type_field = document.getElementById('type_dropd');
+        let order_by_field = document.getElementById('order_by_dropd');
         let request_data = {
             search_filter: search_filter.value,
             country_field: country_field.value,
@@ -60,6 +61,7 @@ $(document).ready(function () {
             rooms_from_field: rooms_from_field.value,
             rooms_to_field: rooms_to_field.value,
             type_field: type_field.value,
+            order_by_field: order_by_field.value,
         };
         $.ajax({
             url: '/property?' + $.param(request_data),
