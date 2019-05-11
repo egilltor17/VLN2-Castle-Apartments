@@ -112,6 +112,15 @@
                     {% endfor %}
                 </select>
             </label>
+            <label>
+                Order By:
+                <select id="order_by_dropd">
+                    <option value="id" selected>New</option>
+                    <option value="name">Name</option>
+                    <option value="price">Price</option>
+                    <option value="size">Size</option>
+                </select>
+            </label>
         </fieldset>
         <input type = "submit" value="Filter" class="btn btn-primary pull-right" id="filter_props">
     </form>

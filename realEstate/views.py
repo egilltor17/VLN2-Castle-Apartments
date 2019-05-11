@@ -63,10 +63,12 @@ def index(request):
             squareMeters__lte=size_to,
             nrBedrooms__gte=rooms_from,
             nrBedrooms__lte=rooms_to,
-            type__contains=prop_type)]
+            type__contains=prop_type).order_by(request.GET.get('order_by_field'))]
         return JsonResponse({'data': properties})
 
-    context = {'properties': Property.objects.order_by('name'), "propertiesNav": "active", 'country_list': country_list,
+    context = {'properties': Property.objects.order_by('name'),
+               'propertiesNav': 'active',
+               'country_list': country_list,
                'type_list': type_list}
     return render(request, 'realEstate/index.html', context)
 
