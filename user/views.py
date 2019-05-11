@@ -25,8 +25,7 @@ def editProfile(request):
             profile_form.save()
             user_form.save()
             new_user = authenticate(username=user_form.cleaned_data['username'],
-                                    password=user_form.cleaned_data['password1'],
-                                    )
+                                    password=user_form.cleaned_data['password1'],)
             login(request, new_user)
             return redirect('user-profile')
     return render(request, 'user/editProfile.html', {
@@ -60,11 +59,12 @@ def register(request):
         user_form = UserForm(data=request.POST)
         if profile_form.is_valid() and user_form.is_valid():
             prof = profile_form.save(commit=False)
+            print(prof.profileImage)
+            prof.profileImage = (prof.profileImage if prof.profileImage else 'profileImages/user.png')
             prof.user = user_form.save()
             prof.save()
             new_user = authenticate(username=user_form.cleaned_data['username'],
-                                    password=user_form.cleaned_data['password1'],
-                                    )
+                                    password=user_form.cleaned_data['password1'],)
             login(request, new_user)
             return redirect(reverse('user-profile'))
         else:
