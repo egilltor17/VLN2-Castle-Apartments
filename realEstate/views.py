@@ -1,12 +1,16 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from realEstate.models import Property, PropertyAttribute, Attribute, Address
 from realEstate.forms.filter_form import FilterForm
-
+from user.forms.recently_viewed_form import RecentlyViewedForm
+from datetime import datetime
 
 # Create your views here.
+from user.models import RecentlyViewed
+
 
 def index(request):
     country_list = Address.objects.distinct('country')
@@ -61,11 +65,20 @@ def index(request):
 
 
 def property_details(request, id):
+    property = get_object_or_404(Property, pk=id)
+    if request.user.is_authenticated:
+        recently_viewed = RecentlyViewed()
+        recently_viewed.timestamp = datetime.now()
+        recently_viewed.property = property
+        recently_viewed.user = request.user
+        recently_viewed.save()
+
     return render(request, 'realEstate/property_details.html', {
-        'property': get_object_or_404(Property, pk=id),
-        'propertyAttributes': PropertyAttribute.objects.filter(property_id=id),
-        'attributes': Attribute.objects.order_by('description')
-    })
+            'property': property,
+            'propertyAttributes': PropertyAttribute.objects.filter(property_id=id),
+            'attributes': Attribute.objects.order_by('description')
+        })
+
 
 @login_required
 def create():
