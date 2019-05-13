@@ -32,3 +32,7 @@
     justify-content: center;
     padding: 5px;
 }
+
+#favorite-button {
+    float: right;
+}
