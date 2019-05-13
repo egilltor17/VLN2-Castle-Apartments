@@ -1,17 +1,30 @@
 {% extends 'base.html' %}
 
-
-
 {% block content %}
 
+    <link rel="stylesheet" type="text/css" href="/static/css/about.css">
 
-
-    <div class="container">
-        <h3>Castle Apartments</h3>
-        <p>Castle Apartments is ready to take the real estate market by storm. In order to achieve their goal, they need a robust web application where customers can find their dream castle and purchase it online.</p>
-        <p>Marienplatz 1 Munich, Germany</p>
-        <p>Tel: +49 89 268141</p>
-        <p>contact@castleapartments.com</p>
+    <div class="abt-container">
+        <div class="about-image">
+            <img id="logo-notext" src="/static/images/logo_notext.png">
+        </div>
+        <div class="about-text">
+            <h3>Castle Apartments</h3>
+            <p>At Castle Apartments we believe that buying your dream home should be as simple as buying a book online. <br>
+                Anyone can sign up and buy or sell a property in a matter of a few clicks.
+                We take care of the formalities while you relax with a cup of coffee from the comfort of your own home.
+            </p>
+            <p>
+                Castle Apartments was founded in 2019 by John Castle after he himself went through the process of buying and selling properties.
+                He believed that this process could be simplified and thus he founded Castle Apartments.
+            </p>
+            <p><b>Castle Apartments</b> <br>
+                Marienplatz 1 <br>
+                Munich, Germany <br>
+                Tel: +49 89 268141 <br>
+                <a id="emailLink" href="mailto:contact@castleapartments.com">contact@castleapartments.com</a>
+            </p>
+        </div>
     </div>
 
 {% endblock %}
