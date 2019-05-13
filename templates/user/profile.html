@@ -45,7 +45,9 @@
                 <div class="row">
                     <div class="col-12 mt-3">
                     {% for property in properties %}
+                        {% if not property.sold %}
                             {% include 'user/single_active_listing.html' with property=property %}
+                        {% endif %}
                     {% endfor %}
 
                     </div>
