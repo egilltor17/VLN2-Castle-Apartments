@@ -67,7 +67,6 @@ def property_details(request, id):
         'attributes': Attribute.objects.order_by('description')
     })
 
-
 @login_required
 def create():
     return 0
