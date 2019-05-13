@@ -13,12 +13,8 @@
             <legend>Address</legend>
             {{ address_form.as_p }}
 
-            <div class="edit-property-images">
-                <legend>Image</legend>
-                {{ image_form.as_p }}
-            </div>
-            <p id="image-counter" hidden>1</p>
-            <input type = "button" value="Add more images" class="btn btn-primary pull-right" id="add_image_field">
+            <legend>Image</legend>
+            {{ image_form.as_p }}
         </fieldset>
         <input class="btn btn-primary pull-right" type="submit" value="Update Property">
     </form>
