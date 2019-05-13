@@ -65,8 +65,6 @@ def index(request):
                'type_list': type_list}
     return render(request, 'realEstate/index.html', context)
 
-def favorite_property(request, id):
-
 
 def property_details(request, prop_id):
     property = get_object_or_404(Property, pk=prop_id)
