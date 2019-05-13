@@ -11,6 +11,11 @@ $(document).ready(function () {
         $.ajax({
             url: '/property?' + $.param(request_data),
             type: 'GET',
+            beforeSend: function() {
+                $('.property-overview').html('')
+                $('#result-msg').html('')
+                $("#loading").show();
+            },
             success: function (resp) {
                 let newHTML = resp.data.map(function(d) {
                     return `<a href="/property/${d.id}" class="link-to-property">
@@ -24,8 +29,17 @@ $(document).ready(function () {
                                 </div>
                             </a>`
                 });
-                $('.property-overview').html(newHTML.join(''));
-                $('#search-box').val('');
+                console.log(newHTML)
+                if(newHTML === undefined || newHTML.length === 0) {
+                    $('#result-msg').html('No results found');
+                }
+                else {
+                    $('.property-overview').html(newHTML.join(''));
+                    $('#search-box').val('');
+                }
+            },
+            complete:function(){
+                $("#loading").hide()
             },
             error: function (xhr, status, error) {
                 // TODO: show toastr

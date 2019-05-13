@@ -11,7 +11,6 @@
     z-index: 1000; /* Set body of page under the navigation bar */
     font-size: 1.1rem;
     z-index: 100; /* Set body of page under the navigation bar */
-
 }
 
 .nav-item :hover, .nav-item :active {
@@ -30,6 +29,7 @@
 
 #body-container {
     padding-top: 70px;
+    padding-bottom: 60px;
 }
 
 #footer {
@@ -63,4 +63,13 @@
 .btn-primary:hover {
     background-color: rgb(111, 172, 177) !important;
     border-color: rgb(111, 172, 177) !important;
+}
+
+#loading {
+    display:none;
+    text-align:center;
+}
+
+#result-msg {
+    text-align: center
 }

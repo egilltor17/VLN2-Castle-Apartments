@@ -4,21 +4,12 @@
 }
 
 .profile-image {
-    max-width: 100%;
-    max-height: 100%;
+    width: 40%;
+    height: 20rem;
 }
 
 #profile-img-square-wrapper {
     max-width: 30%;
-}
-
-.property {
-    max-width: 400rem;
-}
-
-.property-image {
-    max-width: 100%;
-    max-height: 100%;
 }
 
 /* So active/sold listing/recently viewed header and add property button is in line with rest of page */
@@ -43,4 +34,37 @@ a:hover {
 
 .card {
     margin: 5px;
+}
+
+.small-card-property {
+    height: 8rem;
+}
+
+#recently-viewed-list {
+    overflow: scroll;
+    height: 20rem;
+}
+
+.property-image {
+    width: 8rem;
+    height: 8rem;
+}
+
+#left-column {
+    width: 60%;
+}
+
+#right-column {
+    width:40%
+}
+
+@media screen and (max-width: 992px) {
+
+    #left-column {
+        width: 100%;
+    }
+
+    #right-column {
+        width:100%
+    }
 }

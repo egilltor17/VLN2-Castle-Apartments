@@ -33,6 +33,12 @@
             <div class="col-sm-6" id="left">
                 <div class="card">
                     <div class="card-body">
+                        {% if user.is_authenticated  %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-primary our-button" id="favorite-button" value="Favorite property">
+                            </form>
+                        {% endif %}
                         <h5 class="card-title">{{ property.name }}</h5>
                         <p class="card-text">{{ property.address }}</p>
                         <p class="card-text">{{ property.description }}</p>
