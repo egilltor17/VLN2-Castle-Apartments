@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, reverse
 from django.db.models import Case, When
 
 from realEstate.models import Property, Address
-from user.models import Profile, RecentlyViewed
+from user.models import Profile, RecentlyViewed, Favorites
 from user.forms.registration_form import ProfileForm, UserForm
 # Create your views here.
 
@@ -18,9 +18,15 @@ def profile(request):
     preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(pks)])
     properties = Property.objects.filter(pk__in=pks).order_by(preserved)[:10]
 
+    #Get all favorites for the user logged in
+    pks2 = [favorite.property_id for favorite in Favorites.objects.filter(user_id=request.user.id)]
+    #Get all properties that are favorited by the user logged in
+    favorites = Property.objects.filter(pk__in=pks2)
+
     context = {'properties': Property.objects.filter(seller=request.user).order_by('-dateCreated'),
                'profile': 'active',
-               'recently_viewed_properties': properties}
+               'recently_viewed_properties': properties,
+               'favorites': favorites}
     return render(request, 'user/profile.html', context)
 
 

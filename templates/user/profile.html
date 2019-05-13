@@ -6,7 +6,7 @@
 
     <!-- Rows and cols used to display profile to the left and properties to the right -->
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-7" id="left-column">
 
             <!-- Card container for profile -->
             <div class="container-fluid">
@@ -73,17 +73,23 @@
         </div>
 
         <!-- Card for recently viewed properties -->
-        <div class="col-sm-4">
+        <div class="col-sm-5" id="right-column">
             <h4 id="recently-viewed-header">Recently viewed</h4>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 mt-3">
-                        {% for recently_viewed_property in recently_viewed_properties %}
-                            {% include 'user/single_recently_viewed.html' with recently_viewed_property=recently_viewed_property %}
-                        {% endfor %}
-                    </div>
-                </div>
+            <div class="col-12 mt-3" id="recently-viewed-list">
+                {% for recently_viewed_property in recently_viewed_properties %}
+                    {% include 'user/single_recently_viewed.html' with recently_viewed_property=recently_viewed_property %}
+                {% endfor %}
             </div>
+
+            <!-- Card for favorite properties -->
+
+            <h4 id="recently-viewed-header">Favorites</h4>
+            <div class="col-12 mt-3" id="recently-viewed-list">
+                {% for favorite in favorites %}
+                    {% include 'user/single_favorite.html' with favorite=favorite %}
+                {% endfor %}
+            </div>
+
         </div>
 
     </div>
