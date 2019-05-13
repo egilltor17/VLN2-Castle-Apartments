@@ -21,7 +21,9 @@ def editProfile(request):
         profile_form = ProfileForm(instance=profileInstance, data=request.POST, files=request.FILES)
         user_form = UserForm(instance=request.user, data=request.POST)
         if profile_form.is_valid() and user_form.is_valid():
-            profile_form.save()
+            prof = profile_form.save(commit=False)
+            prof.profileImage = (prof.profileImage if prof.profileImage else 'profileImages/user.png')
+            prof.save()
             user_form.save()
             new_user = authenticate(username=user_form.cleaned_data['username'],
                                     password=user_form.cleaned_data['password1'],)
@@ -40,7 +42,6 @@ def register(request):
         user_form = UserForm(data=request.POST)
         if profile_form.is_valid() and user_form.is_valid():
             prof = profile_form.save(commit=False)
-            print(prof.profileImage)
             prof.profileImage = (prof.profileImage if prof.profileImage else 'profileImages/user.png')
             prof.user = user_form.save()
             prof.save()
