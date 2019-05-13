@@ -1,0 +1,13 @@
+<a href="{% url 'property-details' favorite.id %}" class="link-to-property">
+    <div class="card">
+        <div class="card-horizontal small-card-property">
+            <div class="img-square-wrapper" id="favorite-square-wrapper">
+                <img class="property-image" src="{{favorite.propertyimage_set.first.image}}">
+            </div>
+            <div class="card-body" id="favorite-property">
+                <h4 class="card-title">{{ favorite.name }}</h4>
+                <p class="card-text">{{ favorite.price }}</p>
+            </div>
+        </div>
+    </div>
+</a>
