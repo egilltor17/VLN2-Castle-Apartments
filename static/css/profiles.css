@@ -50,3 +50,21 @@ a:hover {
     height: 8rem;
 }
 
+#left-column {
+    width: 60%;
+}
+
+#right-column {
+    width:40%
+}
+
+@media screen and (max-width: 992px) {
+
+    #left-column {
+        width: 100%;
+    }
+
+    #right-column {
+        width:100%
+    }
+}
