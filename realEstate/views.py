@@ -1,12 +1,17 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.contrib.auth.models import User
 from django.http import JsonResponse
-from django.shortcuts import render, get_list_or_404, get_object_or_404
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
+from django.urls import reverse
+
 from realEstate.models import Property, PropertyAttribute, Attribute, Address
+
 from realEstate.forms.filter_form import FilterForm
+from realEstate.forms.property_form import AddressForm, PropertyForm, PropertyImagesForm
 
 
 # Create your views here.
+
 
 def index(request):
     country_list = Address.objects.distinct('country')
@@ -42,7 +47,7 @@ def index(request):
             'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
             'attributes': [y for y in PropertyAttribute.objects.filter(property_id=x.id)]
         } for x in Property.objects.filter(
-            name__contains=filters.get('search_box'),
+            name__icontains=filters.get('search_box'),
             address__country__contains=filters.get('country'),
             price__gte=filters.get('price_from'),
             price__lte=filters.get('price_to'),
@@ -69,10 +74,31 @@ def property_details(request, id):
 
 
 @login_required
-def create():
-    return 0
+def create(request):
+    if request.method == 'POST':
+        address_form = AddressForm(data=request.POST)
+        property_form = PropertyForm(data=request.POST)
+        image_form = PropertyImagesForm(data=request.POST)
+        if property_form.is_valid() and address_form.is_valid():
+            prop = property_form.save(commit=False)
+            prop.seller = User.objects.get(pk=request.user.id)
+            prop.address = address_form.save()
+            prop.save()
+
+            image = image_form.save(commit=False)
+            image.property_id = prop.id
+            image.save()
+            return redirect(reverse('user-profile'))
+        else:
+            context = { 'address_form': address_form, 'property_form': property_form, 'image_form': image_form }
+            return render(request, 'realEstate/add-property.html', context)
+    else:
+        context = { 'address_form': AddressForm(), 'property_form': PropertyForm(), 'image_form': PropertyImagesForm() }
+        return render(request, 'realEstate/add-property.html', context)
 
 
 @login_required
-def update():
-    return 0
+def update(request):
+    context = {'property_form': PropertyForm(), 'address_form': AddressForm()}
+    return render(request, 'realEstate/add-property.html', context)
+

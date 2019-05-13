@@ -3,8 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, reverse
 
-from user.forms.registration_form import UserForm, ProfileForm, UserForm
-from user.forms.list_property_form import ListPropertyForm, AddressForm
+from user.forms.registration_form import ProfileForm, UserForm
 
 from user.models import Profile
 # Create your views here.
@@ -33,24 +32,6 @@ def editProfile(request):
         'profile_form': ProfileForm(instance=profileInstance),
         'user_form': UserForm(instance=request.user)
     })
-
-@login_required
-def add_property(request):
-    if request.method == 'POST':
-        property_form = ListPropertyForm(data=request.POST)
-        address_form = AddressForm(data=request.POST)
-        if property_form.is_valid() and address_form.is_valid():
-            prop = property_form.save(commit=False)
-            prop.seller = User.objects.get(pk=request.user.id)
-            prop.address = address_form.save()
-            prop.save()
-            return redirect(reverse('user-profile'))
-        else:
-            context = {'property_form': property_form, 'address_form': address_form}
-            return render(request, 'user/add-property.html', context)
-    else:
-        context = {'property_form': ListPropertyForm(), 'address_form': AddressForm()}
-        return render(request, 'user/add-property.html', context)
 
 
 def register(request):

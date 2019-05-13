@@ -5,4 +5,6 @@ from . import views
 urlpatterns = [
     path('', views.index, name='property-index'),
     path('<int:id>', views.property_details, name='property-details'),
+    path('add-property', views.create, name='add_property'),
+    path('edit-property', views.update, name='edit_property'),
 ]
