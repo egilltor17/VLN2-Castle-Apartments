@@ -33,6 +33,9 @@
             <div class="col-sm-6" id="left">
                 <div class="card">
                     <div class="card-body">
+                        <form method="post">
+                            <input class="btn btn-primary" class="our-button" id="favorite-button" type="submit" value="Favorite Property" />
+                        </form>
                         <h5 class="card-title">{{ property.name }}</h5>
                         <p class="card-text">{{ property.address }}</p>
                         <p class="card-text">{{ property.description }}</p>
@@ -77,8 +80,6 @@
             </div>
         {% endfor %}
         </div>
-
-
 
 
 

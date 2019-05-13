@@ -63,6 +63,8 @@ def index(request):
                'type_list': type_list}
     return render(request, 'realEstate/index.html', context)
 
+def favorite_property(request, id):
+
 
 def property_details(request, id):
     property = get_object_or_404(Property, pk=id)
@@ -78,6 +80,7 @@ def property_details(request, id):
             'propertyAttributes': PropertyAttribute.objects.filter(property_id=id),
             'attributes': Attribute.objects.order_by('description')
         })
+
 
 
 @login_required
