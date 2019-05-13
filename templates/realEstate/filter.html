@@ -5,9 +5,36 @@
             <label>
                 Country:
                 <select id="country_dropd" name="country">
-                    <option value="" selected>All</option>
+                        <option value="" selected>All</option>
                     {% for countries in country_list %}
-                    <option value="{{ countries.country }}">{{ countries.country }}</option>
+                        <option value="{{ countries.country }}">{{ countries.country }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                Municipality:
+                <select id="municipality_dropd" name="municipality">
+                    <option value="" selected>All</option>
+                    {% for municipalities in municipality_list %}
+                        <option value="{{ municipalities.municipality }}">{{ municipalities.municipality }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                City:
+                <select id="city_dropd" name="city">
+                    <option value="" selected>All</option>
+                    {% for cities in city_list %}
+                        <option value="{{ cities.city }}">{{ cities.city }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                Post Code:
+                <select id="postcode_dropd" name="postcode">
+                    <option value="" selected>All</option>
+                    {% for postcodes in postcode_list %}
+                        <option value="{{ postcodes.postCode }}">{{ postcodes.postCode }}</option>
                     {% endfor %}
                 </select>
             </label>
@@ -73,8 +100,8 @@
                 </select>
             </label>
             <label>
-                Rooms from:
-                <select id="rooms_from_dropd" name="rooms_from">
+                Bedrooms from:
+                <select id="bedrooms_from_dropd" name="bedrooms_from">
                     <option value="0" selected>0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -89,8 +116,8 @@
                 </select>
             </label>
             <label>
-                Rooms To:
-                <select id="rooms_to_dropd" name="rooms_to">
+                Bedrooms To:
+                <select id="bedrooms_to_dropd" name="bedrooms_to">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -102,6 +129,56 @@
                     <option value="9">9</option>
                     <option value="10">10</option>
                     <option value="2000000000" selected>∞</option>
+                </select>
+            </label>
+            <label>
+                Bathrooms from:
+                <select id="bathrooms_from_dropd" name="bathrooms_from">
+                    <option value="0" selected>0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </label>
+            <label>
+                Bathrooms to:
+                <select id="bathrooms_to_dropd" name="bathrooms_to">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="2000000000" selected>∞</option>
+                </select>
+            </label>
+            <label>
+                Construction year from:
+                <select id="year_built_from_dropd" name="year_built_from">
+                        <option value="0">0</option>
+                    {% for construction_years in year_built_list %}
+                        <option value="{{ construction_years.constructionYear }}">{{ construction_years.constructionYear }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                Construction year to:
+                <select id="year_built_to_dropd" name="year_built_to">
+                    {% for construction_years in year_built_list %}
+                        <option value="{{ construction_years.constructionYear }}">{{ construction_years.constructionYear }}</option>
+                    {% endfor %}
+                        <option value="2000000000" selected>∞</option>
                 </select>
             </label>
             <label>
@@ -124,6 +201,11 @@
                     <option value="size">Size Lowest</option>
                 </select>
             </label>
+            <br>
+                <h3>Attributes:</h3>
+                {% for attributes in attribute_list %}
+                    <label><input type="checkbox" name="{{ attributes.id }}" value="{{ attributes.description }}">{{ attributes.description }}</label>
+                {% endfor %}
         </fieldset>
         <input type="search" name="search_box" class="form-control" id="search-box" placeholder="Search by name.."/>
         <input type = "submit" value="Search" class="btn btn-primary pull-right" id="filter_props">

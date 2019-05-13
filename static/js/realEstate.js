@@ -11,6 +11,9 @@ $(document).ready(function () {
         $.ajax({
             url: '/property?' + $.param(request_data),
             type: 'GET',
+            beforeSend: function() {
+                $("#loading").show();
+            },
             success: function (resp) {
                 let newHTML = resp.data.map(function(d) {
                     return `<a href="/property/${d.id}" class="link-to-property">
@@ -26,6 +29,9 @@ $(document).ready(function () {
                 });
                 $('.property-overview').html(newHTML.join(''));
                 $('#search-box').val('');
+            },
+            complete:function(){
+                $("#loading").hide()
             },
             error: function (xhr, status, error) {
                 // TODO: show toastr
