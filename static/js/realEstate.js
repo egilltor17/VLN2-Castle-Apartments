@@ -68,4 +68,18 @@ $(document).ready(function () {
             },
         });
     });
+
+    /*$('#favorite-button').on('click', function (e) {
+        $.ajax({
+            url: window.location.href,
+            type: 'POST',
+            success: function (resp) {
+                console.log("success: " + window.location.href);
+                //TODO: create heart
+            },
+            error: function (xhr, status, error) {
+                console.log("error: " + window.location.href);
+            }
+        });
+    });*/
 });

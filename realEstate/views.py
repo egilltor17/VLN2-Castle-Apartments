@@ -5,13 +5,11 @@ from django.shortcuts import render, redirect, reverse, get_list_or_404, get_obj
 
 from realEstate.models import Property, PropertyAttribute, Attribute, Address
 from realEstate.forms.property_form import AddressForm, PropertyForm, PropertyImagesForm
-from user.forms.recently_viewed_form import RecentlyViewedForm
 from datetime import datetime
 
 
 # Create your views here.
-from user.models import RecentlyViewed
-
+from user.models import RecentlyViewed, Favorites
 
 
 def index(request):
@@ -74,6 +72,12 @@ def property_details(request, prop_id):
         recently_viewed.property = property
         recently_viewed.user = request.user
         recently_viewed.save()
+        if request.method == 'POST':
+            print("You are favoriting it!")
+            favorite = Favorites()
+            favorite.property = property
+            favorite.user = request.user
+            favorite.save()
 
     return render(request, 'realEstate/property_details.html', {
             'property': property,
