@@ -36,7 +36,6 @@
                         <h5 class="card-title">{{ property.name }}</h5>
                         <p class="card-text">{{ property.address }}</p>
                         <p class="card-text">{{ property.description }}</p>
-
                     </div>
                 </div>
              </div>
@@ -53,19 +52,38 @@
                     </div>
                 </div>
 
+                <!-- Attributes -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Attributes</h5>
+                        <ul>
+                            {% for proAtt in propertyAttributes %}
+                                <li>{{ proAtt.attribute.description }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
                 <!-- Seller Information -->
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Seller Information</h5>
-                        <p class="card-text">
-                            UserN: {{ property.seller.username }} <br/>
-                            Name:  {{ property.seller.first_name }} {{ property.seller.last_name }} <br/>
-                            Email: {{ property.seller.email }} <br/>
-                            Phone: {{ property.seller.profile.phone }}
-                        </p>
-                        <a href="#" class="btn btn-primary" class="our-button">View Profile</a>
+                        <div class="card-horizontal">
+                            <div class="img-square-wrapper" id="profile-img-square-wrapper">
+                                <img class="profile-image" src="/media/{{ property.seller.profile.profileImage }}" alt="Card image cap">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Seller Information</h5>
+                                <p class="card-text">
+                                    Name:  {{ property.seller.first_name }} {{ property.seller.last_name }} <br/>
+                                    Email: {{ property.seller.email }} <br/>
+                                    Phone: {{ property.seller.profile.phone }}
+                                </p>
+                            </div>
+                        </div>
+                        <!--a href="#" class="btn btn-primary" class="our-button">View Profile</a-->
                     </div>
                 </div>
+
             </div>
         </div>
 

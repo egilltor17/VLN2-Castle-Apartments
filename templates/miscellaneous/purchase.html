@@ -6,9 +6,13 @@
 
     <form class="form form-horizontal purchase-property-form" method="post">
         {% csrf_token %}
-        {{ card_info_form }}
-        {{ purchase_form }}
-        {{ address_form }}
+        <fieldset>
+            <legend>Card information</legend>
+            {{ card_info_form.as_p }}
+            {{ purchase_form.as_p }}
+            <legend>Billing Address</legend>
+            {{ address_form.as_p }}
+        </fieldset>
         <input class="btn btn-primary pull-right" type="submit" value="Purchase Property">
     </form>
 

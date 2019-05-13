@@ -1,16 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.forms import modelformset_factory
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse, get_list_or_404, get_object_or_404
-
-from realEstate.models import Property, PropertyAttribute, Attribute, Address
-from realEstate.forms.property_form import AddressForm, PropertyForm, PropertyImagesForm
-from user.forms.recently_viewed_form import RecentlyViewedForm
 from datetime import datetime
 
+from realEstate.forms.property_form import AddressForm, PropertyForm, PropertyImagesForm
+from realEstate.models import Property, PropertyAttribute, PropertyImage, Attribute, Address
+from user.forms.recently_viewed_form import RecentlyViewedForm
+from user.models import RecentlyViewed
 
 # Create your views here.
-from user.models import RecentlyViewed
+
 
 
 
@@ -83,30 +84,33 @@ def property_details(request, prop_id):
 
 @login_required
 def create(request):
+    images_form_set = modelformset_factory(PropertyImage, fields=('image',), extra=5)
     if request.method == 'POST':
         address_form = AddressForm(data=request.POST)
         property_form = PropertyForm(data=request.POST)
-        image_form = PropertyImagesForm(data=request.POST)
+        image_form = images_form_set(data=request.POST)
 
-        if property_form.is_valid() and address_form.is_valid():
+        if property_form.is_valid() and address_form.is_valid() and image_form.is_valid():
             prop = property_form.save(commit=False)
             prop.seller = User.objects.get(pk=request.user.id)
             prop.address = address_form.save()
             prop.save()
 
-            image = image_form.save(commit=False)
-            image.property_id = prop.id
-            image.save()
+            images = image_form.save(commit=False)
+            for image in images:
+                image.property_id = prop.id
+                image.save()
+
             return redirect(reverse('user-profile'))
         else:
             context = { 'address_form': address_form,
                         'property_form': property_form,
-                        'image_form': image_form }
+                        'image_form': image_form, }
             return render(request, 'realEstate/add-property.html', context)
     else:
         context = { 'address_form': AddressForm(),
                     'property_form': PropertyForm(),
-                    'image_form': PropertyImagesForm() }
+                    'image_form': images_form_set(queryset=PropertyImage.objects.none()), }
         return render(request, 'realEstate/add-property.html', context)
 
 
