@@ -8,7 +8,7 @@ from user.models import Purchase
 
 
 def home(request):
-    return render(request, 'miscellaneous/home.html')
+    return redirect('property-index')
 
 
 def about_us(request):
