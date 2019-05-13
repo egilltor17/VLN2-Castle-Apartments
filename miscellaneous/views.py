@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
-
+from django.shortcuts import render, get_object_or_404, redirect
 from miscellaneous.forms.payment_form import PurchaseForm, PaymentInfoForm
 from realEstate.forms.property_form import AddressForm, PropertyFormNone
 from realEstate.models import Property
