@@ -1,4 +1,4 @@
-<a href="{% url 'property-details' property.id %}" class="link-to-property">
+<a href="/property/{{ property.id }}" class="link-to-property">
     <div class="card">
         <div class="card-horizontal">
             <div class="img-square-wrapper" id="active-listing-square-wrapper">
@@ -9,11 +9,8 @@
                 <p class="card-text">
                     Price: {{ property.price }} $, size {{ property.squareMeters }}m<sup>2</sup>, {{ property.nrBedrooms }} bedrooms, {{ property.nrBathrooms }} bathrooms
                 </p>
-                <!-- Button to edit property -->
-                <a href="{% url 'edit_property' property.id %}" class="block btn btn-primary" id="edit-property-button">Edit property</a>
-
                 <!-- Button to delete property -->
-                <a href="" class="block btn btn-primary" id="delete-active-property-button">Delete</a>
+                <a href="" class="block btn btn-primary" id="delete-sold-property-button">Delete</a>
             </div>
         </div>
     </div>

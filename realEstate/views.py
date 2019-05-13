@@ -5,9 +5,13 @@ from django.shortcuts import render, redirect, reverse, get_list_or_404, get_obj
 
 from realEstate.models import Property, PropertyAttribute, Attribute, Address
 from realEstate.forms.property_form import AddressForm, PropertyForm, PropertyImagesForm
+from user.forms.recently_viewed_form import RecentlyViewedForm
+from datetime import datetime
 
 
 # Create your views here.
+from user.models import RecentlyViewed
+
 
 
 def index(request):
@@ -63,11 +67,19 @@ def index(request):
 
 
 def property_details(request, prop_id):
+    property = get_object_or_404(Property, pk=prop_id)
+    if request.user.is_authenticated:
+        recently_viewed = RecentlyViewed()
+        recently_viewed.timestamp = datetime.now()
+        recently_viewed.property = property
+        recently_viewed.user = request.user
+        recently_viewed.save()
+
     return render(request, 'realEstate/property_details.html', {
-        'property': get_object_or_404(Property, pk=prop_id),
-        'propertyAttributes': PropertyAttribute.objects.filter(property_id=prop_id),
-        'attributes': Attribute.objects.order_by('description')
-    })
+            'property': property,
+            'propertyAttributes': PropertyAttribute.objects.filter(property_id=prop_id),
+            'attributes': Attribute.objects.order_by('description')
+        })
 
 @login_required
 def create(request):

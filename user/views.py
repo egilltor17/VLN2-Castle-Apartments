@@ -2,18 +2,25 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, reverse
+from django.db.models import Case, When
 
 from realEstate.models import Property, Address
+from user.models import Profile, RecentlyViewed
 from user.forms.registration_form import ProfileForm, UserForm
-
-from user.models import Profile
 # Create your views here.
 
 
 @login_required
 def profile(request):
-    context = {'properties': Property.objects.all().order_by('name'),
-               'profile': 'active'}
+
+    pks = [recently_viewed.property_id for recently_viewed in RecentlyViewed.objects.filter(user_id=request.user.id).order_by('-timestamp')]
+    # To hold the order by timestamp
+    preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(pks)])
+    properties = Property.objects.filter(pk__in=pks).order_by(preserved)[:10]
+
+    context = {'properties': Property.objects.filter(seller=request.user).order_by('-dateCreated'),
+               'profile': 'active',
+               'recently_viewed_properties': properties}
     return render(request, 'user/profile.html', context)
 
 
