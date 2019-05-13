@@ -45,9 +45,7 @@
                 <div class="row">
                     <div class="col-12 mt-3">
                     {% for property in properties %}
-                        {% if property.seller_id == user.id %}
                             {% include 'user/single_active_listing.html' with property=property %}
-                        {% endif %}
                     {% endfor %}
 
                     </div>
@@ -62,20 +60,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 mt-3">
-                        <a href="" class="link-to-property">
-                            <div class="card">
-                                <div class="card-horizontal">
-                                    <div class="img-square-wrapper" id="recently-viewed-square-wrapper">
-                                        <img class="property-image" src="http://via.placeholder.com/300x180" alt="Card image cap">
-                                    </div>
-                                    <div class="card-body" id="recently-viewed-property">
-                                        <h4 class="card-title">Sólheimar</h4>
-                                        <p class="card-text">20.000.000kr<br>
-                                                            </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                        {% for recently_viewed_property in recently_viewed_properties %}
+                            {% include 'user/single_recently_viewed.html' with recently_viewed_property=recently_viewed_property %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
