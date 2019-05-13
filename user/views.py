@@ -3,17 +3,18 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, reverse
 
+from realEstate.models import Property, Address
 from user.forms.registration_form import UserForm, ProfileForm, UserForm
 from user.forms.list_property_form import ListPropertyForm, AddressForm
 
 from user.models import Profile
 # Create your views here.
 
-
 @login_required
 def profile(request):
-    return render(request, 'user/profile.html', {'profile': 'active',})
-
+    context = {'properties': Property.objects.all().order_by('name'),
+               'profile': 'active'}
+    return render(request, 'user/profile.html', context)
 
 @login_required
 def editProfile(request):
@@ -52,7 +53,6 @@ def add_property(request):
     else:
         context = {'property_form': ListPropertyForm(), 'address_form': AddressForm()}
         return render(request, 'user/add-property.html', context)
-
 
 def register(request):
     if request.method == 'POST':

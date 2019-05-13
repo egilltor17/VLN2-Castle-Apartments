@@ -44,22 +44,12 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 mt-3">
-                        <div class="card">
-                            <div class="card-horizontal">
-                                <div class="img-square-wrapper" id="active-listing-square-wrapper">
-                                    <img class="profile-image" src="http://via.placeholder.com/300x180" alt="Card image cap">
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">Sólheimar</h4>
-                                    <p class="card-text">
-                                        General information about property.
-                                    </p>
-                                    <!-- Button to edit property -->
-                                    <a href="" class="block btn btn-primary" id="edit-property-button">Edit property</a>
+                    {% for property in properties %}
+                        {% if property.seller_id == user.id %}
+                            {% include 'user/single_active_listing.html' with property=property %}
+                        {% endif %}
+                    {% endfor %}
 
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
