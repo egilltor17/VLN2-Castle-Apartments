@@ -49,7 +49,7 @@
                         <p class="card-text"><p>{{ property.price }} $ <br>
                             More info comes here
                         </p>
-                        <a href="#" class="btn btn-primary" class="our-button">Buy property</a>
+                        <a href="{% url 'purchase' property.id %}" class="btn btn-primary" class="our-button">Buy property</a>
                     </div>
                 </div>
 

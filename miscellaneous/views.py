@@ -1,12 +1,65 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 
-# Create your views here.
+from miscellaneous.forms.payment_form import PurchaseForm, PaymentInfoForm
+from realEstate.forms.property_form import AddressForm, PropertyFormNone
+from realEstate.models import Property
+from user.models import Purchase
+
 
 def home(request):
     return render(request, 'miscellaneous/home.html')
+
 
 def about_us(request):
     context = {"about_us": "active"}
     return render(request, 'miscellaneous/aboutUs.html', context)
 
 
+@login_required
+def purchase(request, prop_id):
+    property_instance = Property.objects.get(pk=prop_id)
+    property_form = PropertyFormNone(data=request.POST, instance=property_instance)
+    address_form = AddressForm(data=request.POST)
+    card_info_form = PaymentInfoForm(data=request.POST)
+    purchase_form = PurchaseForm(data=request.POST)
+    if request.method == 'POST':
+        if address_form.is_valid() and card_info_form.is_valid() and purchase_form.is_valid():
+            prop = property_form.save(commit=False)
+            prop.sold = True
+            prop.save()
+
+            card = card_info_form.save(commit=False)
+            card.address = address_form.save()
+            card.save()
+
+            pur = purchase_form.save(commit=False)
+            pur.paymentInfo_id = card.id
+            pur.property_id = prop_id
+            pur.userInfo_id = request.user.id
+            pur.save()
+            # return redirect(reverse('user-profile'))
+            return render(request, 'miscellaneous/purchase-review.html', { 'purchase_id': pur.id })
+    context = { 'property': get_object_or_404(Property, pk=prop_id),
+                'address_form': address_form,
+                'card_info_form': card_info_form,
+                'purchase_form': purchase_form
+                }
+    return render(request, 'miscellaneous/purchase.html', context)
+
+
+@login_required
+def purchase_review(request, pur_id):
+    purchase_instance = Purchase.objects.get(pk=pur_id)
+    purchase_form = PurchaseForm(instance=purchase_instance)
+    property_form = PropertyFormNone(instance=purchase_instance.property)
+    card_info_form = PaymentInfoForm(instance=purchase_instance.paymentInfo)
+    address_form = AddressForm(instance=purchase_instance.paymentInfo.address)
+
+    context = { 'property': purchase_instance.property,
+                'address_form': address_form,
+                'card_info_form': card_info_form,
+                'purchase_form': purchase_form,
+                'property_form': property_form,
+                }
+    return render(request, 'miscellaneous/purchase-review.html', context)

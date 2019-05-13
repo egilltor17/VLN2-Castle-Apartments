@@ -1,4 +1,4 @@
-<a href="/property/{{ property.id }}" class="link-to-property">
+<a href="{% url 'property-details' property.id %}" class="link-to-property">
     <div class="card property" >
         <img class="property-img" src="{{ property.propertyimage_set.first.image }}"/>
         <div class="card-body">
