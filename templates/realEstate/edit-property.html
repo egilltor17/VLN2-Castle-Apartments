@@ -4,7 +4,7 @@
     <h2>Thank you for EDITING your property with Castle Apartments!</h2>
     <p>Please fill out the form below</p>
 
-    <form class="form form-horizontal add-property-form" action="{% url 'edit_property' pk %}" method="post">
+    <form class="form form-horizontal edit-property-form" action="{% url 'edit_property' pk %}" method="post">
         {% csrf_token %}
         <fieldset>
             <legend>Property</legend>

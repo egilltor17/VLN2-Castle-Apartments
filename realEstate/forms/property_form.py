@@ -20,6 +20,27 @@ class PropertyForm(ModelForm):
         exclude = [ 'id', 'address', 'seller', 'dateCreated', 'sold' ]
 
 
+class PropertyFormNone(ModelForm):
+    prefix = 'property'
+
+    class Meta:
+        model = Property
+        exclude = [ 'id',
+                    'name',
+                    'description',
+                    'type',
+                    'price',
+                    'nrBedrooms',
+                    'nrBathrooms',
+                    'squareMeters',
+                    'constructionYear',
+                    'dateCreated',
+                    'sold',
+                    'address',
+                    'seller',
+                    'image' ]
+
+
 class PropertyImagesForm(ModelForm):
     prefix = 'property-image'
 

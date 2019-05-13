@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
-from django.urls import reverse
+from django.shortcuts import render, redirect, reverse, get_list_or_404, get_object_or_404
 
 from realEstate.models import Property, PropertyAttribute, Attribute, Address
 from realEstate.forms.property_form import AddressForm, PropertyForm, PropertyImagesForm
@@ -101,9 +100,7 @@ def create(request):
 
 @login_required
 def update(request, prop_id):
-    print('edit property')
     property_instance = Property.objects.get(pk=prop_id)
-
     if request.user.id != property_instance.seller.id:
         print('Seller id: ' + property_instance.seller.id + '\nUser id: ' + request.user.id)
         return redirect(reverse('user-profile'))
@@ -138,4 +135,3 @@ def update(request, prop_id):
                # 'image_form': image_form,
                }
     return render(request, 'realEstate/edit-property.html', context)
-

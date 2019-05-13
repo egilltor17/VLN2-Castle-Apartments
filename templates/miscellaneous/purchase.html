@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h2>Thank you for PURCHASING your property with Castle Apartments!</h2>
+    <p>Please fill out the form below</p>
+
+    <form class="form form-horizontal purchase-property-form" method="post">
+        {% csrf_token %}
+        {{ card_info_form }}
+        {{ purchase_form }}
+        {{ address_form }}
+        <input class="btn btn-primary pull-right" type="submit" value="Purchase Property">
+    </form>
+
+{% endblock %}
