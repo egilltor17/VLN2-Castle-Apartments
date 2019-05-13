@@ -21,6 +21,7 @@ def index(request):
     postcode_list = Address.objects.distinct('postCode')
     type_list = Property.objects.distinct('type')
     year_built_list = Property.objects.distinct('constructionYear')
+    attribute_list = Attribute.objects.distinct('description')
     if request.is_ajax():
         filters = request.GET
         properties = [{
@@ -50,7 +51,7 @@ def index(request):
                 'apartmentNumber': x.address.apartmentNumber,
             },
             'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
-            'attributes': [y for y in PropertyAttribute.objects.filter(property_id=x.id)]
+            'attributes': [y.id for y in PropertyAttribute.objects.filter(property_id=x.id)]
         } for x in Property.objects.filter(
             name__icontains=filters.get('search_box'),
             address__country__contains=filters.get('country'),
@@ -77,7 +78,8 @@ def index(request):
                'city_list': city_list,
                'postcode_list': postcode_list,
                'type_list': type_list,
-               'year_built_list': year_built_list}
+               'year_built_list': year_built_list,
+               'attribute_list': attribute_list}
     return render(request, 'realEstate/index.html', context)
 
 

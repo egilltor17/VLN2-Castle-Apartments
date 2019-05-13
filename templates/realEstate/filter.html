@@ -203,9 +203,9 @@
             </label>
             <br>
                 <h3>Attributes:</h3>
-{#                {% for attributes in attribute_list %}#}
-{#                    <label><input type="checkbox" name="{{ attributes.id }}" value="{{ attributes.description }}">{{ attributes.description }}</label>#}
-{#                {% endfor %}#}
+                {% for attributes in attribute_list %}
+                    <label><input type="checkbox" name="{{ attributes.id }}" value="{{ attributes.description }}">{{ attributes.description }}</label>
+                {% endfor %}
         </fieldset>
         <input type="search" name="search_box" class="form-control" id="search-box" placeholder="Search by name.."/>
         <input type = "submit" value="Search" class="btn btn-primary pull-right" id="filter_props">
