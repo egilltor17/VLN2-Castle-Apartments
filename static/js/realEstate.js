@@ -34,7 +34,7 @@ $(document).ready(function () {
                 });
                 if(newHTML === undefined || newHTML.length === 0) {
                     $('.property-overview').append(result_msg)
-                    $('#result-msg').html('No results found!')
+                    $('#result-msg').html('<h3>No results found!</h3>')
                 }
                 else {
                     $('.property-overview').append(newHTML.join(''));
