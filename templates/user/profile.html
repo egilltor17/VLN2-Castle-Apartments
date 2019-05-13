@@ -34,11 +34,13 @@
             </div>
 
 
+            <!-- Button to add property-->
+            <div id="add-property-button">
+                {% csrf_token %}
+                <a href="{% url 'add_property' %}" class="block btn btn-primary">Add Property</a>
+            </div>
             <div id="active-listings-header"><!-- Active properties -->
                 <h4>Active Listings</h4>
-                <!-- Button to add property-->
-                {% csrf_token %}
-                <a href="{% url 'add_property' %}" class="block btn btn-primary" id="add-property-button">Add Property</a>
             </div>
 
             <div class="container-fluid">
@@ -53,6 +55,23 @@
                     </div>
                 </div>
             </div>
+
+        <div id="sold-listings-header">
+            <h4>Sold Properties</h4>
+        </div>
+        <div class="container-fluid"> <!-- Sold properties -->
+            <div class="row">
+                <div class="col-12 mt-3">
+                {% for property in properties %}
+                    {% if property.seller_id == user.id and property.sold %}
+                        {% include 'user/single_sold_listing.html' with property=property %}
+                    {% endif %}
+                {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
         </div>
 
         <div class="col-sm-4">

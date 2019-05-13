@@ -21,9 +21,15 @@
     max-height: 100%;
 }
 
-/* So active listing header is in line with rest of page */
-#active-listings-header {
+/* So active and sold listing header is in line with rest of page */
+#active-listings-header, #sold-listings-header, #add-property-button  {
     padding-left: 20px;
+    padding-top: 20px;
+}
+
+#delete-active-property-button, #delete-sold-property-button {
+    background: #dd6363 !important;
+    border: #dd6363 !important;
 }
 
 a {
