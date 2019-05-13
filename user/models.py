@@ -20,7 +20,7 @@ class Profile(models.Model):
 class RecentlyViewed(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(default=timezone.now)
 
 
 class Favorites(models.Model):

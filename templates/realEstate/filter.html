@@ -5,6 +5,7 @@
             <label>
                 Country:
                 <select id="country_dropd" name="country">
+                    <option value="" selected>All</option>
                     {% for countries in country_list %}
                     <option value="{{ countries.country }}">{{ countries.country }}</option>
                     {% endfor %}
@@ -106,6 +107,7 @@
             <label>
                 Type:
                 <select id="type_dropd" name="type">
+                    <option value="" selected>All</option>
                     {% for types in type_list %}
                     <option value="{{ types.type }}">{{ types.type }}</option>
                     {% endfor %}

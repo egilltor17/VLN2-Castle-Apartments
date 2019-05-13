@@ -5,12 +5,10 @@ from django.shortcuts import render, redirect, reverse
 from django.db.models import Case, When
 
 from realEstate.models import Property, Address
-from user.models import RecentlyViewed
-from user.forms.registration_form import UserForm, ProfileForm, UserForm
-from user.forms.list_property_form import ListPropertyForm, AddressForm
-
-from user.models import Profile
+from user.models import Profile, RecentlyViewed
+from user.forms.registration_form import ProfileForm, UserForm
 # Create your views here.
+
 
 @login_required
 def profile(request):
@@ -25,43 +23,31 @@ def profile(request):
                'recently_viewed_properties': properties}
     return render(request, 'user/profile.html', context)
 
+
 @login_required
 def editProfile(request):
-    profileInstance = Profile.objects.filter(user=request.user).first()
+    profile_instance = Profile.objects.get(pk=request.user.pk)
     if request.method == 'POST':
-        profile_form = ProfileForm(instance=profileInstance, data=request.POST, files=request.FILES)
+        profile_form = ProfileForm(instance=profile_instance, data=request.POST, files=request.FILES)
         user_form = UserForm(instance=request.user, data=request.POST)
         if profile_form.is_valid() and user_form.is_valid():
-            profile_form.save()
+            prof = profile_form.save(commit=False)
+            prof.profileImage = (prof.profileImage if prof.profileImage else 'profileImages/user.png')
+            prof.save()
             user_form.save()
             new_user = authenticate(username=user_form.cleaned_data['username'],
-                                    password=user_form.cleaned_data['password1'],
-                                    )
+                                    password=user_form.cleaned_data['password1'],)
             login(request, new_user)
             return redirect('user-profile')
+        else:
+            context = {'profile_form': profile_form, 'user_form': user_form}
+            return render(request, 'user/register.html', context)
     return render(request, 'user/editProfile.html', {
         'profile': 'active',
-        'profile_form': ProfileForm(instance=profileInstance),
+        'profile_form': ProfileForm(instance=profile_instance),
         'user_form': UserForm(instance=request.user)
     })
 
-@login_required
-def add_property(request):
-    if request.method == 'POST':
-        property_form = ListPropertyForm(data=request.POST)
-        address_form = AddressForm(data=request.POST)
-        if property_form.is_valid() and address_form.is_valid():
-            prop = property_form.save(commit=False)
-            prop.seller = User.objects.get(pk=request.user.id)
-            prop.address = address_form.save()
-            prop.save()
-            return redirect(reverse('user-profile'))
-        else:
-            context = {'property_form': property_form, 'address_form': address_form}
-            return render(request, 'user/add-property.html', context)
-    else:
-        context = {'property_form': ListPropertyForm(), 'address_form': AddressForm()}
-        return render(request, 'user/add-property.html', context)
 
 def register(request):
     if request.method == 'POST':
@@ -69,11 +55,11 @@ def register(request):
         user_form = UserForm(data=request.POST)
         if profile_form.is_valid() and user_form.is_valid():
             prof = profile_form.save(commit=False)
+            prof.profileImage = (prof.profileImage if prof.profileImage else 'profileImages/user.png')
             prof.user = user_form.save()
             prof.save()
             new_user = authenticate(username=user_form.cleaned_data['username'],
-                                    password=user_form.cleaned_data['password1'],
-                                    )
+                                    password=user_form.cleaned_data['password1'],)
             login(request, new_user)
             return redirect(reverse('user-profile'))
         else:
