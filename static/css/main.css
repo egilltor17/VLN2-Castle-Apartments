@@ -64,3 +64,8 @@
     background-color: rgb(111, 172, 177) !important;
     border-color: rgb(111, 172, 177) !important;
 }
+
+#loading {
+    display:none;
+    text-align:center;
+}
