@@ -12,6 +12,8 @@ $(document).ready(function () {
             url: '/property?' + $.param(request_data),
             type: 'GET',
             beforeSend: function() {
+                $('.property-overview').html('')
+                $('#result-msg').html('')
                 $("#loading").show();
             },
             success: function (resp) {
@@ -27,8 +29,14 @@ $(document).ready(function () {
                                 </div>
                             </a>`
                 });
-                $('.property-overview').html(newHTML.join(''));
-                $('#search-box').val('');
+                console.log(newHTML)
+                if(newHTML === undefined || newHTML.length === 0) {
+                    $('#result-msg').html('No results found');
+                }
+                else {
+                    $('.property-overview').html(newHTML.join(''));
+                    $('#search-box').val('');
+                }
             },
             complete:function(){
                 $("#loading").hide()

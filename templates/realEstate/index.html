@@ -6,6 +6,7 @@
 
     {% include 'realEstate/filter.html' with property=property %}
     <p><div id="loading"><img src="/media/icons/ajax-loader.gif" alt="Loading..."></div></p>
+    <p><div id="result-msg"></div></p>
     <div class="card-deck property-overview">
         {% for property in properties %}
             {% if not property.sold %}
