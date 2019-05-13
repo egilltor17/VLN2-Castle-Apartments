@@ -25,7 +25,6 @@
                                         Tel: {{ user.profile.phone }}</p>
                                     <!-- Button to edit profile -->
                                     <a href="{% url 'edit-profile' %}" class="block btn btn-primary" id="edit-profile-button">Edit profile</a>
-
                                 </div>
                             </div>
                         </div>
@@ -33,16 +32,16 @@
                 </div>
             </div>
 
-
             <!-- Button to add property-->
             <div id="add-property-button">
                 {% csrf_token %}
                 <a href="{% url 'add_property' %}" class="block btn btn-primary">Add Property</a>
             </div>
-            <div id="active-listings-header"><!-- Active properties -->
+
+            <!-- Active properties -->
+            <div id="active-listings-header">
                 <h4>Active Listings</h4>
             </div>
-
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 mt-3">
@@ -51,33 +50,31 @@
                             {% include 'user/single_active_listing.html' with property=property %}
                         {% endif %}
                     {% endfor %}
-
                     </div>
                 </div>
             </div>
 
-        <div id="sold-listings-header">
-            <h4>Sold Properties</h4>
-        </div>
-        <div class="container-fluid"> <!-- Sold properties -->
-            <div class="row">
-                <div class="col-12 mt-3">
-                {% for property in properties %}
-                    {% if property.seller_id == user.id and property.sold %}
-                        {% include 'user/single_sold_listing.html' with property=property %}
-                    {% endif %}
-                {% endfor %}
-
+            <!-- Sold properties -->
+            <div id="sold-listings-header">
+                <h4>Sold Properties</h4>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 mt-3">
+                    {% for property in properties %}
+                        {% if property.sold %}
+                            {% include 'user/single_sold_listing.html' with property=property %}
+                        {% endif %}
+                    {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
 
         </div>
 
+        <!-- Card for recently viewed properties -->
         <div class="col-sm-4">
-
-            <h4>Recently viewed</h4>
-            <!-- Card for recently viewed properties -->
+            <h4 id="recently-viewed-header">Recently viewed</h4>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 mt-3">
@@ -88,6 +85,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 {% endblock %}
