@@ -5,8 +5,6 @@ from django.shortcuts import render, redirect, get_list_or_404, get_object_or_40
 from django.urls import reverse
 
 from realEstate.models import Property, PropertyAttribute, Attribute, Address
-
-from realEstate.forms.filter_form import FilterForm
 from realEstate.forms.property_form import AddressForm, PropertyForm, PropertyImagesForm
 
 
@@ -65,13 +63,12 @@ def index(request):
     return render(request, 'realEstate/index.html', context)
 
 
-def property_details(request, id):
+def property_details(request, prop_id):
     return render(request, 'realEstate/property_details.html', {
-        'property': get_object_or_404(Property, pk=id),
-        'propertyAttributes': PropertyAttribute.objects.filter(property_id=id),
+        'property': get_object_or_404(Property, pk=prop_id),
+        'propertyAttributes': PropertyAttribute.objects.filter(property_id=prop_id),
         'attributes': Attribute.objects.order_by('description')
     })
-
 
 @login_required
 def create(request):
@@ -79,6 +76,7 @@ def create(request):
         address_form = AddressForm(data=request.POST)
         property_form = PropertyForm(data=request.POST)
         image_form = PropertyImagesForm(data=request.POST)
+
         if property_form.is_valid() and address_form.is_valid():
             prop = property_form.save(commit=False)
             prop.seller = User.objects.get(pk=request.user.id)
@@ -90,15 +88,54 @@ def create(request):
             image.save()
             return redirect(reverse('user-profile'))
         else:
-            context = { 'address_form': address_form, 'property_form': property_form, 'image_form': image_form }
+            context = { 'address_form': address_form,
+                        'property_form': property_form,
+                        'image_form': image_form }
             return render(request, 'realEstate/add-property.html', context)
     else:
-        context = { 'address_form': AddressForm(), 'property_form': PropertyForm(), 'image_form': PropertyImagesForm() }
+        context = { 'address_form': AddressForm(),
+                    'property_form': PropertyForm(),
+                    'image_form': PropertyImagesForm() }
         return render(request, 'realEstate/add-property.html', context)
 
 
 @login_required
-def update(request):
-    context = {'property_form': PropertyForm(), 'address_form': AddressForm()}
-    return render(request, 'realEstate/add-property.html', context)
+def update(request, prop_id):
+    print('edit property')
+    property_instance = Property.objects.get(pk=prop_id)
+
+    if request.user.id != property_instance.seller.id:
+        print('Seller id: ' + property_instance.seller.id + '\nUser id: ' + request.user.id)
+        return redirect(reverse('user-profile'))
+
+    property_form = PropertyForm(instance=property_instance)
+    address_form = AddressForm(instance=property_instance.address)
+
+    if request.method == 'POST':
+        property_form = PropertyForm(data=request.POST, instance=property_instance)
+        address_form = AddressForm(data=request.POST, instance=property_instance.address)
+
+        #image_form = PropertyImagesForm(data=request.POST)
+        if property_form.is_valid() and address_form.is_valid():
+            prop = property_form.save(commit=False)
+            prop.address = address_form.save()
+            prop.save()
+
+            #image = image_form.save(commit=False)
+            #image.property_id = prop.id
+            #image.save()
+            return redirect(reverse('user-profile'))
+        else:
+            context = { 'pk': prop_id,
+                        'address_form': address_form,
+                        'property_form': property_form,
+                        #'image_form': image_form,
+                        }
+            return render(request, 'realEstate/edit-property.html', context)
+    context = {'pk': prop_id,
+               'address_form': address_form,
+               'property_form': property_form,
+               # 'image_form': image_form,
+               }
+    return render(request, 'realEstate/edit-property.html', context)
 

@@ -4,7 +4,7 @@
     <h2>Thank you for EDITING your property with Castle Apartments!</h2>
     <p>Please fill out the form below</p>
 
-    <form class="form form-horizontal add-property-form" action="{% url 'add_property' %}" method="post">
+    <form class="form form-horizontal add-property-form" action="{% url 'edit_property' pk %}" method="post">
         {% csrf_token %}
         <fieldset>
             <legend>Property</legend>
@@ -20,7 +20,7 @@
             <p id="image-counter" hidden>1</p>
             <input type = "button" value="Add more images" class="btn btn-primary pull-right" id="add_image_field">
         </fieldset>
-        <input class="btn btn-primary pull-right" type="submit" value="Add Property">
+        <input class="btn btn-primary pull-right" type="submit" value="Update Property">
     </form>
 
 {% endblock %}

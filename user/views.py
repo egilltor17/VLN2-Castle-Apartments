@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, reverse
 
+from realEstate.models import Property, Address
 from user.forms.registration_form import ProfileForm, UserForm
 
 from user.models import Profile
@@ -11,14 +12,16 @@ from user.models import Profile
 
 @login_required
 def profile(request):
-    return render(request, 'user/profile.html', {'profile': 'active',})
+    context = {'properties': Property.objects.all().order_by('name'),
+               'profile': 'active'}
+    return render(request, 'user/profile.html', context)
 
 
 @login_required
 def editProfile(request):
-    profileInstance = Profile.objects.filter(user=request.user).first()
+    profile_instance = Profile.objects.get(pk=request.user.pk)
     if request.method == 'POST':
-        profile_form = ProfileForm(instance=profileInstance, data=request.POST, files=request.FILES)
+        profile_form = ProfileForm(instance=profile_instance, data=request.POST, files=request.FILES)
         user_form = UserForm(instance=request.user, data=request.POST)
         if profile_form.is_valid() and user_form.is_valid():
             prof = profile_form.save(commit=False)
@@ -29,9 +32,12 @@ def editProfile(request):
                                     password=user_form.cleaned_data['password1'],)
             login(request, new_user)
             return redirect('user-profile')
+        else:
+            context = {'profile_form': profile_form, 'user_form': user_form}
+            return render(request, 'user/register.html', context)
     return render(request, 'user/editProfile.html', {
         'profile': 'active',
-        'profile_form': ProfileForm(instance=profileInstance),
+        'profile_form': ProfileForm(instance=profile_instance),
         'user_form': UserForm(instance=request.user)
     })
 
