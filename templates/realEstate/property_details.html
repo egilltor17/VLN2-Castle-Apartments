@@ -30,7 +30,7 @@
         <!-- Property Details -->
         <div class="row">
             <!-- Property Description -->
-            <div class="col-sm-6" id="left">
+            <div class="col-sm-8" id="left">
                 <div class="card">
                     <div class="card-body">
                         {% if user.is_authenticated  %}
@@ -46,16 +46,22 @@
                 </div>
              </div>
 
-            <div class="col-sm-6" id="right">
+            <div class="col-sm-4" id="right">
                 <!-- General Information -->
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">General Information</h5>
-                        <p class="card-text"><p>{{ property.price }} $ <br>
-                            More info comes here
+                        <p class="card-text">
+                            Price: {{ property.price }} $ <br>
+                            Size: {{ property.squareMeters }} m<sup>2</sup> <br>
+                            Type: {{ property.type }} <br>
+                            Built in {{ property.constructionYear }} <br>
+                            {{ property.nrBedrooms }} bedrooms <br>
+                            {{ property.nrBathrooms }} bathrooms
                         </p>
-                        <a href="{% url 'purchase' property.id %}" class="btn btn-primary" class="our-button">Buy property</a>
                     </div>
+                    <!-- Button is left outside the div on purpose -->
+                    <a href="{% url 'purchase' property.id %}" class="btn btn-primary" class="our-button">Buy Property</a>
                 </div>
 
                 <!-- Attributes -->
@@ -73,21 +79,15 @@
                 <!-- Seller Information -->
                 <div class="card">
                     <div class="card-body">
-                        <div class="card-horizontal">
-                            <div class="img-square-wrapper" id="profile-img-square-wrapper">
-                                <img class="profile-image" src="/media/{{ property.seller.profile.profileImage }}" alt="Card image cap">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Seller Information</h5>
-                                <p class="card-text">
-                                    Name:  {{ property.seller.first_name }} {{ property.seller.last_name }} <br/>
-                                    Email: {{ property.seller.email }} <br/>
-                                    Phone: {{ property.seller.profile.phone }}
-                                </p>
-                            </div>
-                        </div>
-                        <a href="{% url 'seller-profile' property.seller.id %}" class="btn btn-primary" class="our-button">View Profile</a>
+                        <h5 class="card-title">Seller Information</h5>
+                        <p class="card-text">
+                            Name:  {{ property.seller.first_name }} {{ property.seller.last_name }} <br/>
+                            Email: {{ property.seller.email }} <br/>
+                            Phone: {{ property.seller.profile.phone }}
+                        </p>
                     </div>
+                    <a href="{% url 'seller-profile' property.seller.id %}" class="btn btn-primary" class="our-button">View Profile</a>
+
                 </div>
 
             </div>
@@ -101,8 +101,6 @@
             </div>
         {% endfor %}
         </div>
-
-
 
     </div>
 

@@ -41,14 +41,10 @@ a:hover {
 }
 
 #property-address {
-    width: 40%;
+    width: 44%;
     float: right;
     text-align: right;
     font-size: 0.8rem;
-}
-
-#property-name-address {
-
 }
 
 #property-price-info {
