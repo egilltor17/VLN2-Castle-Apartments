@@ -9,8 +9,6 @@ from realEstate.forms.property_form import AddressForm, PropertyForm
 from realEstate.models import Property, PropertyImage, Attribute, Address  #, PropertyAttribute
 from user.models import RecentlyViewed, Favorites
 
-
-
 def index(request):
     country_list = Address.objects.distinct('country')
     municipality_list = Address.objects.distinct('municipality')
@@ -49,7 +47,6 @@ def index(request):
                 'apartmentNumber': x.address.apartmentNumber,
             },
             'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
-            #'attributes': [y.id for y in PropertyAttribute.objects.filter(property_id=x.id)]
             'attributes': [y.id for y in x.attributes.all()],
         } for x in Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').filter(
             name__icontains=filters.get('search_box'),
@@ -85,24 +82,39 @@ def index(request):
 
 def property_details(request, prop_id):
     property = get_object_or_404(Property, pk=prop_id)
+    is_favorite = False
     if request.user.is_authenticated:
         recently_viewed = RecentlyViewed()
         recently_viewed.timestamp = datetime.now()
         recently_viewed.property = property
         recently_viewed.user = request.user
         recently_viewed.save()
-        if request.method == 'POST':
-            print("You are favoriting it!")
-            favorite = Favorites()
-            favorite.property = property
-            favorite.user = request.user
-            favorite.save()
-
+        if Favorites.objects.filter(property_id=property.id).filter(user_id=request.user).count() == 0:
+            is_favorite = False
+        else:
+            is_favorite = True
     return render(request, 'realEstate/property_details.html', {
             'property': property,
             #'propertyAttributes': PropertyAttribute.objects.filter(property_id=prop_id),
-            'attributes': Attribute.objects.order_by('description')
+            'attributes': Attribute.objects.order_by('description'),
+            'is_favorite': is_favorite
         })
+
+@login_required()
+def favorite_property(request, prop_id):
+    property = get_object_or_404(Property, pk=prop_id)
+    favorite = Favorites()
+    favorite.property = property
+    favorite.user = request.user
+    favorite.save()
+    return redirect('property-details', prop_id)
+
+
+@login_required()
+def unfavorite_property(request, prop_id):
+    favorite = get_object_or_404(Favorites, property_id=prop_id, user_id=request.user)
+    favorite.delete()
+    return redirect('property-details', prop_id)
 
 
 @login_required

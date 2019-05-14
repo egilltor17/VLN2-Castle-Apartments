@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="/static/css/profiles.css">
+
+    <!-- Rows and cols used to display profile to the left and properties to the right -->
+    <div class="row">
+        <div  id="left-column">
+
+            <!-- Card container for profile -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 mt-3">
+                        <div class="card">
+                            <div class="card-horizontal">
+                                <div class="img-square-wrapper" id="profile-img-square-wrapper">
+                                    <img class="profile-image" src="/media/{{ seller.profile.profileImage }}" alt="Card image cap">
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ seller.first_name }} {{ seller.last_name }}'s profile</h4>
+                                    <p class="card-text">
+                                        Username: {{ seller.username }} <br>
+                                        Email: {{ seller.email }}<br>
+                                        Tel: {{ seller.profile.phone }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Active properties -->
+            <div id="active-listings-header">
+                <h4>Active Listings</h4>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 mt-3">
+                    {% for property in properties %}
+                        {% if not property.sold %}
+                            {% include 'user/single_active_listing_other.html' with property=property %}
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sold properties -->
+            <div id="sold-listings-header">
+                <h4>Sold Properties</h4>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 mt-3">
+                    {% for property in properties %}
+                        {% if property.sold %}
+                            {% include 'user/single_sold_listing_other.html' with property=property %}
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
