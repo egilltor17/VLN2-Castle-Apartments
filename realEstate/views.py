@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.forms import modelformset_factory, inlineformset_factory
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
@@ -12,15 +13,10 @@ from user.models import RecentlyViewed, Favorites
 
 def index(request):
     country_list = Property.objects.filter(sold=False).distinct('address__country')
-    #municipality_list = Address.objects.distinct('municipality')
     municipality_list = Property.objects.filter(sold=False).distinct('address__municipality')
-    #city_list = Address.objects.distinct('city')
     city_list = Property.objects.filter(sold=False).distinct('address__city')
-    #postcode_list = Address.objects.distinct('postCode')
     postcode_list = Property.objects.filter(sold=False).distinct('address__postCode')
-    #type_list = Property.objects.distinct('type')
     type_list = Property.objects.filter(sold=False).distinct('type')
-    #year_built_list = Property.objects.distinct('constructionYear')
     year_built_list = Property.objects.filter(sold=False).distinct('constructionYear')
     attribute_list = Attribute.objects.distinct('description')
     if request.is_ajax():
@@ -54,25 +50,30 @@ def index(request):
             'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
             'attributes': [y.id for y in x.attributes.all()],
         } for x in (Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').filter(
-            name__icontains=filters.get('search_box'),
-            address__country__contains=filters.get('country'),
-            sold=False,
-            address__municipality__contains=filters.get('municipality'),
-            address__city__contains=filters.get('city'),
-            address__postCode__contains=filters.get('postcode'),
-            price__gte=filters.get('price_from'),
-            price__lte=filters.get('price_to'),
-            squareMeters__gte=filters.get('size_from'),
-            squareMeters__lte=filters.get('size_to'),
-            nrBedrooms__gte=filters.get('bedrooms_from'),
-            nrBedrooms__lte=filters.get('bedrooms_to'),
-            nrBathrooms__gte=filters.get('bathrooms_from'),
-            nrBathrooms__lte=filters.get('bathrooms_to'),
-            constructionYear__gte=filters.get('year_built_from'),
-            constructionYear__lte=filters.get('year_built_to'),
-            type__contains=filters.get('type')).order_by(request.GET.get('order'))
-                                          if 'search_box' in request.GET
-                                          else Property.objects.filter(sold=False))]
+            Q(sold=False),
+            Q(name__icontains=filters.get('search_box')) |
+            Q(description__icontains=filters.get('search_box')),
+            Q(address__country__contains=filters.get('country')),
+            ( Q(address__municipality__contains=filters.get('municipality')) |
+              Q(address__municipality__isnull=True)
+              if filters.get('municipality') == "" else
+              Q(address__municipality__contains=filters.get('municipality')) ),
+            Q(address__city__contains=filters.get('city')),
+            Q(address__postCode__contains=filters.get('postcode')),
+            Q(price__gte=filters.get('price_from')),
+            Q(price__lte=filters.get('price_to')),
+            Q(squareMeters__gte=filters.get('size_from')),
+            Q(squareMeters__lte=filters.get('size_to')),
+            Q(nrBedrooms__gte=filters.get('bedrooms_from')),
+            Q(nrBedrooms__lte=filters.get('bedrooms_to')),
+            Q(nrBathrooms__gte=filters.get('bathrooms_from')),
+            Q(nrBathrooms__lte=filters.get('bathrooms_to')),
+            Q(constructionYear__gte=filters.get('year_built_from')),
+            Q(constructionYear__lte=filters.get('year_built_to')),
+            Q(type__contains=filters.get('type'))
+        ).order_by(request.GET.get('order'))
+            if 'search_box' in request.GET
+            else Property.objects.filter(sold=False))]
         return JsonResponse({'data': properties})
 
     context = {#'properties': Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').order_by('name'),
