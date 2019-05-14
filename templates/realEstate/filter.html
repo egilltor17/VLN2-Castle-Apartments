@@ -14,9 +14,9 @@
             <label>
                 Municipality:
                 <select id="municipality_dropd" name="municipality">
-                    <option value="" selected>All</option>
+{#                    <option value="" selected>All</option>#}
 {#                    {% for municipalities in municipality_list %}#}
-{#                        <option value="{{ municipalities.municipality }}">{{ municipalities.municipality }}</option>#}
+{#                        <option value="{{ municipalities.address.municipality }}">{{ municipalities.address.municipality }}</option>#}
 {#                    {% endfor %}#}
                 </select>
             </label>
@@ -25,7 +25,7 @@
                 <select id="city_dropd" name="city">
                     <option value="" selected>All</option>
 {#                    {% for cities in city_list %}#}
-{#                        <option value="{{ cities.city }}">{{ cities.city }}</option>#}
+{#                        <option value="{{ cities.address.city }}">{{ cities.address.city }}</option>#}
 {#                    {% endfor %}#}
                 </select>
             </label>
@@ -34,7 +34,7 @@
                 <select id="postcode_dropd" name="postcode">
                     <option value="" selected>All</option>
 {#                    {% for postcodes in postcode_list %}#}
-{#                        <option value="{{ postcodes.postCode }}">{{ postcodes.postCode }}</option>#}
+{#                        <option value="{{ postcodes.address.postCode }}">{{ postcodes.address.postCode }}</option>#}
 {#                    {% endfor %}#}
                 </select>
             </label>
