@@ -9,15 +9,15 @@ from realEstate.forms.property_form import AddressForm, PropertyForm
 from realEstate.models import Property, PropertyImage, Attribute, Address  #, PropertyAttribute
 from user.models import RecentlyViewed, Favorites
 
+
 def index(request):
-    country_list = Address.objects.distinct('country')
+    country_list = Property.objects.filter(sold=False).distinct('address__country')
     municipality_list = Address.objects.distinct('municipality')
     city_list = Address.objects.distinct('city')
     postcode_list = Address.objects.distinct('postCode')
     type_list = Property.objects.distinct('type')
     year_built_list = Property.objects.distinct('constructionYear')
     attribute_list = Attribute.objects.distinct('description')
-
     if request.is_ajax():
         filters = request.GET
         properties = [{
@@ -47,11 +47,11 @@ def index(request):
                 'apartmentNumber': x.address.apartmentNumber,
             },
             'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
-            #'attributes': [y.id for y in PropertyAttribute.objects.filter(property_id=x.id)]
-            #'attributes': x.attributes,
-        } for x in Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').filter(
+            'attributes': [y.id for y in x.attributes.all()],
+        } for x in (Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').filter(
             name__icontains=filters.get('search_box'),
             address__country__contains=filters.get('country'),
+            sold=False,
             address__municipality__contains=filters.get('municipality'),
             address__city__contains=filters.get('city'),
             address__postCode__contains=filters.get('postcode'),
@@ -65,10 +65,12 @@ def index(request):
             nrBathrooms__lte=filters.get('bathrooms_to'),
             constructionYear__gte=filters.get('year_built_from'),
             constructionYear__lte=filters.get('year_built_to'),
-            type__contains=filters.get('type')).order_by(request.GET.get('order'))]
+            type__contains=filters.get('type')).order_by(request.GET.get('order'))
+                                          if 'search_box' in request.GET
+                                          else Property.objects.all())]
         return JsonResponse({'data': properties})
 
-    context = {'properties': Property.objects.order_by('name'),
+    context = {#'properties': Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').order_by('name'),
                'propertiesNav': 'active',
                'country_list': country_list,
                'municipality_list': municipality_list,
@@ -95,7 +97,6 @@ def property_details(request, prop_id):
             is_favorite = True
     return render(request, 'realEstate/property_details.html', {
             'property': property,
-            #'propertyAttributes': PropertyAttribute.objects.filter(property_id=prop_id),
             'attributes': Attribute.objects.order_by('description'),
             'is_favorite': is_favorite
         })

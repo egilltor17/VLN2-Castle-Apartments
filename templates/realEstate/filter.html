@@ -7,7 +7,7 @@
                 <select id="country_dropd" name="country">
                         <option value="" selected>All</option>
                     {% for countries in country_list %}
-                        <option value="{{ countries.country }}">{{ countries.country }}</option>
+                        <option value="{{ countries.address.country }}">{{ countries.address.country }}</option>
                     {% endfor %}
                 </select>
             </label>
@@ -203,9 +203,11 @@
             </label>
             <br>
                 <h3>Attributes:</h3>
-                {% for attributes in attribute_list %}
-                    <label><input type="checkbox" name="{{ attributes.id }}" value="{{ attributes.description }}">{{ attributes.description }}</label>
-                {% endfor %}
+                <div name="attributes">
+                    {% for attributes in attribute_list %}
+                        <label><input type="checkbox" name="{{ attributes.id }}" value="{{ attributes.description }}">{{ attributes.description }}</label>
+                    {% endfor %}
+                </div>
         </fieldset>
         <input type="search" name="search_box" class="form-control" id="search-box" placeholder="Search by name.."/>
         <input type = "submit" value="Search" class="btn btn-primary pull-right" id="filter_props">

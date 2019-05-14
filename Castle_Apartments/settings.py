@@ -26,7 +26,7 @@ SECRET_KEY = 'l^-!_e)5b&nyhmedzbm1$)-12k12-g4z!56+%re=jv@$a=%9)^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['candy-queen.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['kastalar.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'miscellaneous.apps.MiscellaneousConfig',
     'user.apps.UsersConfig',
     'realEstate.apps.RealestateConfig',
-    'Castle_Apartments'
+    'Castle_Apartments',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'Castle_Apartments.urls'
@@ -138,3 +140,5 @@ LOGIN_REDIRECT_URL = '/user/profile'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+INTERNAL_IPS = { '127.0.0.1', 'localhost' }
