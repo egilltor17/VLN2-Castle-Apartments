@@ -74,3 +74,36 @@
     width:100%;
     text-align:center;
 }
+
+#sign-up-button {
+    display: block;
+}
+
+#login-button {
+    display: block;
+    margin: auto;
+}
+
+#id_username {
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    padding: 3px;
+    width: 100%;
+}
+
+#id_password {
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    padding: 3px;
+    width: 100%;
+}
+
+#login-container {
+    margin: 0;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    min-width: 45rem;
+}
