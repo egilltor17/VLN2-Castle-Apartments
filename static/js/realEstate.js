@@ -59,6 +59,22 @@ $(document).ready(function () {
     }
     //
     //
+    //New filter
+    //
+    //
+    $('#country_dropd').change(function() {
+        let selected_country = $('#country_dropd');
+        $.ajax({
+            type: 'GET',
+            url: '/property',
+            success: function(resp) {
+                console.log(resp)
+            }
+        })
+    });
+
+    //
+    //
     //Filtering function
     //
     //
@@ -73,6 +89,7 @@ $(document).ready(function () {
         console.log(request_data);
         $.ajax({
             url: '/property?' + $.param(request_data),
+            data: {action: 'filter_start'},
             type: 'GET',
             beforeSend: function() {
                 $('#result-msg').remove();

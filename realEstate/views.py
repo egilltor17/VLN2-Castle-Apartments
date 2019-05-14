@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.forms import modelformset_factory, inlineformset_factory
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
@@ -12,17 +13,13 @@ from user.models import RecentlyViewed, Favorites
 
 def index(request):
     country_list = Property.objects.filter(sold=False).distinct('address__country')
-    #municipality_list = Address.objects.distinct('municipality')
     municipality_list = Property.objects.filter(sold=False).distinct('address__municipality')
-    #city_list = Address.objects.distinct('city')
     city_list = Property.objects.filter(sold=False).distinct('address__city')
-    #postcode_list = Address.objects.distinct('postCode')
     postcode_list = Property.objects.filter(sold=False).distinct('address__postCode')
-    #type_list = Property.objects.distinct('type')
     type_list = Property.objects.filter(sold=False).distinct('type')
-    #year_built_list = Property.objects.distinct('constructionYear')
     year_built_list = Property.objects.filter(sold=False).distinct('constructionYear')
     attribute_list = Attribute.objects.distinct('description')
+
     if request.is_ajax():
         filters = request.GET
         properties = [{
