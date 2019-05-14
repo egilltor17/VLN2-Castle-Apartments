@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from datetime import datetime
 
 from realEstate.forms.property_form import AddressForm, PropertyForm
-from realEstate.models import Property, PropertyAttribute, PropertyImage, Attribute, Address
+from realEstate.models import Property, PropertyImage, Attribute, Address  #, PropertyAttribute
 from user.models import RecentlyViewed, Favorites
 
 
@@ -19,6 +19,7 @@ def index(request):
     type_list = Property.objects.distinct('type')
     year_built_list = Property.objects.distinct('constructionYear')
     attribute_list = Attribute.objects.distinct('description')
+
     if request.is_ajax():
         filters = request.GET
         properties = [{
@@ -48,8 +49,9 @@ def index(request):
                 'apartmentNumber': x.address.apartmentNumber,
             },
             'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
-            'attributes': [y.id for y in PropertyAttribute.objects.filter(property_id=x.id)]
-        } for x in Property.objects.filter(
+            #'attributes': [y.id for y in PropertyAttribute.objects.filter(property_id=x.id)]
+            'attributes': x.attributes,
+        } for x in Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').filter(
             name__icontains=filters.get('search_box'),
             address__country__contains=filters.get('country'),
             address__municipality__contains=filters.get('municipality'),
@@ -97,7 +99,7 @@ def property_details(request, prop_id):
 
     return render(request, 'realEstate/property_details.html', {
             'property': property,
-            'propertyAttributes': PropertyAttribute.objects.filter(property_id=prop_id),
+            #'propertyAttributes': PropertyAttribute.objects.filter(property_id=prop_id),
             'attributes': Attribute.objects.order_by('description')
         })
 
