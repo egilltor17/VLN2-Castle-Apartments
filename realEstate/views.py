@@ -50,7 +50,7 @@ def index(request):
             },
             'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
             #'attributes': [y.id for y in PropertyAttribute.objects.filter(property_id=x.id)]
-            'attributes': x.attributes,
+            'attributes': [y.id for y in x.attributes.all()],
         } for x in Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').filter(
             name__icontains=filters.get('search_box'),
             address__country__contains=filters.get('country'),
@@ -67,10 +67,11 @@ def index(request):
             nrBathrooms__lte=filters.get('bathrooms_to'),
             constructionYear__gte=filters.get('year_built_from'),
             constructionYear__lte=filters.get('year_built_to'),
+            #attributes__contains=filters.get('attributes'),
             type__contains=filters.get('type')).order_by(request.GET.get('order'))]
         return JsonResponse({'data': properties})
 
-    context = {'properties': Property.objects.order_by('name'),
+    context = {'properties': Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').order_by('name'),
                'propertiesNav': 'active',
                'country_list': country_list,
                'municipality_list': municipality_list,
