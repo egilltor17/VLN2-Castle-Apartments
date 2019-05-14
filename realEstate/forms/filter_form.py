@@ -13,9 +13,4 @@ class FilterForm(forms.Form):
     type = forms.ChoiceField()
 
 
-class FilterForm2(ModelForm):
-    prefix = 'filter'
-
-    class Meta:
-        model
 

@@ -35,6 +35,7 @@ def purchase(request, prop_id):
             pur.property_id = prop_id
             pur.userInfo_id = request.user.id
             pur.save()
+            return redirect('purchase_review/' + str(prop_id))
             return render(request, 'miscellaneous/purchase-review.html', { 'purchase_id': pur.id })
     context = { 'property': get_object_or_404(Property, pk=prop_id),
                 'address_form': address_form,
