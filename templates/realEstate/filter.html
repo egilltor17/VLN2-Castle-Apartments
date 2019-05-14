@@ -7,7 +7,7 @@
                 <select id="country_dropd" name="country">
                         <option value="" selected>All</option>
                     {% for countries in country_list %}
-                        <option value="{{ countries.country }}">{{ countries.country }}</option>
+                        <option value="{{ countries.address.country }}">{{ countries.address.country }}</option>
                     {% endfor %}
                 </select>
             </label>
