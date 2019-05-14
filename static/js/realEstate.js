@@ -71,6 +71,9 @@ $(document).ready(function () {
             filter(e);
         }
     });
+    /*
+    let p1 = '<input id="purchase-continue" class="btn btn-primary pull-right" type="button" value="Continue">'
+    let p2 = '<input id="purchase-confirm" class="btn btn-primary pull-right" type="submit" value="Purchase Property">'
     $('#purchase-cancel').on('click', function (e) {
         console.log('Cancel')
         $('.purchase-property-form :input').prop('disabled', false);
@@ -80,12 +83,17 @@ $(document).ready(function () {
             window.location.replace('/property/' + prop_id);
         }
         $('#purchase-cancel').val( 'Cancel' );
-        $('#purchase-continue').val( 'Continue' ).prop('type', 'button');
+        //$('#purchase-continue').replaceWith(p1);
+        $('#purchase-continue').prop('style', '')
+        $('#purchase-confirm').prop('style', 'display: none')
     });
     $('#purchase-continue').on('click', function (e) {
         console.log('Continue')
         $('.purchase-property-form :input').prop('disabled', true);
         $('#purchase-cancel').prop('disabled', false).val( 'Edit Information' );
-        $('#purchase-continue').prop('disabled', false).val( 'Purchase Property' ).prop('type', 'submit');
+        //$('#purchase-continue').replaceWith(p2);
+        $('#purchase-continue').prop('disabled', false).prop('style', 'display: none')
+        $('#purchase-confirm').prop('disabled', false).prop('style', '')
     });
+    */
 });
