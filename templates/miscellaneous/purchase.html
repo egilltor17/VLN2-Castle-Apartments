@@ -13,8 +13,9 @@
             <legend>Billing Address</legend>
             {{ address_form.as_p }}
         </fieldset>
-        <input id="purchase-cancel" class="btn btn-primary pull-right" type="button" value="Cancel">
-        <input id="purchase-continue" class="btn btn-primary pull-right" type="button" value="Continue">
+        <input id="purchase-cancel" class="btn btn-primary pull-right" type="button" value="Cancel" style="display: none">
+        <input id="purchase-continue" class="btn btn-primary pull-right" type="button" value="Continue" style="display: none">
+        <input id="purchase-edit" class="btn btn-primary pull-right" type="button" value="Edit">
         <input id="purchase-confirm" class="btn btn-primary pull-right" type="submit" value="Confirm">
     </form>
 {% endblock %}
