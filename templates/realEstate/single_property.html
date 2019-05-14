@@ -1,6 +1,8 @@
 <a href="{% url 'property-details' property.id %}" class="link-to-property">
-    <div class="card property" >
-        <img class="property-img" src="{{ property.propertyimage_set.first.image }}"/>
+    <div class="card property">
+        <div id="property-img-box">
+            <img class="property-img" src="{{ property.propertyimage_set.first.image }}"/>
+        </div>
         <div class="card-body">
             <div id="property-name-address">
                 <div id="property-name">

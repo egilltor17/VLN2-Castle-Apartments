@@ -1,0 +1,13 @@
+<a href="{% url 'property-details' property.id %}" class="link-to-property">
+    <div class="card">
+        <div class="card-horizontal">
+
+            <div class="card-body">
+                <h4 class="card-title">{{ property.name }}</h4>
+                <p class="card-text">
+                    Price: {{ property.price }} $, size {{ property.squareMeters }}m<sup>2</sup>, {{ property.nrBedrooms }} bedrooms, {{ property.nrBathrooms }} bathrooms
+                </p>
+            </div>
+        </div>
+    </div>
+</a>
