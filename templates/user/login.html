@@ -2,29 +2,29 @@
 
 {% block content %}
 
-        <div class="container" id="login-container">
-            <div class="row justify-content-center align-items-center"">
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <form class="form form-horizontal", method="post">
-                            {% csrf_token %}
-                                    {{ form.username.label_tag }}
-                                <div class="form-group">
-                                    {{ form.username }}
-                                </div>
-                                    {{ form.password.label_tag }}
-                                <div class="form-group">
-                                    {{ form.password }}
-                                </div>
-                                <input type="submit", class="btn btn-primary" id="login-button" value="Login" />
-                            </form>
-                        </div>
+    <div class="container" id="login-container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-4">
+                <h2>Sign in</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <form class="form form-horizontal", method="post">
+                        {% csrf_token %}
+                                {{ form.username.label_tag }}
+                            <div class="form-group">
+                                {{ form.username }}
+                            </div>
+                                {{ form.password.label_tag }}
+                            <div class="form-group">
+                                {{ form.password }}
+                            </div>
+                            <input type="submit", class="btn btn-primary" id="login-button" value="Login" />
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-
+    </div>
 
 
 {% endblock %}
