@@ -34,10 +34,12 @@
                 <div class="card">
                     <div class="card-body">
                         {% if user.is_authenticated  %}
-                            <form method="post">
-                                {% csrf_token %}
-                                <input type="submit" class="btn btn-primary our-button" id="favorite-button" value="Favorite property">
-                            </form>
+                            {% csrf_token %}
+                            {% if not is_favorite %}
+                                <a href="{% url 'favorite_property' property.id %}"><img class="favorite-heart" src="/static/images/unfilled_heart.png" alt="Favorite heart"></a>
+                            {% else %}
+                                <a href="{% url 'unfavorite_property' property.id %}"><img class="favorite-heart" src="/static/images/filled_heart.png" alt="Unfavorite heart"></a>
+                            {% endif %}
                         {% endif %}
                         <h5 class="card-title">{{ property.name }}</h5>
                         <p class="card-text">{{ property.address }}</p>
