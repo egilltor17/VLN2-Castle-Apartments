@@ -15,12 +15,12 @@
 - [x] 10 | A buyer should be able to see an description of a property
 - [x] 11 | A buyer should be able to see images of a property
 - [x] 12 | A buyer should be able to see who the seller is for a property
-- [x]* 13 | A buyer should be able to see a seller profile 
-- [x]* 14 | A buyer should be able to buy a property
+- [x] 13 | A buyer should be able to see a seller profile 
+- [x] 14 | A buyer should be able to buy a property
 - [x] 15 | A buyer should be able to fill in his personal info when buying a property: street name, house number, city, country, postal code, social security number
 - [x] 16 | A buyer should be able to pay with a credit card
-- [ ] 17 | A buyer should be able to review his purchase before confirming it
-- [ ] 18 | A buyer should be able to confirm his purchase
+- [x]* 17 | A buyer should be able to review his purchase before confirming it
+- [x] 18 | A buyer should be able to confirm his purchase
 - [ ] 19 | The site should send a confirmation mail after a buyer has bought a property
 
 ### Priority B requirements
