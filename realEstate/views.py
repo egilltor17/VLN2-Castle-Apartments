@@ -10,16 +10,14 @@ from realEstate.models import Property, PropertyImage, Attribute, Address  #, Pr
 from user.models import RecentlyViewed, Favorites
 
 
-
 def index(request):
-    country_list = Address.objects.distinct('country')
+    country_list = Property.objects.filter(sold=False).distinct('address__country')
     municipality_list = Address.objects.distinct('municipality')
     city_list = Address.objects.distinct('city')
     postcode_list = Address.objects.distinct('postCode')
     type_list = Property.objects.distinct('type')
     year_built_list = Property.objects.distinct('constructionYear')
     attribute_list = Attribute.objects.distinct('description')
-
     if request.is_ajax():
         filters = request.GET
         properties = [{
@@ -54,6 +52,7 @@ def index(request):
         } for x in Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').filter(
             name__icontains=filters.get('search_box'),
             address__country__contains=filters.get('country'),
+            sold=False,
             address__municipality__contains=filters.get('municipality'),
             address__city__contains=filters.get('city'),
             address__postCode__contains=filters.get('postcode'),
