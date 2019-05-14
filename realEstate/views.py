@@ -12,11 +12,16 @@ from user.models import RecentlyViewed, Favorites
 
 def index(request):
     country_list = Property.objects.filter(sold=False).distinct('address__country')
-    municipality_list = Address.objects.distinct('municipality')
-    city_list = Address.objects.distinct('city')
-    postcode_list = Address.objects.distinct('postCode')
-    type_list = Property.objects.distinct('type')
-    year_built_list = Property.objects.distinct('constructionYear')
+    #municipality_list = Address.objects.distinct('municipality')
+    municipality_list = Property.objects.filter(sold=False).distinct('address__municipality')
+    #city_list = Address.objects.distinct('city')
+    city_list = Property.objects.filter(sold=False).distinct('address__city')
+    #postcode_list = Address.objects.distinct('postCode')
+    postcode_list = Property.objects.filter(sold=False).distinct('address__postCode')
+    #type_list = Property.objects.distinct('type')
+    type_list = Property.objects.filter(sold=False).distinct('type')
+    #year_built_list = Property.objects.distinct('constructionYear')
+    year_built_list = Property.objects.filter(sold=False).distinct('constructionYear')
     attribute_list = Attribute.objects.distinct('description')
     if request.is_ajax():
         filters = request.GET
@@ -67,7 +72,7 @@ def index(request):
             constructionYear__lte=filters.get('year_built_to'),
             type__contains=filters.get('type')).order_by(request.GET.get('order'))
                                           if 'search_box' in request.GET
-                                          else Property.objects.all())]
+                                          else Property.objects.filter(sold=False))]
         return JsonResponse({'data': properties})
 
     context = {#'properties': Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').order_by('name'),
