@@ -30,6 +30,12 @@ def profile(request):
     return render(request, 'user/profile.html', context)
 
 
+def view_other_profiles(request, user_id):
+    context = {'properties': Property.objects.filter(seller__pk=user_id).order_by('-dateCreated'),
+               'seller': User.objects.get(pk=user_id)}
+    return render(request, 'user/sellerProfile.html', context)
+
+
 @login_required
 def editProfile(request):
     profile_instance = Profile.objects.get(pk=request.user.pk)
