@@ -6,6 +6,7 @@ Castle_Apartments/__pycache__
 db.sqlite3
 
 # not sure 
+venv
 .idea
 
 .DS_Store
