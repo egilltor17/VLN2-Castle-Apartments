@@ -63,8 +63,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Attributes</h5>
                         <ul>
-                            {% for proAtt in propertyAttributes %}
-                                <li>{{ proAtt.attribute.description }}</li>
+                            {% for proAtt in property.attributes.all %}
+                                <li>{{ proAtt.description }}</li>
                             {% endfor %}
                         </ul>
                     </div>

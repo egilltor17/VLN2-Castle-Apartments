@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    var CSRF_TOKEN = '{{ csrf_token }}';
     function filter(e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
@@ -60,5 +61,22 @@ $(document).ready(function () {
         if(e.which == 13) {
             filter(e);
         }
+    });
+    $('#purchase-cancel').on('click', function (e) {
+        console.log('Cancel')
+        $('.purchase-property-form :input').prop('disabled', false);
+        if($('#purchase-cancel').val() === 'Cancel') {
+            let url_parts = $(location).attr('href').split("/");
+            let prop_id = url_parts[url_parts.length-1];
+            window.location.replace('/property/' + prop_id);
+        }
+        $('#purchase-cancel').val( 'Cancel' );
+        $('#purchase-continue').val( 'Continue' ).prop('type', 'button');
+    });
+    $('#purchase-continue').on('click', function (e) {
+        console.log('Continue')
+        $('.purchase-property-form :input').prop('disabled', true);
+        $('#purchase-cancel').prop('disabled', false).val( 'Edit Information' );
+        $('#purchase-continue').prop('disabled', false).val( 'Purchase Property' ).prop('type', 'submit');
     });
 });

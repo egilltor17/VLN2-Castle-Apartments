@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h2>Thank you for PURCHASING your property with Castle Apartments!</h2>
-    <p>Please fill out the form below</p>
+    <h2 id="purchase-heading">Thank you for PURCHASING your property with Castle Apartments!</h2>
+    <p if="purchase-paragraph">Please fill out the form below</p>
 
     <form class="form form-horizontal purchase-property-form" method="post">
         {% csrf_token %}
@@ -13,7 +13,10 @@
             <legend>Billing Address</legend>
             {{ address_form.as_p }}
         </fieldset>
-        <input class="btn btn-primary pull-right" type="submit" value="Purchase Property">
+        <input id="purchase-cancel" class="btn btn-primary pull-right" type="button" value="Cancel">
+        <input id="purchase-continue" class="btn btn-primary pull-right" type="button" value="Continue">
     </form>
-
+    <script>
+        var CSRF_TOKEN = '{{ csrf_token }}';
+    </script>
 {% endblock %}
