@@ -1,7 +1,18 @@
 $(document).ready(function () {
+    //
+    //
+    //Variables
+    //
+    //
     let loading = '<div id="loading"><p><img src="/media/icons/ajax-loader.gif" alt="Loading..."></p></div>'
     let result_msg = '<div id="result-msg"></div>'
+
     let url_parts = $(location).attr('href').split("/");
+    //
+    //
+    //Loading the initial property list.
+    //
+    //
     if (window.location.pathname === '/property/')
     {
         $.ajax({
@@ -46,6 +57,11 @@ $(document).ready(function () {
             },
         });
     }
+    //
+    //
+    //Filtering function
+    //
+    //
     function filter(e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
