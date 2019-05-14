@@ -36,9 +36,10 @@ class Property(models.Model):
     constructionYear = models.IntegerField()
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
+    attributes = models.ManyToManyField(Attribute)
     dateCreated = models.DateTimeField(default=timezone.now)
     sold = models.BooleanField(default=False)
-    image = models.CharField(max_length=2048)
+    #image = models.CharField(max_length=2048)
 
     def __str__(self):
         return self.name
@@ -52,6 +53,6 @@ class PropertyImage(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
 
 
-class PropertyAttribute(models.Model):
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
-    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
+#class PropertyAttribute(models.Model):
+#    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+#    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
