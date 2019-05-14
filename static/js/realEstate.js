@@ -1,6 +1,7 @@
 $(document).ready(function () {
     let loading = '<div id="loading"><p><img src="/media/icons/ajax-loader.gif" alt="Loading..."></p></div>'
     let result_msg = '<div id="result-msg"></div>'
+    let url_parts = $(location).attr('href').split("/");
     if (window.location.pathname === '/property/')
     {
         $.ajax({
@@ -113,29 +114,35 @@ $(document).ready(function () {
             filter(e);
         }
     });
-    /*
-    let p1 = '<input id="purchase-continue" class="btn btn-primary pull-right" type="button" value="Continue">'
-    let p2 = '<input id="purchase-confirm" class="btn btn-primary pull-right" type="submit" value="Purchase Property">'
-    $('#purchase-cancel').on('click', function (e) {
-        console.log('Cancel')
-        $('.purchase-property-form :input').prop('disabled', false);
-        if($('#purchase-cancel').val() === 'Cancel') {
-            let url_parts = $(location).attr('href').split("/");
-            let prop_id = url_parts[url_parts.length-1];
-            window.location.replace('/property/' + prop_id);
-        }
-        $('#purchase-cancel').val( 'Cancel' );
-        //$('#purchase-continue').replaceWith(p1);
+    if (url_parts[url_parts.length-2] === 'purchase') {
+        $('#purchase-cancel').prop('style', '')
         $('#purchase-continue').prop('style', '')
+        $('#purchase-edit').prop('style', 'display: none')
         $('#purchase-confirm').prop('style', 'display: none')
+    }
+    $('#purchase-cancel').on('click', function (e) {
+        let prop_id = url_parts[url_parts.length-1];
+        window.location.replace('/property/' + prop_id);
     });
     $('#purchase-continue').on('click', function (e) {
-        console.log('Continue')
         $('.purchase-property-form :input').prop('disabled', true);
-        $('#purchase-cancel').prop('disabled', false).val( 'Edit Information' );
-        //$('#purchase-continue').replaceWith(p2);
+        $('#purchase-cancel').prop('disabled', false).prop('style', 'display: none');
         $('#purchase-continue').prop('disabled', false).prop('style', 'display: none')
+        $('#purchase-edit').prop('disabled', false).prop('style', '')
         $('#purchase-confirm').prop('disabled', false).prop('style', '')
     });
-    */
+    $('#purchase-edit').on('click', function (e) {
+        $('.purchase-property-form :input').prop('disabled', false);
+        $('#purchase-cancel').prop('style', '');
+        $('#purchase-continue').prop('style', '')
+        $('#purchase-edit').prop('style', 'display: none')
+        $('#purchase-confirm').prop('style', 'display: none')
+    });
+    $('#purchase-confirm').on('click', function (e) {
+        $('.purchase-property-form :input').prop('disabled', false);
+        $('#purchase-cancel').prop('style', '');
+        $('#purchase-continue').prop('style', '')
+        $('#purchase-edit').prop('style', 'display: none')
+        $('#purchase-confirm').prop('style', 'display: none')
+    });
 });

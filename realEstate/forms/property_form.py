@@ -1,5 +1,5 @@
 from django.forms import ModelForm, widgets
-from realEstate.models import Address, Property, PropertyImage
+from realEstate.models import Address, Attribute, Property, PropertyImage
 
 # form takes in Property attributes
 
@@ -25,4 +25,12 @@ class PropertyImagesForm(ModelForm):
 
     class Meta:
         model = PropertyImage
+        exclude = [ 'id', 'property' ]
+
+
+class AttributeForm(ModelForm):
+    prefix = 'property-attribute'
+
+    class Meta:
+        model = Attribute
         exclude = [ 'id', 'property' ]
