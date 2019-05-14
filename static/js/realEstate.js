@@ -29,10 +29,19 @@ $(document).ready(function () {
                     return `<a href="/property/${d.id}" class="link-to-property">
                                 <div class="card property">
                                     <img class="property-img" src="${d.firstImage}"/>
-                                    <div class="card-body">    
-                                        <h5 class="card-title">${d.name}</h5>
-                                        <h6 class="card-subtitle mb-2">${d.price} $</h6>
-                                        <p class="card-text">Size ${d.squareMeters}m<sup>2</sup>, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms</p>
+                                    <div class="card-body">  
+                                        <div id="property-name-address">
+                                            <div id="property-name">  
+                                                <h5 class="card-title">${d.name}</h5>
+                                            </div>
+                                            <div id="property-address">
+                                                <p>${d.address.city}, ${d.address.country}</p>
+                                            </div>
+                                        </div>
+                                        <div id="property-price-info">
+                                            <p class="card-subtitle mb-2">Price: ${d.price} $ <br>
+                                            Size: ${d.squareMeters}m<sup>2</sup>, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms</p>
+                                        </div>
                                     </div>
                                 </div>
                             </a>`
