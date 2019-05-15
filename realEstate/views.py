@@ -6,8 +6,8 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from datetime import datetime
 
-from realEstate.forms.property_form import AddressForm, PropertyForm, AttributeForm
-from realEstate.models import Property, PropertyImage, Attribute, Address
+from realEstate.forms.property_form import AddressForm, PropertyForm
+from realEstate.models import Property, PropertyImage, Attribute
 from user.models import RecentlyViewed, Favorites
 
 

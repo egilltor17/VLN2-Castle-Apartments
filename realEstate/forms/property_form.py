@@ -10,6 +10,14 @@ class AddressForm(ModelForm):
     class Meta:
         model = Address
         exclude = [ 'id', 'country' ]
+        widgets = {
+            'municipality': widgets.TextInput(attrs={'class': 'form-control'}),
+            'city': widgets.TextInput(attrs={'class': 'form-control'}),
+            'postCode': widgets.TextInput(attrs={'class': 'form-control'}),
+            'streetName': widgets.TextInput(attrs={'class': 'form-control'}),
+            'houseNumber': widgets.TextInput(attrs={'class': 'form-control'}),
+            'apartmentNumber': widgets.TextInput(attrs={'class': 'form-control'}),
+        }
 
 
 class PropertyForm(ModelForm):
@@ -19,6 +27,14 @@ class PropertyForm(ModelForm):
         model = Property
         exclude = [ 'id', 'address', 'seller', 'dateCreated', 'sold' ]
         widgets = {
+            'name': widgets.TextInput(attrs={'class': 'form-control'}),
+            'description': widgets.Textarea(attrs={'class': 'form-control'}),
+            'type': widgets.TextInput(attrs={'class': 'form-control'}),
+            'price': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'nrBedrooms': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'nrBathrooms': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'squareMeters': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'constructionYear': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
             'attributes': widgets.CheckboxSelectMultiple(attrs={}),
         }
 
@@ -29,11 +45,6 @@ class PropertyImagesForm(ModelForm):
     class Meta:
         model = PropertyImage
         exclude = [ 'id', 'property' ]
-
-
-class AttributeForm(ModelForm):
-    prefix = 'property-attribute'
-
-    class Meta:
-        model = Attribute
-        exclude = [ 'id', 'property' ]
+        widgets = {
+            'image': widgets.TextInput(attrs={'class': 'form-control'}),
+        }
