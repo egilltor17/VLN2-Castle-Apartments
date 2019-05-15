@@ -91,7 +91,10 @@ $(document).ready(function () {
 
             },
             success: function(resp) {
-                console.log(resp)
+                console.log(resp);
+                $(this).html('');
+                let newHTML = resp.data.map
+
             },
             complete: function(){
                 $('#filter_props').prop('disabled', false);

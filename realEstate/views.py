@@ -23,7 +23,6 @@ def index(request):
     if request.is_ajax() and 'enable_municipalities' in request.GET:
         country = request.GET.get('country')
         municipality_list = [{'municipalities': x.address.municipality} for x in property_db.filter(Q(address__country__contains=country))]
-        print(municipality_list)
         return JsonResponse({'data': municipality_list})
 
     if request.is_ajax() and ('initial_filter' in request.GET or 'search_box' in request.GET):
