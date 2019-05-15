@@ -9,7 +9,7 @@ class AddressForm(ModelForm):
 
     class Meta:
         model = Address
-        exclude = [ 'id' ]
+        exclude = [ 'id', 'country' ]
 
 
 class PropertyForm(ModelForm):

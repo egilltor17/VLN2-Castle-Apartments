@@ -27,7 +27,10 @@ def purchase(request, prop_id):
             prop.save()
 
             card = card_info_form.save(commit=False)
-            card.address = address_form.save()
+            address = address_form.save(commit=False)
+            address.country = request.POST['country-list']
+            address.save()
+            card.address = address
             card.save()
 
             pur = purchase_form.save(commit=False)

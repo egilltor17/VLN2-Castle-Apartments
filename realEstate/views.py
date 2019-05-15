@@ -136,7 +136,10 @@ def create(request):
         if property_form.is_valid() and address_form.is_valid() and image_form.is_valid():
             prop = property_form.save(commit=False)
             prop.seller = User.objects.get(pk=request.user.id)
-            prop.address = address_form.save()
+            address = address_form.save(commit=False)
+            address.country = request.POST['country-list']
+            address.save()
+            prop.address = address
             prop.save()
             property_form.save_m2m()
 
@@ -173,7 +176,10 @@ def update(request, prop_id):
 
         if property_form.is_valid() and address_form.is_valid() and image_form.is_valid():
             prop = property_form.save(commit=False)
-            prop.address = address_form.save()
+            address = address_form.save(commit=False)
+            address.country = request.POST['country-list']
+            address.save()
+            prop.address = address
             prop.save()
             property_form.save_m2m()
 
