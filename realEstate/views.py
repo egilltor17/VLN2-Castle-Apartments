@@ -1,23 +1,25 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.forms import modelformset_factory, inlineformset_factory
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from datetime import datetime
 
-from realEstate.forms.property_form import AddressForm, PropertyForm
-from realEstate.models import Property, PropertyImage, Attribute, Address  #, PropertyAttribute
+from realEstate.forms.property_form import AddressForm, PropertyForm, AttributeForm
+from realEstate.models import Property, PropertyImage, Attribute, Address
 from user.models import RecentlyViewed, Favorites
 
-def index(request):
-    country_list = Address.objects.distinct('country')
-    municipality_list = Address.objects.distinct('municipality')
-    city_list = Address.objects.distinct('city')
-    postcode_list = Address.objects.distinct('postCode')
-    type_list = Property.objects.distinct('type')
-    year_built_list = Property.objects.distinct('constructionYear')
-    attribute_list = Attribute.objects.distinct('description')
 
+def index(request):
+    propery_db = Property.objects.filter(sold=False).prefetch_related('propertyimage_set').select_related('seller__profile', 'address')
+    country_list = propery_db.distinct('address__country')
+    municipality_list = propery_db.distinct('address__municipality')
+    city_list = propery_db.distinct('address__city')
+    postcode_list = propery_db.distinct('address__postCode')
+    type_list = propery_db.distinct('type')
+    year_built_list = propery_db.distinct('constructionYear')
+    attribute_list = Attribute.objects.distinct('description')
     if request.is_ajax():
         filters = request.GET
         properties = [{
@@ -47,28 +49,35 @@ def index(request):
                 'apartmentNumber': x.address.apartmentNumber,
             },
             'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
-            #'attributes': [y.id for y in PropertyAttribute.objects.filter(property_id=x.id)]
-            #'attributes': x.attributes,
-        } for x in Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').filter(
-            name__icontains=filters.get('search_box'),
-            address__country__contains=filters.get('country'),
-            address__municipality__contains=filters.get('municipality'),
-            address__city__contains=filters.get('city'),
-            address__postCode__contains=filters.get('postcode'),
-            price__gte=filters.get('price_from'),
-            price__lte=filters.get('price_to'),
-            squareMeters__gte=filters.get('size_from'),
-            squareMeters__lte=filters.get('size_to'),
-            nrBedrooms__gte=filters.get('bedrooms_from'),
-            nrBedrooms__lte=filters.get('bedrooms_to'),
-            nrBathrooms__gte=filters.get('bathrooms_from'),
-            nrBathrooms__lte=filters.get('bathrooms_to'),
-            constructionYear__gte=filters.get('year_built_from'),
-            constructionYear__lte=filters.get('year_built_to'),
-            type__contains=filters.get('type')).order_by(request.GET.get('order'))]
+            'attributes': [y.id for y in x.attributes.all()],
+        } for x in (propery_db.filter(
+            Q(name__icontains=filters.get('search_box')) |
+            Q(description__icontains=filters.get('search_box')) |
+            Q(address__streetName__icontains=filters.get('search_box')),
+            Q(address__country__contains=filters.get('country')),
+            ( Q(address__municipality__contains=filters.get('municipality')) |
+              Q(address__municipality__isnull=True)
+              if filters.get('municipality') == "" else
+              Q(address__municipality__contains=filters.get('municipality')) ),
+            Q(address__city__contains=filters.get('city')),
+            Q(address__postCode__contains=filters.get('postcode')),
+            Q(price__gte=filters.get('price_from')),
+            Q(price__lte=filters.get('price_to')),
+            Q(squareMeters__gte=filters.get('size_from')),
+            Q(squareMeters__lte=filters.get('size_to')),
+            Q(nrBedrooms__gte=filters.get('bedrooms_from')),
+            Q(nrBedrooms__lte=filters.get('bedrooms_to')),
+            Q(nrBathrooms__gte=filters.get('bathrooms_from')),
+            Q(nrBathrooms__lte=filters.get('bathrooms_to')),
+            Q(constructionYear__gte=filters.get('year_built_from')),
+            Q(constructionYear__lte=filters.get('year_built_to')),
+            Q(type__contains=filters.get('type'))
+        ).order_by(request.GET.get('order'))
+            if 'search_box' in request.GET
+            else propery_db)]
         return JsonResponse({'data': properties})
 
-    context = {'properties': Property.objects.order_by('name'),
+    context = {#'properties': proberty_db.order_by('name'),
                'propertiesNav': 'active',
                'country_list': country_list,
                'municipality_list': municipality_list,
@@ -95,7 +104,6 @@ def property_details(request, prop_id):
             is_favorite = True
     return render(request, 'realEstate/property_details.html', {
             'property': property,
-            #'propertyAttributes': PropertyAttribute.objects.filter(property_id=prop_id),
             'attributes': Attribute.objects.order_by('description'),
             'is_favorite': is_favorite
         })
@@ -130,6 +138,8 @@ def create(request):
             prop.seller = User.objects.get(pk=request.user.id)
             prop.address = address_form.save()
             prop.save()
+
+            prop.attributes.add(Attribute.objects.get(pk=1))
 
             images = image_form.save(commit=False)
             for image in images:
@@ -166,6 +176,8 @@ def update(request, prop_id):
             prop = property_form.save(commit=False)
             prop.address = address_form.save()
             prop.save()
+            print(prop.attributes)
+            prop.attributes.add(Attribute.objects.get(pk=1))
 
             image_form.save()
             return redirect(reverse('user-profile'))

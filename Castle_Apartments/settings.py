@@ -25,7 +25,7 @@ SECRET_KEY = 'l^-!_e)5b&nyhmedzbm1$)-12k12-g4z!56+%re=jv@$a=%9)^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['kastalar.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -40,9 +40,12 @@ INSTALLED_APPS = [
     'miscellaneous.apps.MiscellaneousConfig',
     'user.apps.UsersConfig',
     'realEstate.apps.RealestateConfig',
+    'debug_toolbar',
+    'Castle_Apartments'
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -50,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'Castle_Apartments.urls'
@@ -125,13 +129,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
+# Extra lookup directories for collectstatic to find static files
+STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-]
+)
+#  Add configuration for static files storage using whitenoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = '/user/profile'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+INTERNAL_IPS = { '127.0.0.1', 'localhost' }

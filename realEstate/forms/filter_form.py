@@ -12,3 +12,5 @@ class FilterForm(forms.Form):
     rooms_to = forms.DecimalField()
     type = forms.ChoiceField()
 
+
+

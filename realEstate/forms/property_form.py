@@ -1,5 +1,5 @@
 from django.forms import ModelForm, widgets
-from realEstate.models import Address, Property, PropertyImage
+from realEstate.models import Address, Attribute, Property, PropertyImage
 
 # form takes in Property attributes
 
@@ -18,27 +18,9 @@ class PropertyForm(ModelForm):
     class Meta:
         model = Property
         exclude = [ 'id', 'address', 'seller', 'dateCreated', 'sold' ]
-
-
-class PropertyFormNone(ModelForm):
-    prefix = 'property'
-
-    class Meta:
-        model = Property
-        exclude = [ 'id',
-                    'name',
-                    'description',
-                    'type',
-                    'price',
-                    'nrBedrooms',
-                    'nrBathrooms',
-                    'squareMeters',
-                    'constructionYear',
-                    'dateCreated',
-                    'sold',
-                    'address',
-                    'seller',
-                    'image' ]
+        widgets = {
+            'attributes': widgets.CheckboxSelectMultiple(attrs={}),
+        }
 
 
 class PropertyImagesForm(ModelForm):
@@ -46,4 +28,12 @@ class PropertyImagesForm(ModelForm):
 
     class Meta:
         model = PropertyImage
+        exclude = [ 'id', 'property' ]
+
+
+class AttributeForm(ModelForm):
+    prefix = 'property-attribute'
+
+    class Meta:
+        model = Attribute
         exclude = [ 'id', 'property' ]

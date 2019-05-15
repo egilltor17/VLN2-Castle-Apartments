@@ -33,6 +33,8 @@ def profile(request):
 def view_other_profiles(request, user_id):
     context = {'properties': Property.objects.filter(seller__pk=user_id).order_by('-dateCreated'),
                'seller': User.objects.get(pk=user_id)}
+    if request.user.id == user_id:
+        return redirect('user-profile')
     return render(request, 'user/sellerProfile.html', context)
 
 

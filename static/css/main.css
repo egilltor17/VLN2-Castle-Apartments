@@ -84,30 +84,23 @@
     margin: auto;
 }
 
-#update-profile-button {
-    margin: 20px;
-}
-
-#id_username {
+#id_username, #id_password{
     border: 1px solid #dbdbdb;
     border-radius: 4px;
     padding: 3px;
     width: 100%;
 }
 
-#id_password {
+#id_user-username, #id_user-first_name,
+#id_user-last_name, #id_user-email,
+#id_user-password1, #id_user-password2,
+#id_profile-phone{
     border: 1px solid #dbdbdb;
     border-radius: 4px;
     padding: 3px;
-    width: 100%;
+    width: 50%;
 }
 
-#login-container {
-    margin: 0;
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    min-width: 45rem;
+.helptext {
+    display: none;
 }
