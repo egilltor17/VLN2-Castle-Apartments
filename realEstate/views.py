@@ -12,17 +12,20 @@ from user.models import RecentlyViewed, Favorites
 
 
 def index(request):
-    propery_db = Property.objects.filter(sold=False).prefetch_related('propertyimage_set').select_related('seller__profile', 'address')
-    country_list = propery_db.distinct('address__country')
-    municipality_list = propery_db.distinct('address__municipality')
-    city_list = propery_db.distinct('address__city')
-    postcode_list = propery_db.distinct('address__postCode')
-    type_list = propery_db.distinct('type')
-    year_built_list = propery_db.distinct('constructionYear')
+    property_db = Property.objects.filter(sold=False).prefetch_related('propertyimage_set').select_related('seller__profile', 'address')
+    country_list = property_db.distinct('address__country')
+    municipality_list = property_db.none()
+    city_list = property_db.distinct('address__city')
+    postcode_list = property_db.distinct('address__postCode')
+    type_list = property_db.distinct('type')
+    year_built_list = property_db.distinct('constructionYear')
     attribute_list = Attribute.objects.distinct('description')
     if request.is_ajax() and 'enable_municipalities' in request.GET:
         country = request.GET.get('country')
-        munici_data = Property.objects.filter(sold=False).distinct('address__municipality')
+        municipality_list = [{'municipalities': x.address.municipality} for x in property_db.filter(Q(address__country__contains=country))]
+        print(municipality_list)
+        return JsonResponse({'data': municipality_list})
+
     if request.is_ajax() and ('initial_filter' in request.GET or 'search_box' in request.GET):
         filters = request.GET
         properties = [{
@@ -53,7 +56,7 @@ def index(request):
             },
             'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
             'attributes': [y.id for y in x.attributes.all()],
-        } for x in (propery_db.filter(
+        } for x in (property_db.filter(
             Q(name__icontains=filters.get('search_box')) |
             Q(description__icontains=filters.get('search_box')) |
             Q(address__streetName__icontains=filters.get('search_box')),
@@ -77,7 +80,7 @@ def index(request):
             Q(type__contains=filters.get('type'))
         ).order_by(request.GET.get('order'))
             if 'search_box' in request.GET
-            else propery_db)]
+            else property_db)]
         return JsonResponse({'data': properties})
 
     context = {#'properties': proberty_db.order_by('name'),

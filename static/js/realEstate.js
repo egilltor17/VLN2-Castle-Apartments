@@ -82,12 +82,20 @@ $(document).ready(function () {
         $.ajax({
             type: 'GET',
             data: {
+                enable_municipalities: '',
                 country: selected_country,
-                action: 'enable_municipalities'
             },
             url: '/property',
+            beforeSend: function() {
+                $('#filter_props').prop('disabled', true);
+
+            },
             success: function(resp) {
                 console.log(resp)
+            },
+            complete: function(){
+                $('#filter_props').prop('disabled', false);
+
             }
         })
     });
