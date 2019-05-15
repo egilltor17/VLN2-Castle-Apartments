@@ -84,6 +84,10 @@
     margin: auto;
 }
 
+#update-profile-button {
+    margin: 20px;
+}
+
 #id_username {
     border: 1px solid #dbdbdb;
     border-radius: 4px;
