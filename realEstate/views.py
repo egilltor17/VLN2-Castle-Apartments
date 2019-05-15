@@ -94,6 +94,7 @@ def index(request):
 def property_details(request, prop_id):
     property = get_object_or_404(Property, pk=prop_id)
     is_favorite = False
+    num_favorites = Favorites.objects.filter(property_id=prop_id).count()
     if request.user.is_authenticated:
         recently_viewed = RecentlyViewed()
         recently_viewed.timestamp = datetime.now()
@@ -107,7 +108,8 @@ def property_details(request, prop_id):
     return render(request, 'realEstate/property_details.html', {
             'property': property,
             'attributes': Attribute.objects.order_by('description'),
-            'is_favorite': is_favorite
+            'is_favorite': is_favorite,
+            'num_favorites': num_favorites
         })
 
 @login_required()
