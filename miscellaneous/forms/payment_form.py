@@ -11,9 +11,9 @@ class PaymentInfoForm(ModelForm):
         widgets = {
             'cardNumber': widgets.TextInput(attrs={ 'class': 'form-control', 'pattern': '\d*', 'minlength': 16, 'maxlength': 16 }),
             'cardName': widgets.TextInput(attrs={ 'class': 'form-control' }),
-            'cardCVC': widgets.NumberInput(attrs={ 'class': 'form-control', 'min': '0', 'max': '999' }),
-            'cardExpiryMonth': widgets.NumberInput(attrs={ 'class': 'form-control', 'min': '1', 'max': '12' }),
-            'cardExpiryYear': widgets.NumberInput(attrs={ 'class': 'form-control', 'min': '19', 'maxlength': '99' }),
+            'cardCVC': widgets.TextInput(attrs={ 'class': 'form-control', 'minlength': 3, 'maxlength': 3 }),
+            'cardExpiryMonth': widgets.NumberInput(attrs={ 'class': 'form-control', 'min': 1, 'max': 12 }),
+            'cardExpiryYear': widgets.NumberInput(attrs={ 'class': 'form-control', 'min': 19, 'max': 99 }),
         }
 
 
