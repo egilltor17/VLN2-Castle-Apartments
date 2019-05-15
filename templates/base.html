@@ -27,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item {{ propertiesNav }}">
-                        <a class="nav-link" href="{% url 'property-index' %}">Properties<span class="sr-only">(current)</span></a>
+                        <a class="nav-link {% if 'property' in request.path %} active {% endif %}" href="{% url 'property-index' %}">Properties<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item {{ about_us }}">
                         <a class="nav-link" href="{% url 'about-us' %}">About us</a>
@@ -43,12 +43,12 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'logout' %}">Logout<span class="sr-only">(current)</span></a>
                             </li>
-                            {% else %}
+                        {% else %}
                             <li class="nav-item {{ sign_in }}">
-                                <a class="nav-link" href="{% url 'login' %}">Sign in<span class="sr-only">(current)</span></a>
+                                <a class="nav-link {% if 'login' in request.path %} active {% endif %}" href="{% url 'login' %}" >Sign in<span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item {{ register }}">
-                                <a class="nav-link" href="{% url 'register' %}">Register<span class="sr-only">(current)</span></a>
+                                <a class="nav-link {% if 'register' in request.path %} active {% endif %}" href="{% url 'register' %}">Register<span class="sr-only">(current)</span></a>
                             </li>
                         {% endif %}
                     </ul>

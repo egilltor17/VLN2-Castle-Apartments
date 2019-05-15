@@ -40,6 +40,15 @@
                             {% else %}
                                 <a href="{% url 'unfavorite_property' property.id %}"><img class="favorite-heart" src="/static/images/filled_heart.png" alt="Unfavorite heart"></a>
                             {% endif %}
+
+                            {% if num_favorites > 0 %}
+                                <h6 id="num-favorites">{{ num_favorites }} </h6>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'login' %}"><img class="favorite-heart" src="/static/images/unfilled_heart.png" alt="Favorite heart"></a>
+                            {% if num_favorites > 0 %}
+                                <h6 id="num-favorites">{{ num_favorites }} </h6>
+                            {% endif %}
                         {% endif %}
                         <h5 class="card-title">{{ property.name }}</h5>
                         <p class="card-text">{{ property.address }}</p>
@@ -63,7 +72,11 @@
                         </p>
                     </div>
                     <!-- Button is left outside the div on purpose -->
-                    <a href="{% url 'purchase' property.id %}" class="btn btn-primary" class="our-button">Buy Property</a>
+                    {% if property.sold %}
+                        <button href="#" class="btn btn-primary" class="our-button" disabled>Sold</button>
+                    {% else %}
+                        <a href="{% url 'purchase' property.id %}" class="btn btn-primary" class="our-button">Buy Property</a>
+                    {% endif %}
                 </div>
 
                 <!-- Attributes -->

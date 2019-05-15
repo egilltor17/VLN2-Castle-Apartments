@@ -5,9 +5,10 @@
     <div class="container" >
         <div class="row justify-content-center">
             <div class="col-7">
-                <h2>Register</h2>
+                <h2>Create an account</h2>
                 <div class="card" >
-                    <div class="card-body">
+                    <div class="card-body" id="register-card">
+                        <p>Already have an account? <a id="sign-in-link" href="{% url 'login' %}">Sign in</a></p>
                         <form class="form form-horizontal", method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                             {{ registration_form }}
@@ -15,6 +16,8 @@
                             {{ profile_form.as_p }}
                             <input type="submit", class="btn btn-primary" id="sign-up-button" value="Sign up" />
                         </form>
+                        <br>
+                        <p>By creating an account you'll be able to sell, favorite and see your recently viewed properties!</p>
                     </div>
                 </div>
             </div>
