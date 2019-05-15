@@ -8,13 +8,34 @@ $(document).ready(function () {
     let result_msg = '<div id="result-msg"></div>'
 
     let url_parts = $(location).attr('href').split("/");
+
+    function propertyHTML(d) {
+        return `<a href="/property/${d.id}" class="link-to-property">
+                    <div class="card property">
+                        <img class="property-img" src="${d.firstImage}"/>
+                        <div class="card-body">  
+                            <div id="property-name-address">
+                                <div id="property-name">  
+                                    <h5 class="card-title">${d.name}</h5>
+                                </div>
+                                <div id="property-address">
+                                    <p>${d.address.city}, ${d.address.country}</p>
+                                </div>
+                            </div>
+                            <div id="property-price-info">
+                                <p class="card-subtitle mb-2">Price: ${d.price} $ <br>
+                                Size: ${d.squareMeters}m<sup>2</sup>, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>`
+    }
     //
     //
     //Loading the initial property list.
     //
     //
-    if (window.location.pathname === '/property/')
-    {
+    if (window.location.pathname === '/property/') {
         $.ajax({
             url: '/property/',
             type: 'GET',
@@ -26,25 +47,7 @@ $(document).ready(function () {
             },
             success: function (resp) {
                 let newHTML = resp.data.map(function(d) {
-                    return `<a href="/property/${d.id}" class="link-to-property">
-                                <div class="card property">
-                                    <img class="property-img" src="${d.firstImage}"/>
-                                    <div class="card-body">  
-                                        <div id="property-name-address">
-                                            <div id="property-name">  
-                                                <h5 class="card-title">${d.name}</h5>
-                                            </div>
-                                            <div id="property-address">
-                                                <p>${d.address.city}, ${d.address.country}</p>
-                                            </div>
-                                        </div>
-                                        <div id="property-price-info">
-                                            <p class="card-subtitle mb-2">Price: ${d.price} $ <br>
-                                            Size: ${d.squareMeters}m<sup>2</sup>, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>`
+                    return propertyHTML(d);
                 });
                 if(newHTML === undefined || newHTML.length === 0) {
                     $('.property-overview').append(result_msg)
@@ -90,25 +93,7 @@ $(document).ready(function () {
             },
             success: function (resp) {
                 let newHTML = resp.data.map(function(d) {
-                    return `<a href="/property/${d.id}" class="link-to-property">
-                                <div class="card property">
-                                    <img class="property-img" src="${d.firstImage}"/>
-                                    <div class="card-body">  
-                                        <div id="property-name-address">
-                                            <div id="property-name">  
-                                                <h5 class="card-title">${d.name}</h5>
-                                            </div>
-                                            <div id="property-address">
-                                                <p>${d.address.city}, ${d.address.country}</p>
-                                            </div>
-                                        </div>
-                                        <div id="property-price-info">
-                                            <p class="card-subtitle mb-2">Price: ${d.price} $ <br>
-                                            Size: ${d.squareMeters}m<sup>2</sup>, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>`
+                    return propertyHTML(d)
                 });
                 if(newHTML === undefined || newHTML.length === 0) {
                     $('.property-overview').append(result_msg)
@@ -156,14 +141,7 @@ $(document).ready(function () {
         $('#purchase-edit').prop('disabled', false).prop('style', '')
         $('#purchase-confirm').prop('disabled', false).prop('style', '')
     });
-    $('#purchase-edit').on('click', function (e) {
-        $('.purchase-property-form :input').prop('disabled', false);
-        $('#purchase-cancel').prop('style', '');
-        $('#purchase-continue').prop('style', '')
-        $('#purchase-edit').prop('style', 'display: none')
-        $('#purchase-confirm').prop('style', 'display: none')
-    });
-    $('#purchase-confirm').on('click', function (e) {
+    $('#purchase-edit, #purchase-confirm').on('click', function (e) {
         $('.purchase-property-form :input').prop('disabled', false);
         $('#purchase-cancel').prop('style', '');
         $('#purchase-continue').prop('style', '')

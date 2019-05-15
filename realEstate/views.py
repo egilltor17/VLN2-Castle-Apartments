@@ -12,12 +12,13 @@ from user.models import RecentlyViewed, Favorites
 
 
 def index(request):
-    country_list = Property.objects.filter(sold=False).distinct('address__country')
-    municipality_list = Property.objects.filter(sold=False).distinct('address__municipality')
-    city_list = Property.objects.filter(sold=False).distinct('address__city')
-    postcode_list = Property.objects.filter(sold=False).distinct('address__postCode')
-    type_list = Property.objects.filter(sold=False).distinct('type')
-    year_built_list = Property.objects.filter(sold=False).distinct('constructionYear')
+    propery_db = Property.objects.filter(sold=False).prefetch_related('propertyimage_set').select_related('seller__profile', 'address')
+    country_list = propery_db.distinct('address__country')
+    municipality_list = propery_db.distinct('address__municipality')
+    city_list = propery_db.distinct('address__city')
+    postcode_list = propery_db.distinct('address__postCode')
+    type_list = propery_db.distinct('type')
+    year_built_list = propery_db.distinct('constructionYear')
     attribute_list = Attribute.objects.distinct('description')
     if request.is_ajax():
         filters = request.GET
@@ -49,10 +50,10 @@ def index(request):
             },
             'firstImage': (x.propertyimage_set.first().image if x.propertyimage_set.first() else ''),
             'attributes': [y.id for y in x.attributes.all()],
-        } for x in (Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').filter(
-            Q(sold=False),
+        } for x in (propery_db.filter(
             Q(name__icontains=filters.get('search_box')) |
-            Q(description__icontains=filters.get('search_box')),
+            Q(description__icontains=filters.get('search_box')) |
+            Q(address__streetName__icontains=filters.get('search_box')),
             Q(address__country__contains=filters.get('country')),
             ( Q(address__municipality__contains=filters.get('municipality')) |
               Q(address__municipality__isnull=True)
@@ -73,10 +74,10 @@ def index(request):
             Q(type__contains=filters.get('type'))
         ).order_by(request.GET.get('order'))
             if 'search_box' in request.GET
-            else Property.objects.filter(sold=False))]
+            else propery_db)]
         return JsonResponse({'data': properties})
 
-    context = {#'properties': Property.objects.prefetch_related('propertyimage_set').select_related('seller__profile', 'address').order_by('name'),
+    context = {#'properties': proberty_db.order_by('name'),
                'propertiesNav': 'active',
                'country_list': country_list,
                'municipality_list': municipality_list,
