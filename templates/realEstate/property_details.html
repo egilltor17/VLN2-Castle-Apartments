@@ -40,6 +40,9 @@
                             {% else %}
                                 <a href="{% url 'unfavorite_property' property.id %}"><img class="favorite-heart" src="/static/images/filled_heart.png" alt="Unfavorite heart"></a>
                             {% endif %}
+                            {% if num_favorites > 0 %}
+                                <h6 id="num-favorites">{{ num_favorites }} </h6>
+                            {% endif %}
                         {% endif %}
                         <h5 class="card-title">{{ property.name }}</h5>
                         <p class="card-text">{{ property.address }}</p>
