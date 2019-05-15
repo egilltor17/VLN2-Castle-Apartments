@@ -48,12 +48,6 @@
     color: white;
 }
 
-/* Filter CSS */
-#filters {
-    border: 2px solid black;
-    padding: 2%;
-    text-align: center;
-}
 /* Change primary color of all buttons */
 .btn-primary, .btn-primary:active, .btn-primary:visited {
     background-color: rgb(125,195,200) !important;
