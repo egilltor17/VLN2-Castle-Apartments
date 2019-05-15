@@ -6,13 +6,15 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from datetime import datetime
 
-from realEstate.forms.property_form import AddressForm, PropertyForm, AttributeForm
-from realEstate.models import Property, PropertyImage, Attribute, Address
+from realEstate.forms.property_form import AddressForm, PropertyForm
+from realEstate.models import Property, PropertyImage, Attribute
 from user.models import RecentlyViewed, Favorites
 
 
 def index(request):
-    propery_db = Property.objects.filter(sold=False).prefetch_related('propertyimage_set').select_related('seller__profile', 'address')
+    propery_db = Property.objects.filter(sold=False)\
+        .prefetch_related('propertyimage_set')\
+        .select_related('seller__profile', 'address')
     country_list = propery_db.distinct('address__country')
     municipality_list = propery_db.distinct('address__municipality')
     city_list = propery_db.distinct('address__city')
@@ -136,7 +138,10 @@ def create(request):
         if property_form.is_valid() and address_form.is_valid() and image_form.is_valid():
             prop = property_form.save(commit=False)
             prop.seller = User.objects.get(pk=request.user.id)
-            prop.address = address_form.save()
+            address = address_form.save(commit=False)
+            address.country = request.POST['country-list']
+            address.save()
+            prop.address = address
             prop.save()
             property_form.save_m2m()
 
@@ -163,7 +168,6 @@ def update(request, prop_id):
     property_instance = Property.objects.get(pk=prop_id)
     images_form_set = inlineformset_factory(Property, PropertyImage, fields=('image',))
     if request.user.id != property_instance.seller.id:
-        print('Seller id: ' + property_instance.seller.id + '\nUser id: ' + request.user.id)
         return redirect(reverse('user-profile'))
 
     if request.method == 'POST':
@@ -173,7 +177,10 @@ def update(request, prop_id):
 
         if property_form.is_valid() and address_form.is_valid() and image_form.is_valid():
             prop = property_form.save(commit=False)
-            prop.address = address_form.save()
+            address = address_form.save(commit=False)
+            address.country = request.POST['country-list']
+            address.save()
+            prop.address = address
             prop.save()
             property_form.save_m2m()
 

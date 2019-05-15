@@ -27,7 +27,10 @@ def purchase(request, prop_id):
             prop.save()
 
             card = card_info_form.save(commit=False)
-            card.address = address_form.save()
+            address = address_form.save(commit=False)
+            address.country = request.POST['country-list']
+            address.save()
+            card.address = address
             card.save()
 
             pur = purchase_form.save(commit=False)
@@ -47,6 +50,9 @@ def purchase(request, prop_id):
 @login_required
 def purchase_review(request, pur_id):
     purchase_instance = Purchase.objects.get(pk=pur_id)
+    if request.user.id != purchase_instance.userInfo.id:
+        return redirect('user-profile')
+
     purchase_form = PurchaseForm(instance=purchase_instance)
     card_info_form = PaymentInfoForm(instance=purchase_instance.paymentInfo)
     address_form = AddressForm(instance=purchase_instance.paymentInfo.address)

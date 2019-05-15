@@ -2,7 +2,7 @@
 {% block content %}
 
     <h2 id="purchase-heading">Thank you for PURCHASING your property with Castle Apartments!</h2>
-    <p if="purchase-paragraph">Please fill out the form below</p>
+    <h3 id="purchase-paragraph">Is this information correct?</h3>
     <div class="payment-info">
         <form class="form form-horizontal purchase-property-form" method="post">
             {% csrf_token %}
@@ -11,6 +11,7 @@
                 {{ card_info_form.as_p }}
                 {{ purchase_form.as_p }}
                 <legend>Billing Address</legend>
+                {% include 'miscellaneous/country-list.html' %}
                 {{ address_form.as_p }}
             </fieldset>
             <input id="purchase-cancel" class="btn btn-primary pull-right" type="button" value="Cancel" style="display: none">
