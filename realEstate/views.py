@@ -20,7 +20,7 @@ def index(request):
     year_built_list = Property.objects.filter(sold=False).distinct('constructionYear')
     attribute_list = Attribute.objects.distinct('description')
 
-    if request.is_ajax():
+    if request.is_ajax() and ('initial_filter' in request.GET or 'search_box' in request.GET):
         filters = request.GET
         properties = [{
             'id': x.id,
@@ -87,7 +87,6 @@ def index(request):
                'year_built_list': year_built_list,
                'attribute_list': attribute_list}
     return render(request, 'realEstate/index.html', context)
-
 
 def property_details(request, prop_id):
     property = get_object_or_404(Property, pk=prop_id)

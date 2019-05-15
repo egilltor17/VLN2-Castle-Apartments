@@ -6,8 +6,10 @@ $(document).ready(function () {
     //
     let loading = '<div id="loading"><p><img src="/media/icons/ajax-loader.gif" alt="Loading..."></p></div>'
     let result_msg = '<div id="result-msg"></div>'
-
     let url_parts = $(location).attr('href').split("/");
+    // $('#municipality_dropd').prop('disabled', true)
+    // $('#city_dropd').prop('disabled', true)
+    // $('#postcode_dropd').prop('disabled', true)
     //
     //
     //Loading the initial property list.
@@ -18,6 +20,7 @@ $(document).ready(function () {
         $.ajax({
             url: '/property/',
             type: 'GET',
+            data: 'initial_filter',
             cache: false,
             beforeSend: function() {
                 $('#result-msg').remove();
@@ -68,16 +71,17 @@ $(document).ready(function () {
     }
     //
     //
-    //New filter
+    //Conditional filters
     //
     //
     $('#country_dropd').change(function() {
         let selected_country = $('#country_dropd');
         $.ajax({
             type: 'GET',
+            data: {action: 'country_filter'},
             url: '/property',
             success: function(resp) {
-                console.log(resp)
+                console.log('resp')
             }
         })
     });
@@ -98,7 +102,7 @@ $(document).ready(function () {
         console.log(request_data);
         $.ajax({
             url: '/property?' + $.param(request_data),
-            data: {action: 'filter_start'},
+            //data: {action: 'filter_start'},
             type: 'GET',
             beforeSend: function() {
                 $('#result-msg').remove();
@@ -106,6 +110,7 @@ $(document).ready(function () {
                 $('#filter_props').prop('disabled', true)
             },
             success: function (resp) {
+                console.log(resp)
                 let newHTML = resp.data.map(function(d) {
                     return `<a href="/property/${d.id}" class="link-to-property">
                                 <div class="card property">
@@ -152,7 +157,7 @@ $(document).ready(function () {
         filter(e);
     });
     $('#search-box').on('keypress', function (e) {
-        if(e.which == 13) {
+        if(e.which === 13) {
             filter(e);
         }
     });
