@@ -12,7 +12,9 @@ from user.models import RecentlyViewed, Favorites
 
 
 def index(request):
-    propery_db = Property.objects.filter(sold=False).prefetch_related('propertyimage_set').select_related('seller__profile', 'address')
+    propery_db = Property.objects.filter(sold=False)\
+        .prefetch_related('propertyimage_set')\
+        .select_related('seller__profile', 'address')
     country_list = propery_db.distinct('address__country')
     municipality_list = propery_db.distinct('address__municipality')
     city_list = propery_db.distinct('address__city')
@@ -166,7 +168,6 @@ def update(request, prop_id):
     property_instance = Property.objects.get(pk=prop_id)
     images_form_set = inlineformset_factory(Property, PropertyImage, fields=('image',))
     if request.user.id != property_instance.seller.id:
-        print('Seller id: ' + property_instance.seller.id + '\nUser id: ' + request.user.id)
         return redirect(reverse('user-profile'))
 
     if request.method == 'POST':
