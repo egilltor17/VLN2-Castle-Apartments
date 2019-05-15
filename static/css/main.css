@@ -52,6 +52,7 @@
 .btn-primary, .btn-primary:active, .btn-primary:visited {
     background-color: rgb(125,195,200) !important;
     border-color: rgb(125,195,200) !important;
+    border-radius: 3px;
 }
 /* Change primary hover of all buttons */
 .btn-primary:hover {
