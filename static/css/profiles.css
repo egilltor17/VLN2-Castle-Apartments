@@ -68,3 +68,7 @@ a:hover {
         width:100%
     }
 }
+
+#update-profile-button {
+    margin: 20px;
+}
