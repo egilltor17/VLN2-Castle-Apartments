@@ -124,31 +124,38 @@ $(document).ready(function () {
             filter(e);
         }
     });
-    if (url_parts[url_parts.length-2] === 'purchase') {
-        $('#purchase-paragraph').replaceWith('<h3 id="purchase-paragraph">Please fill out the form below</h3>')
-        $('#purchase-cancel').prop('style', '')
-        $('#purchase-continue').prop('style', '')
-        $('#purchase-edit').prop('style', 'display: none')
-        $('#purchase-confirm').prop('style', 'display: none')
-    }
-    $('#purchase-cancel').on('click', function (e) {
-        let prop_id = url_parts[url_parts.length-1];
-        window.location.replace('/property/' + prop_id);
-    });
-    $('#purchase-continue').on('click', function (e) {
-        $('#purchase-paragraph').replaceWith('<h3 id="purchase-paragraph">Is this information correct?</h3>')
-        $('.purchase-property-form :input').prop('disabled', true);
-        $('#purchase-cancel').prop('disabled', false).prop('style', 'display: none');
-        $('#purchase-continue').prop('disabled', false).prop('style', 'display: none')
-        $('#purchase-edit').prop('disabled', false).prop('style', '')
-        $('#purchase-confirm').prop('disabled', false).prop('style', '')
-    });
-    $('#purchase-edit, #purchase-confirm').on('click', function (e) {
-        $('#purchase-paragraph').replaceWith('<h3 id="purchase-paragraph">Please fill out the form below</h3>')
+    function purchaseStep1() {
+        $('#purchase-paragraph').replaceWith('<h3 id="purchase-paragraph">Please fill out the form below</h3>');
         $('.purchase-property-form :input').prop('disabled', false);
         $('#purchase-cancel').prop('style', '');
-        $('#purchase-continue').prop('style', '')
-        $('#purchase-edit').prop('style', 'display: none')
-        $('#purchase-confirm').prop('style', 'display: none')
+        $('#purchase-continue').prop('style', '');
+        $('#purchase-edit').prop('style', 'display: none');
+        $('#purchase-confirm').prop('style', 'display: none');
+    }
+    function purchasestep2() {
+        $('#purchase-paragraph').replaceWith('<h3 id="purchase-paragraph">Is this information correct?</h3>');
+        $('.purchase-property-form :input').prop('disabled', true);
+        $('#purchase-cancel').prop('disabled', false).prop('style', 'display: none');
+        $('#purchase-continue').prop('disabled', false).prop('style', 'display: none');
+        $('#purchase-edit').prop('disabled', false).prop('style', '');
+        $('#purchase-confirm').prop('disabled', false).prop('style', '');
+    }
+    if (url_parts[url_parts.length-2] === 'purchase') {
+        purchaseStep1();
+    }
+    $('#purchase-cancel').on('click', function (e) {
+        window.location.replace('/property/' + url_parts[url_parts.length-1]);
+    });
+    $('#purchase-continue').on('click', function (e) {
+        purchasestep2();
+    });
+    $('#purchase-edit, #purchase-confirm').on('click', function (e) {
+        purchaseStep1();
+    });
+    $('#id_payment-cardNumber, #id_payment-cardCVC, #id_payment-cardExpiryMonth, #id_payment-cardExpiryYear')
+        .on('keypress', function (e) {
+            if( 48 > e.which || e.which > 57 ) {
+                e.preventDefault();
+            }
     });
 });
