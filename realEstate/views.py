@@ -6,8 +6,8 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from datetime import datetime
 
-from realEstate.forms.property_form import AddressForm, PropertyForm
-from realEstate.models import Property, PropertyImage, Attribute, Address  #, PropertyAttribute
+from realEstate.forms.property_form import AddressForm, PropertyForm, AttributeForm
+from realEstate.models import Property, PropertyImage, Attribute, Address
 from user.models import RecentlyViewed, Favorites
 
 
@@ -138,6 +138,8 @@ def create(request):
             prop.address = address_form.save()
             prop.save()
 
+            prop.attributes.add(Attribute.objects.get(pk=1))
+
             images = image_form.save(commit=False)
             for image in images:
                 image.property_id = prop.id
@@ -173,6 +175,8 @@ def update(request, prop_id):
             prop = property_form.save(commit=False)
             prop.address = address_form.save()
             prop.save()
+            print(prop.attributes)
+            prop.attributes.add(Attribute.objects.get(pk=1))
 
             image_form.save()
             return redirect(reverse('user-profile'))
