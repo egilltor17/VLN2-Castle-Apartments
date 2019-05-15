@@ -7,6 +7,7 @@ $(document).ready(function () {
     let loading = '<div id="loading"><p><img src="/media/icons/ajax-loader.gif" alt="Loading..."></p></div>'
     let result_msg = '<div id="result-msg"></div>'
     let url_parts = $(location).attr('href').split("/");
+    let default_option = '<option value="">All</option>'
     // $('#municipality_dropd').prop('disabled', true)
     // $('#city_dropd').prop('disabled', true)
     // $('#postcode_dropd').prop('disabled', true)
@@ -77,23 +78,47 @@ $(document).ready(function () {
     //Conditional filters
     //
     //
+    //Countries->Municipalities
     $('#country_dropd').change(function() {
         let selected_country = $('#country_dropd').val();
-        $.ajax({
+        let selected_city = $('#city_dropd').val();
+        if(selected_country === ""){
+            $('#municipality_dropd').html(default_option)
+            $('#city_dropd').html(default_option)
+            $('#postcode_dropd').html(default_option)
+        }
+        else{
+                    $.ajax({
             type: 'GET',
             data: {
                 enable_municipalities: '',
                 country: selected_country,
+                city: selected_city
             },
             url: '/property',
             beforeSend: function() {
                 $('#filter_props').prop('disabled', true);
+                $('#municipality_dropd').find('option').not(':first').remove();
+                $('#city_dropd').find('option').not(':first').remove();
+                $('#postcode_dropd').find('option').not(':first').remove();
+
 
             },
             success: function(resp) {
-                console.log(resp);
-                $(this).html('');
-                let newHTML = resp.data.map
+                let municiHTML = ``;
+                let cityHTML = ``;
+                for (let i = 0; i < resp.data.length; i++) {
+                    if(resp.data[i].municipalities == null){
+                        cityHTML += `<option value = "${resp.data[i].cities}">${resp.data[i].cities}</option>`
+                    }
+                    else{
+                        municiHTML += `<option value = "${resp.data[i].municipalities}">${resp.data[i].municipalities}</option>`
+
+                    }
+
+                }
+                $('#municipality_dropd').append(municiHTML);
+                $('#city_dropd').append(cityHTML);
 
             },
             complete: function(){
@@ -101,8 +126,78 @@ $(document).ready(function () {
 
             }
         })
-    });
+        }
 
+    });
+    //Municipalities->Cities
+    $('#municipality_dropd').change(function() {
+        let selected_municipality = $('#municipality_dropd').val();
+        if(selected_municipality === ""){
+            $('#city_dropd').html(default_option)
+            $('#postcode_dropd').html(default_option)
+        }
+
+        else{
+            $.ajax({
+            type: 'GET',
+            data: {
+                enable_cities: '',
+                municipality: selected_municipality,
+            },
+            url: '/property',
+            beforeSend: function() {
+                $('#filter_props').prop('disabled', true);
+                $('#city_dropd').find('option').not(':first').remove();
+                $('#postcode_dropd').find('option').not(':first').remove();
+
+            },
+            success: function(resp) {
+                let newHTML = ``;
+                for (let i = 0; i < resp.data.length; i++) {
+                    newHTML += `<option value = "${resp.data[i].cities}">${resp.data[i].cities}</option>`
+                }
+                $('#city_dropd').append(newHTML);
+            },
+            complete: function(){
+                $('#filter_props').prop('disabled', false);
+
+            }
+        })
+        }
+    });
+    //Cities->Postcodes
+    $('#city_dropd').change(function() {
+        let selected_city = $('#city_dropd').val();
+        if(selected_city === ""){
+            $('#postcode_dropd').html(default_option)
+        }
+        else {
+            $.ajax({
+            type: 'GET',
+            data: {
+                enable_postcodes: '',
+                city: selected_city,
+            },
+            url: '/property',
+            beforeSend: function() {
+                $('#filter_props').prop('disabled', true);
+
+            },
+            success: function(resp) {
+                let newHTML = ``;
+                for (let i = 0; i < resp.data.length; i++) {
+                    newHTML += `<option value = "${resp.data[i].postcodes}">${resp.data[i].postcodes}</option>`
+
+                }
+                $('#postcode_dropd').append(newHTML);
+            },
+            complete: function(){
+                $('#filter_props').prop('disabled', false);
+
+            }
+        })
+        }
+    });
     //
     //
     //Filtering function
