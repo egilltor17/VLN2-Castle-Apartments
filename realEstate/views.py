@@ -138,8 +138,7 @@ def create(request):
             prop.seller = User.objects.get(pk=request.user.id)
             prop.address = address_form.save()
             prop.save()
-
-            prop.attributes.add(Attribute.objects.get(pk=1))
+            property_form.save_m2m()
 
             images = image_form.save(commit=False)
             for image in images:
@@ -176,8 +175,7 @@ def update(request, prop_id):
             prop = property_form.save(commit=False)
             prop.address = address_form.save()
             prop.save()
-            print(prop.attributes)
-            prop.attributes.add(Attribute.objects.get(pk=1))
+            property_form.save_m2m()
 
             image_form.save()
             return redirect(reverse('user-profile'))
