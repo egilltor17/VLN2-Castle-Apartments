@@ -7,7 +7,8 @@
             <div class="col-7">
                 <h2>Register</h2>
                 <div class="card" >
-                    <div class="card-body">
+                    <div class="card-body" id="register-card">
+                        <p>Already have an acoount? <a id="sign-in-link" href="{% url 'login' %}">Sign in</a></p>
                         <form class="form form-horizontal", method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                             {{ registration_form }}
