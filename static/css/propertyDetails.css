@@ -4,6 +4,7 @@
 
 .carousel-item {
     background-color: rgba(224, 224, 224, 0.7);
+    border-radius: 3px;
 }
 
 .carousel-img {
@@ -26,6 +27,7 @@
 
 .photoGallery img {
     width: 31rem;
+    border-radius: 3px;
 }
 
 .photoGallery > div {
