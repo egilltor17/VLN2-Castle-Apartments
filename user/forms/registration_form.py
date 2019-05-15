@@ -20,13 +20,14 @@ class UserForm(UserCreationForm):
         'password': widgets.PasswordInput(attrs={'class': "form-control"}),
     }
 
+
 class ProfileForm(ModelForm):
     prefix = 'profile'
 
     class Meta:
         model = Profile
         exclude = [ 'id', 'user' ]
-        # widgets = {
-        #     'phone': widgets.NumberInput(attrs={'class': "form-control"}),
-        #     'profileImage': widgets.FileInput(attrs={'class': "form-control"}),
-        # }
+        widgets = {
+            'phone': widgets.TextInput(attrs={'class': "form-control", 'minlength': 7}),
+            'profileImage': widgets.FileInput(attrs={}),
+        }

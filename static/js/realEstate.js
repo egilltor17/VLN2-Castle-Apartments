@@ -4,8 +4,8 @@ $(document).ready(function () {
     //Variables
     //
     //
-    let loading = '<div id="loading"><p><img src="/media/icons/ajax-loader.gif" alt="Loading..."></p></div>'
-    let result_msg = '<div id="result-msg"></div>'
+    let loading = '<div id="loading"><p><img src="/media/icons/ajax-loader.gif" alt="Loading..."></p></div>';
+    let result_msg = '<div id="result-msg"></div>';
 
     let url_parts = $(location).attr('href').split("/");
 
@@ -114,13 +114,13 @@ $(document).ready(function () {
                 $('#filter_props').prop('disabled', false);
             },
         });
-    };
+    }
     $('#filter_props').on('click', function (e) {
         e.preventDefault();
         filter(e);
     });
     $('#search-box').on('keypress', function (e) {
-        if(e.which == 13) {
+        if(e.which === 13) {
             filter(e);
         }
     });
@@ -152,10 +152,9 @@ $(document).ready(function () {
     $('#purchase-edit, #purchase-confirm').on('click', function (e) {
         purchaseStep1();
     });
-    $('#id_payment-cardNumber, #id_payment-cardCVC, #id_payment-cardExpiryMonth, #id_payment-cardExpiryYear')
-        .on('keypress', function (e) {
-            if( 48 > e.which || e.which > 57 ) {
-                e.preventDefault();
-            }
+    $('#id_payment-cardNumber, #id_payment-cardCVC, #id_payment-cardExpiryMonth, #id_payment-cardExpiryYear, #id_profile-phone').on('keypress', function (e) {
+        if( 48 > e.which || e.which > 57 ) {
+            e.preventDefault();
+        }
     });
 });
