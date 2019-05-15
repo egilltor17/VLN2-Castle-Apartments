@@ -25,17 +25,17 @@ def index(request):
         city = request.GET.get('city')
         municipality_city_list = [{'municipalities': x.address.municipality, 'cities': x.address.city}
                                   for x in property_db.filter(Q(address__country__contains=country),
-                                                              Q(address__city__contains=city))]
+                                                              Q(address__city__contains=city)).distinct('address__municipality')]
         return JsonResponse({'data': municipality_city_list})
 
     if request.is_ajax() and 'enable_cities' in request.GET:
         municipality = request.GET.get('municipality')
-        city_list = [{'cities': x.address.city} for x in property_db.filter(Q(address__municipality__contains=municipality))]
+        city_list = [{'cities': x.address.city} for x in property_db.filter(Q(address__municipality__contains=municipality)).distinct('address__city')]
         return JsonResponse({'data': city_list})
 
     if request.is_ajax() and 'enable_postcodes' in request.GET:
         city = request.GET.get('city')
-        postcode_list = [{'postcodes': x.address.postCode} for x in property_db.filter(Q(address__city__contains=city))]
+        postcode_list = [{'postcodes': x.address.postCode} for x in property_db.filter(Q(address__city__contains=city)).distinct('address__postCode')]
         return JsonResponse({'data': postcode_list})
 
     if request.is_ajax() and ('initial_filter' in request.GET or 'search_box' in request.GET):
