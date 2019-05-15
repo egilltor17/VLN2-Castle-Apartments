@@ -2,12 +2,47 @@
 
 {% block content %}
 
-    <h2>Edit Profile</h2>
-    <form class="form {# form-horizontal #}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ user_form }}
-        {{ profile_form }}
-        <input type="submit" class="btn btn-primary" value="update">
-    </form>
+    <link rel="stylesheet" type="text/css" href="/static/css/profiles.css">
+
+    <div class="row justify-content-center align-items-center">
+        <div>
+            <h2>Edit Profile</h2>
+                <form class="form {# form-horizontal #}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {{ user_form.username.label_tag }}
+                    <div class="form-group">
+                        {{ user_form.username }}
+                    </div>
+                        {{ user_form.first_name.label_tag }}
+                    <div class="form-group">
+                        {{ user_form.first_name }}
+                    </div>
+                        {{ user_form.last_name.label_tag }}
+                    <div class="form-group">
+                        {{ user_form.last_name }}
+                    </div>
+                        {{ user_form.email.label_tag }}
+                    <div class="form-group">
+                        {{ user_form.email }}
+                    </div>
+                        <p>Reset Password:</p>
+                    <div class="form-group">
+                        {{ user_form.password1 }}
+                    </div>
+                    <div class="form-group">
+                        {{ user_form.password2 }}
+                    </div>
+                        {{ profile_form.phone.label_tag }}
+                    <div class="form-group">
+                        {{ profile_form.phone }}
+                    </div>
+                        <p>Profile Image:</p>
+                    <div>
+                        {{ profile_form.profileImage }}
+                    </div>
+                    <input type="submit" class="btn btn-primary" id="update-profile-button" value="Update">
+                </form>
+        </div>
+    </div>
 
 {% endblock %}
