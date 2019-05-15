@@ -18,6 +18,9 @@ class PropertyForm(ModelForm):
     class Meta:
         model = Property
         exclude = [ 'id', 'address', 'seller', 'dateCreated', 'sold' ]
+        widgets = {
+            'attributes': widgets.CheckboxSelectMultiple(attrs={}),
+        }
 
 
 class PropertyImagesForm(ModelForm):
