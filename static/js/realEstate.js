@@ -75,13 +75,16 @@ $(document).ready(function () {
     //
     //
     $('#country_dropd').change(function() {
-        let selected_country = $('#country_dropd');
+        let selected_country = $('#country_dropd').val();
         $.ajax({
             type: 'GET',
-            data: 'enable_municipalities',
+            data: {
+                country: selected_country,
+                action: 'enable_municipalities'
+            },
             url: '/property',
             success: function(resp) {
-                console.log('resp')
+                console.log(resp)
             }
         })
     });
@@ -102,7 +105,6 @@ $(document).ready(function () {
         console.log(request_data);
         $.ajax({
             url: '/property?' + $.param(request_data),
-            //data: {action: 'filter_start'},
             type: 'GET',
             beforeSend: function() {
                 $('#result-msg').remove();

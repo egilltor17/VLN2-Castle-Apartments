@@ -19,7 +19,9 @@ def index(request):
     type_list = Property.objects.filter(sold=False).distinct('type')
     year_built_list = Property.objects.filter(sold=False).distinct('constructionYear')
     attribute_list = Attribute.objects.distinct('description')
-
+    if request.is_ajax() and 'enable_municipalities' in request.GET:
+        country = request.GET.get('country')
+        munici_data = Property.objects.filter(sold=False).distinct('address__municipality')
     if request.is_ajax() and ('initial_filter' in request.GET or 'search_box' in request.GET):
         filters = request.GET
         properties = [{
