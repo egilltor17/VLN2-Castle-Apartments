@@ -78,7 +78,7 @@ $(document).ready(function () {
         let selected_country = $('#country_dropd');
         $.ajax({
             type: 'GET',
-            data: {action: 'country_filter'},
+            data: 'enable_municipalities',
             url: '/property',
             success: function(resp) {
                 console.log('resp')
