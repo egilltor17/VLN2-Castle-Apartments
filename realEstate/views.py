@@ -43,8 +43,10 @@ def property_to_json(property):
 
 
 def index(request):
+    # Pre fetching data from the database
     property_db = Property.objects.filter(sold=False).prefetch_related('propertyimage_set').select_related('seller__profile', 'address')
 
+    # Initial values for the form
     country_list = property_db.distinct('address__country')
     municipality_list = property_db.none()
     city_list = property_db.none()
@@ -53,6 +55,7 @@ def index(request):
     year_built_list = property_db.distinct('constructionYear')
     attribute_list = Attribute.objects.distinct('description')
 
+    # Load all municipalities & cities for a country to pre populate their drop downs
     if request.is_ajax() and 'enable_municipalities' in request.GET:
         country = request.GET.get('country')
         city = request.GET.get('city')
@@ -63,23 +66,29 @@ def index(request):
                                         Q(address__city__contains=city)).distinct('address__municipality')]
         return JsonResponse({'data': municipality_city_list})
 
+    # Load all cities for a country & municipalities to pre populate its drop down
     if request.is_ajax() and 'enable_cities' in request.GET:
         cites = property_db.filter(address__municipality__contains=request.GET.get('municipality')).distinct('address__city')
         city_list = [x.address.city for x in cites]
         return JsonResponse({'data': city_list})
 
+    # Load all postcodes for a country & municipalities to pre populate its drop down
     if request.is_ajax() and 'enable_postcodes' in request.GET:
         postcodes = property_db.filter(address__city__contains=request.GET.get('city')).distinct('address__postCode')
         postcode_list = [x.address.postCode for x in postcodes]
         return JsonResponse({'data': postcode_list})
 
+    # Load all properties on first load
     if request.is_ajax() and 'initial_filter' in request.GET:
         properties = [property_to_json(x) for x in property_db.order_by('-dateCreated')]
         return JsonResponse({'data': properties})
 
+    # Filters the properties with the parameters form the filter form
     if request.is_ajax() and 'search_box' in request.GET:
-        filters = request.GET
+        # All attributes
         attr_query_set = [x for x in request.GET if x.isdigit()]
+        filters = request.GET
+        # Giant filter query using all the elements of the filter form
         filter_query = Q().add(Q(name__icontains=filters.get('search_box')), Q.OR)\
             .add(Q(description__icontains=filters.get('search_box')), Q.OR)\
             .add(Q(address__streetName__icontains=filters.get('search_box')), Q.AND)\
@@ -97,6 +106,7 @@ def index(request):
             .add(Q(constructionYear__gte=filters.get('year_built_from')), Q.AND)\
             .add(Q(constructionYear__lte=filters.get('year_built_to')), Q.AND)\
             .add(Q(type__contains=filters.get('type')), Q.AND)
+        # To avoid none values for municipalities in the query string
         if filters.get('municipality') == "":
             filter_query.add(Q(address__municipality__contains=filters.get('municipality')), Q.OR)\
                 .add(Q(address__municipality__isnull=True), Q.AND)
@@ -104,15 +114,16 @@ def index(request):
             filter_query.add(Q(address__municipality__contains=filters.get('municipality')), Q.AND)
 
         if attr_query_set:
+            # Filters with search and attribute checkboxes
             properties = [property_to_json(x) for x in property_db.filter(filter_query
             ).filter(attributes__id__in=attr_query_set).annotate(num_attributes=Count('attributes')
             ).filter(num_attributes=len(attr_query_set)).order_by(request.GET.get('order'))]
         else:
+            # Filters with search and without attribute checkboxes
             properties = [property_to_json(x) for x in property_db.filter(filter_query).order_by(request.GET.get('order'))]
         return JsonResponse({'data': properties})
 
-    context = {'propertiesNav': 'active',
-               'country_list': country_list,
+    context = {'country_list': country_list,
                'municipality_list': municipality_list,
                'city_list': city_list,
                'postcode_list': postcode_list,
@@ -126,6 +137,7 @@ def property_details(request, prop_id):
     property = get_object_or_404(Property, pk=prop_id)
     is_favorite = False
     num_favorites = Favorites.objects.filter(property_id=prop_id).count()
+    # If the user is loged in the property is added to his recently viewed
     if request.user.is_authenticated:
         recently_viewed = RecentlyViewed()
         recently_viewed.timestamp = datetime.now()
@@ -137,7 +149,7 @@ def property_details(request, prop_id):
                'attributes': Attribute.objects.order_by('description'),
                'is_favorite': is_favorite,
                'num_favorites': num_favorites}
-    return render(request, 'realEstate/property_details.html', context)
+    return render(request, 'realEstate/property-details.html', context)
 
 @login_required()
 def favorite_property(request, prop_id):
@@ -164,7 +176,7 @@ def unfavorite_property(request, prop_id):
 
 
 @login_required
-def create(request):
+def create_property(request):
     images_form_set = modelformset_factory(PropertyImage, fields=('image',), extra=5)
     if request.method == 'POST':
         address_form = AddressForm(data=request.POST)
@@ -172,6 +184,7 @@ def create(request):
         image_form = images_form_set(data=request.POST)
 
         if property_form.is_valid() and address_form.is_valid() and image_form.is_valid():
+            # Saving to the database:
             prop = property_form.save(commit=False)
             prop.seller = User.objects.get(pk=request.user.id)
             address = address_form.save(commit=False)
@@ -188,11 +201,13 @@ def create(request):
 
             return redirect(reverse('user-profile'))
         else:
+            # The user reenters invalid information.
             context = { 'address_form': address_form,
                         'property_form': property_form,
                         'image_form': image_form, }
             return render(request, 'realEstate/add-property.html', context)
     else:
+        # The page is initially loaded with blank a form.
         context = { 'address_form': AddressForm(),
                     'property_form': PropertyForm(),
                     'image_form': images_form_set(queryset=PropertyImage.objects.none()), }
@@ -200,10 +215,11 @@ def create(request):
 
 
 @login_required
-def update(request, prop_id):
+def update_property(request, prop_id):
     property_instance = Property.objects.get(pk=prop_id)
     images_form_set = inlineformset_factory(Property, PropertyImage, fields=('image',))
-    if request.user.id != property_instance.seller.id:
+
+    if request.user.id != property_instance.seller.id:  # Incorrect user
         return redirect(reverse('user-profile'))
 
     if request.method == 'POST':
@@ -212,6 +228,7 @@ def update(request, prop_id):
         image_form = images_form_set(data=request.POST, instance=property_instance)
 
         if property_form.is_valid() and address_form.is_valid() and image_form.is_valid():
+            # Saving to the database:
             prop = property_form.save(commit=False)
             address = address_form.save(commit=False)
             address.country = request.POST['country-list']
@@ -223,13 +240,16 @@ def update(request, prop_id):
             image_form.save()
             return redirect(reverse('user-profile'))
         else:
+            # The user reenters invalid information.
             context = { 'pk': prop_id,
                         'address_form': address_form,
                         'property_form': property_form,
                         'image_form': image_form, }
             return render(request, 'realEstate/edit-property.html', context)
-    context = {'pk': prop_id,
-               'address_form': AddressForm(instance=property_instance.address),
-               'property_form': PropertyForm(instance=property_instance),
-               'image_form': images_form_set(instance=property_instance), }
-    return render(request, 'realEstate/edit-property.html', context)
+    else:
+        # The page is initially loaded with blank a form.
+        context = {'pk': prop_id,
+                   'address_form': AddressForm(instance=property_instance.address),
+                   'property_form': PropertyForm(instance=property_instance),
+                   'image_form': images_form_set(instance=property_instance), }
+        return render(request, 'realEstate/edit-property.html', context)

@@ -1,7 +1,6 @@
 <a href="{% url 'property-details' property.id %}" class="link-to-property">
     <div class="card">
         <div class="card-horizontal">
-
             <div class="card-body">
                 <h4 class="card-title">{{ property.name }}</h4>
                 <p class="card-text">
@@ -10,7 +9,7 @@
                 <p class="card-subtitle mb-2">Price: {{ property.price }} $</p>
                 {% if own_profile %}
                     <!-- Button to edit property -->
-                    <a href="{% url 'edit_property' property.id %}" class="block btn btn-primary" id="edit-property-button">Edit</a>
+                    <a href="{% url 'edit-property' property.id %}" class="block btn btn-primary" id="edit-property-button">Edit</a>
                 {% endif %}
             </div>
         </div>

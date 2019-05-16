@@ -1,8 +1,8 @@
 <a href="{% url 'property-details' recently_viewed_property.id %}" class="link-to-property">
     <div class="card">
         <div class="card-horizontal small-card-property">
-            <div class="img-square-wrapper" id="recently-viewed-square-wrapper">
-                <img class="property-image" src="{{recently_viewed_property.propertyimage_set.first.image}}">
+            <div class="img-square-wrapper small-card-img-wrapper" id="recently-viewed-square-wrapper">
+                <img class="small-property-image" src="{{recently_viewed_property.propertyimage_set.first.image}}">
             </div>
             <div class="card-body" id="recently-viewed-property">
                 <h4 class="card-title">{{ recently_viewed_property.name }}</h4>
