@@ -43,6 +43,7 @@ h3, #attributes {
     }
     #first-column, #second-column, #third-column {
         width: 85%;
+        text-align: center;
     }
 }
 

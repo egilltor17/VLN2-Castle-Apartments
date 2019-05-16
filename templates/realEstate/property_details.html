@@ -33,6 +33,7 @@
             <div class="col-sm-8" id="left">
                 <div class="card">
                     <div class="card-body">
+                        <!-- Favorite heart -->
                         {% if user.is_authenticated  %}
                             {% csrf_token %}
                             {% if not is_favorite %}
