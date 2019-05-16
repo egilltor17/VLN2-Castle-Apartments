@@ -30,8 +30,6 @@ def profile(request):
 
 
 def seller_profile(request, user_id):
-    if request.user.id == user_id:  # Seller is redirected to his own profile
-        return redirect('user-profile')
     context = {'listings': Property.objects.filter(seller__pk=user_id).order_by('-dateCreated'),
                'seller': User.objects.get(pk=user_id)}
     return render(request, 'user/seller-profile.html', context)
