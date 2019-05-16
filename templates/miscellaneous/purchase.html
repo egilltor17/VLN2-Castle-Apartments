@@ -1,26 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h2 id="purchase-heading">Thank you for PURCHASING your property with Castle Apartments!</h2>
+    <link rel="stylesheet" type="text/css" href="/static/css/purchase.css">
+
+    <h2 id="purchase-heading">Thank you for purchasing your property with Castle Apartments!</h2>
     <h3 id="purchase-paragraph">Is this information correct?</h3>
-    <div class="payment-info">
-        <form class="form form-horizontal purchase-property-form" method="post">
-            {% csrf_token %}
-            <fieldset>
-                <legend>Card information</legend>
-                {{ card_info_form.as_p }}
-                {{ purchase_form.as_p }}
-                <legend>Billing Address</legend>
-                {% include 'miscellaneous/country-list.html' %}
-                {{ address_form.as_p }}
-            </fieldset>
-            <input id="purchase-cancel" class="btn btn-primary pull-right" type="button" value="Cancel" style="display: none">
-            <input id="purchase-continue" class="btn btn-primary pull-right" type="button" value="Continue" style="display: none">
-            <input id="purchase-edit" class="btn btn-primary pull-right" type="button" value="Edit">
-            <input id="purchase-confirm" class="btn btn-primary pull-right" type="submit" value="Confirm">
-        </form>
-    </div>
-    <div class="property-info">
-        {% include 'realEstate/single_property.html' with property=property %}
-    </div>
+
+    <form class="form form-horizontal purchase-property-form" method="post">
+        {% csrf_token %}
+            <div id="purchase-info-container">
+                <fieldset>
+                    <h3>Billing Information</h3>
+                    <div class="card left-box box" id="billing-card">
+
+                        {{ purchase_form.as_p }}
+                        {% include 'miscellaneous/country-list.html' %}
+                        {{ address_form.as_p }}
+                    </div>
+                    <h3>Card Information</h3>
+                    <div class="card left-box box" id="kredidcard-card">
+
+                        {{ card_info_form.as_p }}
+                    </div>
+                </fieldset>
+            </div>
+
+            <div id="purchase-property-info-container">
+                <h3>Your purchase</h3>
+                <div class="box card property-info" id="property-info-card">
+
+                    <a href="{% url 'property-details' property.id %}" class="link-to-property">
+                        <h4> {{ property.name }}</h4>
+                    </a>
+                    <h5> Price: {{ property.price }} USD</h5>
+
+                </div>
+            </div>
+        <input id="purchase-cancel" class="btn btn-primary pull-right" type="button" value="Cancel" style="display: none">
+                <input id="purchase-continue" class="btn btn-primary pull-right" type="button" value="Continue" style="display: none">
+                <input id="purchase-edit" class="btn btn-primary pull-right" type="button" value="Edit">
+                <input id="purchase-confirm" class="btn btn-primary pull-right" type="submit" value="Confirm">
+
+    </form>
+
+
 {% endblock %}
