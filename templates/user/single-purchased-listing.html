@@ -7,7 +7,7 @@
                     Size: {{ purchased.property.squareMeters }}m<sup>2</sup>, {{ purchased.property.type }}, {{ purchased.property.nrBedrooms }} bedrooms, {{ purchased.property.nrBathrooms }} bathrooms <br>
                     Price: {{ purchased.property.price }} $</p>
                 <!-- Button to see receipt of purchase -->
-                <a href="{% url 'purchase_review' purchased.id %}" class="block btn btn-primary">See Receipt</a>
+                <a href="{% url 'purchase-receipt' purchased.id %}" class="block btn btn-primary">See Receipt</a>
             </div>
         </div>
     </div>
