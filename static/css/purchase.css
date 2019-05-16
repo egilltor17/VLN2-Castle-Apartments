@@ -1,0 +1,60 @@
+.box {
+    width: 95%;
+    padding: 20px;
+}
+
+/* So the cards are not squished together */
+#billing-card {
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+/* How big the left and right columns are */
+#purchase-info-container {
+    width: 55%;
+}
+
+#purchase-info-container, #purchase-property-info-container {
+    display: inline-block;
+}
+
+#purchase-property-info-container {
+    width: 40%;
+    float: right;
+}
+
+#property-info-card {
+    height: 30rem;
+}
+
+/* Fixing <select> tag look */
+#country-list {
+    padding: 6px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+/* Buttons position*/
+#purchase-cancel, #purchase-edit {
+    float: left;
+    margin-left: 15px;
+}
+
+#purchase-continue, #purchase-confirm {
+    float: right;
+    margin-right: 14px;
+}
+
+.link-to-property {
+    color: rgb(111, 172, 177);
+}
+
+@media only screen and (max-width: 768px) {
+    #purchase-info-container{
+        width: 100%;
+    }
+    #purchase-property-info-container {
+        width: 100%;
+        float: none;
+    }
+}
