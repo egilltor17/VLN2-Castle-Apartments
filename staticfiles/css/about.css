@@ -1,0 +1,16 @@
+#emailLink {
+    color: rgb(111, 172, 177);
+}
+
+.abt-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#logo-notext {
+    max-width: 100%;
+}
+
+.about-text {
+    padding-top: 10px;
+}

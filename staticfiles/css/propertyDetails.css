@@ -1,0 +1,57 @@
+.propDetPage {
+    padding: 20px;
+}
+
+.carousel-item {
+    background-color: rgba(224, 224, 224, 0.7);
+    border-radius: 3px;
+}
+
+.carousel-img {
+    display:block;
+    margin: auto;
+    height: 500px;
+    position: center;
+}
+
+.card {
+    margin: 15px 0px;
+}
+
+/*Photo Gallery */
+.photoGallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.photoGallery img {
+    width: 31rem;
+    border-radius: 3px;
+}
+
+.photoGallery > div {
+    justify-content: center;
+    padding: 5px;
+}
+
+@media screen and (max-width: 760px) {
+    .carousel-img {
+        max-height: 10rem;
+    }
+}
+
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.favorite-heart {
+    float: right;
+    width: 2rem;
+}
+
+#num-favorites {
+    float: right;
+    margin: 5px;
+}
