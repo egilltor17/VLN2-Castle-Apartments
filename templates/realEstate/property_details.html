@@ -63,7 +63,11 @@
                         </p>
                     </div>
                     <!-- Button is left outside the div on purpose -->
-                    <a href="{% url 'purchase' property.id %}" class="btn btn-primary" class="our-button">Buy Property</a>
+                    {% if property.sold %}
+                        <button href="#" class="btn btn-primary" class="our-button" disabled>Sold</button>
+                    {% else %}
+                        <a href="{% url 'purchase' property.id %}" class="btn btn-primary" class="our-button">Buy Property</a>
+                    {% endif %}
                 </div>
 
                 <!-- Attributes -->

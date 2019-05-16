@@ -48,12 +48,6 @@
     color: white;
 }
 
-/* Filter CSS */
-#filters {
-    border: 2px solid black;
-    padding: 2%;
-    text-align: center;
-}
 /* Change primary color of all buttons */
 .btn-primary, .btn-primary:active, .btn-primary:visited {
     background-color: rgb(125,195,200) !important;
@@ -103,4 +97,24 @@
 
 .helptext {
     display: none;
+}
+
+#sign-in-link {
+    color: rgb(111, 172, 177);
+}
+
+#register-link {
+    color: rgb(111, 172, 177);
+}
+
+ul {
+    list-style: none;
+}
+
+#register-card ul li::before {
+    content: "\2022";
+    color: rgb(111, 172, 177);
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
 }
