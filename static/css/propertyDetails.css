@@ -56,9 +56,12 @@
 }
 
 .favorite-heart {
+    background: transparent;
+    border: none;
     float: right;
     width: 2rem;
 }
+
 
 #num-favorites {
     float: right;
