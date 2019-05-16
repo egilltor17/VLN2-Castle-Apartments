@@ -1,21 +1,12 @@
+
+/* To display two columns */
 .box {
     width: 95%;
     padding: 20px;
 }
 
-/* So the cards are not squished together */
-#billing-card {
-    margin-right: 15px;
-    margin-bottom: 15px;
-}
-
-/* How big the left and right columns are */
 #purchase-info-container {
-    width: 55%;
-}
-
-#purchase-info-container, #purchase-property-info-container {
-    display: inline-block;
+    width: 60%;
 }
 
 #purchase-property-info-container {
@@ -23,8 +14,20 @@
     float: right;
 }
 
+#purchase-info-container, #purchase-property-info-container {
+    display: inline-block;
+}
+
 #property-info-card {
     height: 30rem;
+}
+
+/* So the cards are not squished together */
+#billing-card {
+    margin-bottom: 15px;
+}
+#kredidcard-card {
+    margin-bottom: 15px;
 }
 
 /* Fixing <select> tag look */
@@ -37,16 +40,10 @@
 /* Buttons position*/
 #purchase-cancel, #purchase-edit {
     float: left;
-    margin-left: 15px;
 }
 
 #purchase-continue, #purchase-confirm {
     float: right;
-    margin-right: 14px;
-}
-
-.link-to-property {
-    color: rgb(111, 172, 177);
 }
 
 @media only screen and (max-width: 768px) {
@@ -57,4 +54,8 @@
         width: 100%;
         float: none;
     }
+}
+
+.link-to-property {
+    color: rgb(111, 172, 177);
 }
