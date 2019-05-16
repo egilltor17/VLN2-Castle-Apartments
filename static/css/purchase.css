@@ -1,14 +1,6 @@
-/* So the cards are in two columns*/
-#wrapper {
-    /*display: flex;*/
-}
-
 .box {
-    display: inline-block;
     width: 95%;
     padding: 20px;
-    display: flex;
-    flex: 1 1 auto;
 }
 
 /* So the cards are not squished together */
@@ -28,6 +20,7 @@
 
 #purchase-property-info-container {
     width: 40%;
+    float: right;
 }
 
 #property-info-card {
@@ -52,6 +45,9 @@
     margin-right: 14px;
 }
 
+.link-to-property {
+    color: rgb(111, 172, 177);
+}
 
 @media only screen and (max-width: 768px) {
     #purchase-info-container{
@@ -59,5 +55,6 @@
     }
     #purchase-property-info-container {
         width: 100%;
+        float: none;
     }
 }
