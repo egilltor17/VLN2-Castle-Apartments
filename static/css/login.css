@@ -7,3 +7,9 @@
     display: block;
     margin: auto;
 }
+
+@media screen and (max-width: 375px) {
+    #sign-in-container{
+        width: 100%;
+    }
+}
