@@ -50,6 +50,10 @@
     color: white;
 }
 
+a, a:hover {
+    color: rgb(111, 172, 177)
+}
+
 /* Change primary color of all buttons */
 .btn-primary, .btn-primary:active, .btn-primary:visited {
     background-color: rgb(125,195,200) !important;

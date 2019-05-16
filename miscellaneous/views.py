@@ -4,6 +4,7 @@ from miscellaneous.forms.payment_form import PurchaseForm, PaymentInfoForm
 from realEstate.forms.property_form import AddressForm
 from realEstate.models import Property
 from user.models import Purchase
+from user.models import Profile
 
 
 def home(request):
@@ -52,13 +53,6 @@ def purchase_review(request, pur_id):
     purchase_instance = Purchase.objects.get(pk=pur_id)
     if request.user.id != purchase_instance.userInfo.id:
         return redirect('user-profile')
-
-    purchase_form = PurchaseForm(instance=purchase_instance)
-    card_info_form = PaymentInfoForm(instance=purchase_instance.paymentInfo)
-    address_form = AddressForm(instance=purchase_instance.paymentInfo.address)
-
-    context = { 'property': purchase_instance.property,
-                'address_form': address_form,
-                'card_info_form': card_info_form,
-                'purchase_form': purchase_form, }
+    context = { 'purchase': purchase_instance,
+                'property': purchase_instance.property,}
     return render(request, 'miscellaneous/purchase-review.html', context)

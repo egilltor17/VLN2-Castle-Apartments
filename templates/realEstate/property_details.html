@@ -64,13 +64,13 @@
                     <div class="card-body">
                         <h5 class="card-title">General Information</h5>
                         <p class="card-text">
-                            Price: {{ property.price }} $ <br>
                             Size: {{ property.squareMeters }} m<sup>2</sup> <br>
                             Type: {{ property.type }} <br>
                             Built in {{ property.constructionYear }} <br>
                             {{ property.nrBedrooms }} bedrooms <br>
                             {{ property.nrBathrooms }} bathrooms
                         </p>
+                        <p class="card-subtitle mb-2">Price: {{ property.price }} $</p>
                     </div>
                     <!-- Button is left outside the div on purpose -->
                     {% if property.sold %}
