@@ -10,7 +10,7 @@
                 <p class="card-subtitle mb-2">Price: {{ property.price }} $</p>
                 {% if own_profile %}
                     <!-- Button to edit property -->
-                    <a href="{% url 'edit_property' property.id %}" class="block btn btn-primary" id="edit-property-button">Edit</a>
+                    <a href="{% url 'edit-property' property.id %}" class="block btn btn-primary" id="edit-property-button">Edit</a>
                 {% endif %}
             </div>
         </div>
