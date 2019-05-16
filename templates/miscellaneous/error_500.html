@@ -2,6 +2,7 @@
 
 {% block content %}
 
-    <h1>ARG!!!!</h1>
+    <h1>Woops! Server error detected on page {{ request.get_full_path }}! Redirecting to home page!</h1>
+    <meta http-equiv="refresh" content="3;url=./">
 
 {% endblock %}

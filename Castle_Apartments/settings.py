@@ -23,11 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'l^-!_e)5b&nyhmedzbm1$)-12k12-g4z!56+%re=jv@$a=%9)^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-#ALLOWED_HOSTS = ['kastalar.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['kastalar.herokuapp.com', '127.0.0.1']
 
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -129,13 +129,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 # Extra lookup directories for collectstatic to find static files
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 #  Add configuration for static files storage using whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
