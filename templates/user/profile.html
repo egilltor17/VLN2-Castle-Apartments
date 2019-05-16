@@ -24,7 +24,7 @@
                                         Email: {{ user.email }}<br>
                                         Tel: {{ user.profile.phone }}</p>
                                     <!-- Button to edit profile -->
-                                    <a href="{% url 'edit-profile' %}" class="block btn btn-primary" id="edit-profile-button">Edit profile</a>
+                                    <a href="{% url 'edit-profile' %}" class="block btn btn-primary" id="edit-profile-button">Edit Profile</a>
                                 </div>
                             </div>
                         </div>
@@ -65,6 +65,20 @@
                         {% if property.sold %}
                             {% include 'user/single_sold_listing.html' with property=property %}
                         {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bought properties -->
+            <div id="sold-listings-header">
+                <h4>Purchased Properties</h4>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 mt-3">
+                    {% for purchased in purchased_properties %}
+                        {% include 'user/single_purchased_listing.html' with purchased=purchased %}
                     {% endfor %}
                     </div>
                 </div>
