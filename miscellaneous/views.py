@@ -56,3 +56,11 @@ def purchase_review(request, pur_id):
     context = { 'purchase': purchase_instance,
                 'property': purchase_instance.property,}
     return render(request, 'miscellaneous/purchase-review.html', context)
+
+
+def error_404(request, exception=None):
+    return render(request, 'miscellaneous/error_404.html')
+
+
+def error_500(request, exception=None):
+    return render(request, 'miscellaneous/error_500.html')
