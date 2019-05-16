@@ -19,7 +19,8 @@
 }
 
 #property-info-card {
-    height: 30rem;
+    width: 100%;
+    height: auto;
 }
 
 /* So the cards are not squished together */
@@ -58,4 +59,18 @@
 
 .link-to-property {
     color: rgb(111, 172, 177);
+}
+
+#price {
+    text-align: right;
+}
+
+#purchase-property-img {
+    width: 100%;
+    height: 20rem;
+    display: block;
+}
+
+.errorlist {
+    display: none;
 }

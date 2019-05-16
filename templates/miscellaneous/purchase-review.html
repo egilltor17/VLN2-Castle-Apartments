@@ -1,14 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h1>Thank you for PURCHASING your property with Castle Apartments!</h1>
+    <h3>Thank you for purchasing your property with Castle Apartments!</h3>
 
-    <form class="form form-horizontal purchase-review-form" method="post">
-        {% csrf_token %}
-        {{ card_info_form }}
-        {{ purchase_form }}
-        {{ address_form }}
-        <input class="btn btn-primary pull-right" type="submit" value="Purchase Property">
-    </form>
+
+    <div id="purchase-property-info-container">
+        <h3>Your Reciept</h3>
+        <div class="box card property-info" id="property-info-card">
+            <p> {{ purchase.date }}</p>
+            <p> {{ purchase.ssn }}</p>
+            <p> {{ purchase.paymentInfo.address }}
+            <a href="{% url 'property-details' property.id %}" class="link-to-property">
+                <h4> {{ property.name }}</h4>
+            </a>
+            <p>Size: {{ property.squareMeters }} <br>
+                Type: {{ property.type }} <br>
+                Built in {{ property.constructionYear }} <br>
+                {{ property.nrBedrooms }} bedrooms <br>
+                {{ property.nrBathrooms }} bathrooms <br>
+            </p>
+            <p class="card-subtitle mb-2">Price: {{ property.price }} $</p>
+
+            <h5 id="price"> Total: {{ property.price }} $</h5>
+        </div>
+    </div>
 
 {% endblock %}

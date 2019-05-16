@@ -55,8 +55,8 @@ $(document).ready(function () {
                                 </div>
                             </div>
                             <div id="property-price-info">
-                                <p class="card-subtitle mb-2">Price: ${d.price} $ <br>
-                                Size: ${d.squareMeters}m<sup>2</sup>, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms</p>
+                                <p>Size: ${d.squareMeters}m<sup>2</sup>, ${d.type}, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms</p>
+                                <p class="card-subtitle mb-2">Price: ${d.price} $</p>
                             </div>
                         </div>
                     </div>
@@ -299,7 +299,7 @@ $(document).ready(function () {
     });
 
     function purchaseStep1() {
-        $('#purchase-paragraph').replaceWith('<h3 id="purchase-paragraph">Please fill out the form below</h3>');
+        $('#purchase-paragraph').replaceWith('<h3 id="purchase-paragraph"></h3>');
         $('.purchase-property-form :input').prop('disabled', false);
         $('#purchase-cancel').prop('style', '');
         $('#purchase-continue').prop('style', '');

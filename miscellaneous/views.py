@@ -56,8 +56,8 @@ def purchase_review(request, pur_id):
     purchase_form = PurchaseForm(instance=purchase_instance)
     card_info_form = PaymentInfoForm(instance=purchase_instance.paymentInfo)
     address_form = AddressForm(instance=purchase_instance.paymentInfo.address)
-
-    context = { 'property': purchase_instance.property,
+    context = { 'purchase': purchase_instance,
+                'property': purchase_instance.property,
                 'address_form': address_form,
                 'card_info_form': card_info_form,
                 'purchase_form': purchase_form, }
