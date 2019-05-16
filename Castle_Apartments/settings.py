@@ -17,16 +17,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/2.2/howto/edeployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'l^-!_e)5b&nyhmedzbm1$)-12k12-g4z!56+%re=jv@$a=%9)^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['kastalar.herokuapp.com', '127.0.0.1']
+#ALLOWED_HOSTS = ['kastalar.herokuapp.com', '127.0.0.1']
 
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
