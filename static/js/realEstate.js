@@ -32,8 +32,6 @@ $(document).ready(function () {
         city_dropdown.prop('disabled', false);
         postcode_dropdown.prop('disabled', false);
         filter_button.prop('disabled', false);
-
-
     }
     function showElem(elem){
         elem.removeClass('hidden')
@@ -62,7 +60,6 @@ $(document).ready(function () {
                     </div>
                 </a>`
     }
-
     //
     //
     //Loading the initial property list.
@@ -100,7 +97,6 @@ $(document).ready(function () {
                 hideElem(loading_elem);
                 msg_area.append(showElem(result_elem.html('<h3>An error occurred, please try again.</h3>')));
                 enableInput();
-
             },
         });
     }
@@ -138,16 +134,13 @@ $(document).ready(function () {
                     let cityHTML = ``;
                     for (let i = 0; i < resp.data.length; i++) {
                         if (resp.data[i].municipalities == null) {
-                            cityHTML += `<option value = "${resp.data[i].cities}">${resp.data[i].cities}</option>`
+                            cityHTML += `<option value="${resp.data[i].cities}">${resp.data[i].cities}</option>`
                         } else {
-                            municiHTML += `<option value = "${resp.data[i].municipalities}">${resp.data[i].municipalities}</option>`
-
+                            municiHTML += `<option value="${resp.data[i].municipalities}">${resp.data[i].municipalities}</option>`
                         }
-
                     }
                     municipality_dropdown.append(municiHTML);
                     city_dropdown.append(cityHTML);
-
                 },
                 complete: function () {
                     enableInput();
@@ -156,11 +149,9 @@ $(document).ready(function () {
                     // TODO: show toastr
                     municipality_dropdown.after('<p>An error occurred, try again.</p>')
                     enableInput();
-
                 },
             })
         }
-
     });
     //Municipalities->Cities
     municipality_dropdown.change(function () {
@@ -180,24 +171,21 @@ $(document).ready(function () {
                     city_dropdown.find('option').not(':first').remove();
                     postcode_dropdown.find('option').not(':first').remove();
                     disableInput();
-
                 },
                 success: function (resp) {
                     let newHTML = ``;
                     for (let i = 0; i < resp.data.length; i++) {
-                        newHTML += `<option value = "${resp.data[i].cities}">${resp.data[i].cities}</option>`
+                        newHTML += `<option value = "${resp.data[i]}">${resp.data[i]}</option>`
                     }
                     city_dropdown.append(newHTML);
                 },
                 complete: function () {
                     enableInput();
-
                 },
                 error: function (xhr, status, error) {
                     // TODO: show toastr
                     console.error(error);
                     enableInput();
-
                 },
             })
         }
@@ -217,27 +205,22 @@ $(document).ready(function () {
                 url: '/property',
                 beforeSend: function () {
                     disableInput();
-
                 },
                 success: function (resp) {
                     let newHTML = ``;
                     for (let i = 0; i < resp.data.length; i++) {
-                        newHTML += `<option value = "${resp.data[i].postcodes}">${resp.data[i].postcodes}</option>`
-
+                        newHTML += `<option value = "${resp.data[i]}">${resp.data[i]}</option>`
                     }
                     postcode_dropdown.append(newHTML);
                 },
                 complete: function () {
                     enableInput();
-
                 },
                 error: function (xhr, status, error) {
                     // TODO: show toastr
                     console.error(error);
                     enableInput();
-
                 },
-
             })
         }
     });
@@ -285,7 +268,6 @@ $(document).ready(function () {
             },
         });
     }
-
     filter_button.on('click', function (e) {
         e.preventDefault();
         filter(e);

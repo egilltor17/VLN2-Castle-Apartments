@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>This page {{ request.get_full_path }} was not found, redirecting to home page!</h1>
+    <meta http-equiv="refresh" content="3;url=./">
+
+{% endblock %}

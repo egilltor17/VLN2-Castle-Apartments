@@ -5,28 +5,29 @@ from django.shortcuts import render, redirect, reverse
 from django.db.models import Case, When
 
 from realEstate.models import Property, Address
-from user.models import Profile, RecentlyViewed, Favorites
+from user.models import Profile, RecentlyViewed, Favorites, Purchase
 from user.forms.registration_form import ProfileForm, UserForm
 # Create your views here.
 
 
 @login_required
 def profile(request):
-
     pks = [recently_viewed.property_id for recently_viewed in RecentlyViewed.objects.filter(user_id=request.user.id).order_by('-timestamp')]
-    # To hold the order by timestamp
-    preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(pks)])
+    preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(pks)])# To hold the order by timestamp
     properties = Property.objects.filter(pk__in=pks).order_by(preserved)[:10]
 
     #Get all favorites for the user logged in
     pks2 = [favorite.property_id for favorite in Favorites.objects.filter(user_id=request.user.id)]
-    #Get all properties that are favorited by the user logged in
     favorites = Property.objects.filter(pk__in=pks2)
+
+    #Get all purchased properties for the user logged in
+    purchased_properties = Purchase.objects.filter(userInfo_id=request.user.id)
 
     context = {'properties': Property.objects.filter(seller=request.user).order_by('-dateCreated'),
                'profile': 'active',
                'recently_viewed_properties': properties,
-               'favorites': favorites}
+               'favorites': favorites,
+               'purchased_properties': purchased_properties}
     return render(request, 'user/profile.html', context)
 
 
@@ -55,13 +56,12 @@ def editProfile(request):
             return redirect('user-profile')
         else:
             context = {'profile_form': profile_form, 'user_form': user_form}
-            return render(request, 'user/register.html', context)
+            return render(request, 'user/editProfile.html', context)
     return render(request, 'user/editProfile.html', {
         'profile': 'active',
         'profile_form': ProfileForm(instance=profile_instance),
         'user_form': UserForm(instance=request.user)
     })
-
 
 def register(request):
     if request.method == 'POST':
