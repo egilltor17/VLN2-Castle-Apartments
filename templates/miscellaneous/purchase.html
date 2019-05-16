@@ -28,15 +28,14 @@
                     <a href="{% url 'property-details' property.id %}" class="link-to-property">
                         <h4> {{ property.name }}</h4>
                     </a>
-                    <p>Size: {{ property.squareMeters }} <br>
+                    <p> Address: {{ property.address }} <br>
+                        Size: {{ property.squareMeters }}m<sup>2</sup> <br>
                         Type: {{ property.type }} <br>
-                        Built in {{ property.constructionYear }} <br>
-                        {{ property.nrBedrooms }} bedrooms <br>
-                        {{ property.nrBathrooms }} bathrooms <br>
                     </p>
                     <p class="card-subtitle mb-2">Price: {{ property.price }} $</p>
-
-                    <h5 id="price"> Total: {{ property.price }} $</h5>
+                    <div id="total-container">
+                        <h5 id="price"> Total: {{ property.price }} $</h5>
+                    </div>
                 </div>
             </div>
             <h3 id="purchase-paragraph"></h3>
