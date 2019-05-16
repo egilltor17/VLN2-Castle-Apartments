@@ -1,0 +1,19 @@
+#sign-in-link {
+    color: rgb(111, 172, 177);
+}
+
+#register-link {
+    color: rgb(111, 172, 177);
+}
+
+#register-card ul li::before {
+    content: "\2022";
+    color: rgb(111, 172, 177);
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+#sign-up-button {
+    display: block;
+}
