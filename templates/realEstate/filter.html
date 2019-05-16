@@ -8,7 +8,7 @@
                     <label>
                         Country
                         <select id="country_dropd" name="country" class="select-style">
-                                <option value="" selected>All</option>
+                            <option value="" selected>All</option>
                             {% for countries in country_list %}
                                 <option value="{{ countries.address.country }}">{{ countries.address.country }}</option>
                             {% endfor %}
@@ -225,7 +225,7 @@
 
             <div name="attributes" id="attributes">
                 {% for attributes in attribute_list %}
-                    <label><input class="checkbox-style" type="checkbox" name="{{ attributes.id }}" value="{{ attributes.description }}">{{ attributes.description }}</label>
+                    <label><input class="checkbox-style" type="checkbox" name="{{ attributes.id }}" value="1">{{ attributes.description }}</label>
                 {% endfor %}
             </div>
         </fieldset>
