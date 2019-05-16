@@ -97,9 +97,8 @@ $(document).ready(function () {
                 enableInput();
             },
             error: function (xhr, status, error) {
-                // TODO: show toastr
                 hideElem(loading_elem);
-                console.error(error);
+                msg_area.append(showElem(result_elem.html('<h3>An error occurred, please try again.</h3>')));
                 enableInput();
 
             },
@@ -155,7 +154,7 @@ $(document).ready(function () {
                 },
                 error: function (xhr, status, error) {
                     // TODO: show toastr
-                    console.error(error);
+                    municipality_dropdown.after('<p>An error occurred, try again.</p>')
                     enableInput();
 
                 },
@@ -281,8 +280,7 @@ $(document).ready(function () {
                 enableInput();
             },
             error: function (xhr, status, error) {
-                // TODO: show toastr
-                console.error(error);
+                msg_area.append(showElem(result_elem.html('<h3>An error occurred, please try again.</h3>')));
                 enableInput();
             },
         });
