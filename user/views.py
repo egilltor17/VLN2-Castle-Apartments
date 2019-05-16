@@ -55,7 +55,7 @@ def editProfile(request):
             return redirect('user-profile')
         else:
             context = {'profile_form': profile_form, 'user_form': user_form}
-            return render(request, 'user/register.html', context)
+            return render(request, 'user/editProfile.html', context)
     return render(request, 'user/editProfile.html', {
         'profile': 'active',
         'profile_form': ProfileForm(instance=profile_instance),

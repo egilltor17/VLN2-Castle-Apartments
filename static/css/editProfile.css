@@ -1,0 +1,20 @@
+#edit-profile-card {
+    padding: 20px;
+}
+
+#edit-profile-container {
+    margin: auto;
+    width: 28rem;
+}
+
+.input {
+    width: 100%;
+}
+
+#update-profile-button {
+    margin-top: 10px;
+}
+
+.heading {
+    text-align: center;
+}
