@@ -8,11 +8,10 @@
                     Size: {{ property.squareMeters }}m<sup>2</sup>, {{ property.type }}, {{ property.nrBedrooms }} bedrooms, {{ property.nrBathrooms }} bathrooms
                 </p>
                 <p class="card-subtitle mb-2">Price: {{ property.price }} $</p>
-                <!-- Button to edit property -->
-                <a href="{% url 'edit_property' property.id %}" class="block btn btn-primary" id="edit-property-button">Edit</a>
-
-                <!-- Button to delete property -->
-                <a href="" class="block btn btn-primary" id="delete-active-property-button">Delete</a>
+                {% if own_profile %}
+                    <!-- Button to edit property -->
+                    <a href="{% url 'edit_property' property.id %}" class="block btn btn-primary" id="edit-property-button">Edit</a>
+                {% endif %}
             </div>
         </div>
     </div>
