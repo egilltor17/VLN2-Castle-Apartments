@@ -4,9 +4,8 @@
             <div class="card-body">
                 <h4 class="card-title">{{ purchased.property.name }}</h4>
                 <p class="card-text">
-                    Size: {{ purchased.property.squareMeters }}m<sup>2</sup>, {{ purchased.property.type }}, {{ purchased.property.nrBedrooms }} bedrooms, {{ purchased.property.nrBathrooms }} bathrooms
-                </p>
-                <p class="card-subtitle mb-2">Price: {{ purchased.property.price }} $</p>
+                    Size: {{ purchased.property.squareMeters }}m<sup>2</sup>, {{ purchased.property.type }}, {{ purchased.property.nrBedrooms }} bedrooms, {{ purchased.property.nrBathrooms }} bathrooms <br>
+                    Price: {{ purchased.property.price }} $</p>
                 <!-- Button to see receipt of purchase -->
                 <a href="{% url 'purchase_review' purchased.id %}" class="block btn btn-primary">See Receipt</a>
             </div>
