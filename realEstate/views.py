@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.forms import modelformset_factory, inlineformset_factory
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
@@ -40,6 +40,7 @@ def index(request):
 
     if request.is_ajax() and ('initial_filter' in request.GET or 'search_box' in request.GET):
         filters = request.GET
+        attr_query_set = [x for x in request.GET if x.isdigit()]
         properties = [{
             'id': x.id,
             'name': x.name,
@@ -89,8 +90,8 @@ def index(request):
             Q(nrBathrooms__lte=filters.get('bathrooms_to')),
             Q(constructionYear__gte=filters.get('year_built_from')),
             Q(constructionYear__lte=filters.get('year_built_to')),
-            Q(type__contains=filters.get('type'))
-        ).order_by(request.GET.get('order'))
+            Q(type__contains=filters.get('type')),
+        ).filter(attributes__id__in=attr_query_set).annotate(num_attributes=Count('attributes')).filter(num_attributes=len(attr_query_set)).order_by(request.GET.get('order'))
             if 'search_box' in request.GET
             else property_db)]
         return JsonResponse({'data': properties})

@@ -1,14 +1,49 @@
 {% extends "base.html" %}
 {% block content %}
+    <link rel="stylesheet" type="text/css" href="/static/css/purchase_review.css">
+    <h3>Thank you for purchasing your property with Castle Apartments!</h3>
 
-    <h1>Thank you for PURCHASING your property with Castle Apartments!</h1>
+    <div id="purchase-property-info-container">
+        <h4>Your Reciept</h4>
+        <div class="box card receipt" id="receipt-container">
+            <div id="image-and-date-container">
+                <img id="logo-receipt" src="/static/images/logo_receipt.png">
+                <h6 id="receipt-date"> {{ purchase.date }} </h6>
+            </div>
 
-    <form class="form form-horizontal purchase-review-form" method="post">
-        {% csrf_token %}
-        {{ card_info_form }}
-        {{ purchase_form }}
-        {{ address_form }}
-        <input class="btn btn-primary pull-right" type="submit" value="Purchase Property">
-    </form>
+            <h4 id="buyer-heading">Buyer Information</h4>
+            <p>Name: {{ purchase.userInfo.first_name }} {{ purchase.userInfo.last_name }} <br>
+            SSN: {{ purchase.SSN }} <br>
+            Email: {{ purchase.userInfo.email }}<br>
+            Address: {{ purchase.paymentInfo.address }}</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Property</th>
+                        <th scope="col">Property Address</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="{% url 'property-details' property.id %}" class="link-to-property"><p> {{ property.name }}</p></a></td>
+                        <td>{{ property.address }}</td>
+                        <td>{{ property.squareMeters }}m<sup>2</sup></td>
+                        <td>{{ property.type }}</td>
+                        <td>{{ property.price }} $</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total price:</td>
+                        <td>{{ property.price }} $</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 {% endblock %}

@@ -1,0 +1,26 @@
+#logo-receipt {
+    width: 17rem;
+    height: 5rem;
+    float: left;
+}
+
+#receipt-container {
+    padding: 20px;
+}
+
+#receipt-date {
+    float: right;
+    display: inline-block;
+    width: 15rem;
+}
+
+#image-and-date-container {
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+}
+
+#buyer-heading {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}

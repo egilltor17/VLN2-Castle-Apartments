@@ -4,6 +4,7 @@ from . import views
 
 # my profile etc.
 urlpatterns = [
+
     path('profile', views.profile, name='user-profile'),
     path('profile/<int:user_id>', views.view_other_profiles, name='seller-profile'),
     path('profile/edit', views.editProfile, name='edit-profile'),
