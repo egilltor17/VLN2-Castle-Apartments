@@ -18,13 +18,15 @@
                                     <img class="profile-image" src="/media/{{ user.profile.profileImage }}" alt="Card image cap">
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title">{{ user.first_name }} {{ user.last_name }}'s profile</h4>
+                                    <h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>
                                     <p class="card-text">
                                         Username: {{ user.username }} <br>
                                         Email: {{ user.email }}<br>
                                         Tel: {{ user.profile.phone }}</p>
                                     <!-- Button to edit profile -->
                                     <a href="{% url 'edit-profile' %}" class="block btn btn-primary" id="edit-profile-button">Edit Profile</a>
+                                    <!-- Button to seller profile -->
+                                    <a href="{% url 'seller-profile' user.id %}" class="block btn btn-primary" id="view-profile-button">View Profile</a>
                                 </div>
                             </div>
                         </div>
