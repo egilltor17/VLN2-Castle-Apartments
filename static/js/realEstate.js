@@ -176,7 +176,7 @@ $(document).ready(function () {
                 success: function (resp) {
                     let newHTML = ``;
                     for (let i = 0; i < resp.data.length; i++) {
-                        newHTML += `<option value = "${resp.data[i].cities}">${resp.data[i].cities}</option>`
+                        newHTML += `<option value = "${resp.data[i]}">${resp.data[i]}</option>`
                     }
                     city_dropdown.append(newHTML);
                 },
@@ -210,7 +210,7 @@ $(document).ready(function () {
                 success: function (resp) {
                     let newHTML = ``;
                     for (let i = 0; i < resp.data.length; i++) {
-                        newHTML += `<option value = "${resp.data[i].postcodes}">${resp.data[i].postcodes}</option>`
+                        newHTML += `<option value = "${resp.data[i]}">${resp.data[i]}</option>`
                     }
                     postcode_dropdown.append(newHTML);
                 },
