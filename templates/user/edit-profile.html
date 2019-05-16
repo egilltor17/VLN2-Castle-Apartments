@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
     <link rel="stylesheet" type="text/css" href="/static/css/editProfile.css">
 
     <div id="edit-profile-container">
@@ -10,14 +11,13 @@
                 <p>Please edit your information in the corresponding lines below</p>
             </div>
             <div class="card" id="edit-profile-card">
-                <form class="form {# form-horizontal #}" method="post" enctype="multipart/form-data">
+                <form class="form form-horizontal" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ user_form.as_p }}
                     {{ profile_form.as_p }}
                     <input type="submit" class="btn btn-primary" id="update-profile-button" value="Update">
                 </form>
             </div>
-
         </div>
     </div>
 

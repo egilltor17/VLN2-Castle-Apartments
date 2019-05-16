@@ -4,7 +4,6 @@ from miscellaneous.forms.payment_form import PurchaseForm, PaymentInfoForm
 from realEstate.forms.property_form import AddressForm
 from realEstate.models import Property
 from user.models import Purchase
-from user.models import Profile
 
 
 def home(request):
@@ -40,7 +39,6 @@ def purchase(request, prop_id):
             pur.userInfo_id = request.user.id
             pur.save()
             return redirect('review/' + str(pur.pk))
-            # return render(request, 'miscellaneous/purchase-review.html', { 'purchase_id': pur.id })
     context = { 'property': get_object_or_404(Property, pk=prop_id),
                 'address_form': address_form,
                 'card_info_form': card_info_form,
