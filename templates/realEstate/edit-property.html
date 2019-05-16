@@ -10,7 +10,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form class="form form-horizontal edit-property-form" action="{% url 'edit_property' pk %}" method="post">
+            <form class="form form-horizontal edit-property-form" action="{% url 'edit-property' pk %}" method="post">
                 {% csrf_token %}
                 <fieldset>
                     <legend>Property</legend>

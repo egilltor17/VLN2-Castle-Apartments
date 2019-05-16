@@ -8,7 +8,7 @@
                 </p>
                 <p class="card-subtitle mb-2">Price: {{ purchased.property.price }} $</p>
                 <!-- Button to see receipt of purchase -->
-                <a href="{% url 'purchase_review' purchased.id %}" class="block btn btn-primary">See Receipt</a>
+                <a href="{% url 'purchase-receipt' purchased.id %}" class="block btn btn-primary">See Receipt</a>
             </div>
         </div>
     </div>

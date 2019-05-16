@@ -35,7 +35,7 @@
             <!-- Button to add property-->
             <div id="add-property-button">
                 {% csrf_token %}
-                <a href="{% url 'add_property' %}" class="block btn btn-primary">Add Property</a>
+                <a href="{% url 'add-property' %}" class="block btn btn-primary">Add Property</a>
             </div>
 
             <!-- Active properties -->
@@ -45,9 +45,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 mt-3">
-                    {% for property in properties %}
+                    {% for property in listings %}
                         {% if not property.sold %}
-                            {% include 'user/single_active_listing.html' with property=property own_profile=True %}
+                            {% include 'user/single-active-listing.html' with property=property own_profile=True %}
                         {% endif %}
                     {% endfor %}
                     </div>
@@ -61,9 +61,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 mt-3">
-                    {% for property in properties %}
+                    {% for property in listings %}
                         {% if property.sold %}
-                            {% include 'user/single_sold_listing.html' with property=property %}
+                            {% include 'user/single-sold-listing.html' with property=property %}
                         {% endif %}
                     {% endfor %}
                     </div>
@@ -77,8 +77,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 mt-3">
-                    {% for purchased in purchased_properties %}
-                        {% include 'user/single_purchased_listing.html' with purchased=purchased %}
+                    {% for purchased in purchased %}
+                        {% include 'user/single-purchased-listing.html' with purchased=purchased %}
                     {% endfor %}
                     </div>
                 </div>
@@ -90,8 +90,8 @@
             <!-- Card for recently viewed properties -->
             <h4 id="recently-viewed-header">Recently Viewed</h4>
             <div class="col-12 mt-3" id="recently-viewed-list">
-                {% for recently_viewed_property in recently_viewed_properties %}
-                    {% include 'user/single_recently_viewed.html' with recently_viewed_property=recently_viewed_property %}
+                {% for recently_viewed_property in recently_viewed %}
+                    {% include 'user/single-recently-viewed.html' with recently_viewed_property=recently_viewed_property %}
                 {% endfor %}
             </div>
 
@@ -99,7 +99,7 @@
             <h4 id="recently-viewed-header">Favorites</h4>
             <div class="col-12 mt-3" id="recently-viewed-list">
                 {% for favorite in favorites %}
-                    {% include 'user/single_favorite.html' with favorite=favorite %}
+                    {% include 'user/single-favorite.html' with favorite=favorite %}
                 {% endfor %}
             </div>
 

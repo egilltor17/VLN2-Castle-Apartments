@@ -38,9 +38,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 mt-3">
-                    {% for property in properties %}
+                    {% for property in listings %}
                         {% if not property.sold %}
-                            {% include 'user/single_active_listing.html' with property=property own_profile=False %}
+                            {% include 'user/single-active-listing.html' with property=property own_profile=False %}
                         {% endif %}
                     {% endfor %}
                     </div>
@@ -54,9 +54,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 mt-3">
-                    {% for property in properties %}
+                    {% for property in listings %}
                         {% if property.sold %}
-                            {% include 'user/single_sold_listing.html' with property=property %}
+                            {% include 'user/single-sold-listing.html' with property=property %}
                         {% endif %}
                     {% endfor %}
                     </div>
