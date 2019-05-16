@@ -76,15 +76,6 @@ a, a:hover {
     text-align:center;
 }
 
-#sign-up-button {
-    display: block;
-}
-
-#login-button {
-    display: block;
-    margin: auto;
-}
-
 #id_username, #id_password{
     border: 1px solid #dbdbdb;
     border-radius: 4px;
@@ -99,29 +90,10 @@ a, a:hover {
     border: 1px solid #dbdbdb;
     border-radius: 4px;
     padding: 3px;
-    width: 50%;
-}
-
-.helptext {
-    display: none;
-}
-
-#sign-in-link {
-    color: rgb(111, 172, 177);
-}
-
-#register-link {
-    color: rgb(111, 172, 177);
+    width: 100%;
 }
 
 ul {
     list-style: none;
 }
 
-#register-card ul li::before {
-    content: "\2022";
-    color: rgb(111, 172, 177);
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
-}
