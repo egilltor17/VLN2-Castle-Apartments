@@ -37,20 +37,16 @@
                         {% if user.is_authenticated  %}
                             {% csrf_token %}
                             {% if not is_favorite %}
-                                <a href="{% url 'favorite_property' property.id %}"><img class="favorite-heart" src="/static/images/unfilled_heart.png" alt="Favorite heart"></a>
+                                <button id="fav-btn" data-href="{% url 'favorite_property' property.id %}" class="favorite-heart favorite-button" type="submit"><img class="favorite-heart" src="/static/images/unfilled_heart.png" alt="Favorite heart"></button>
+                                <button id="unfav-btn" data-href="{% url 'unfavorite_property' property.id %}" class="favorite-heart unfavorite-button hidden" type="submit" disabled><img class="favorite-heart" src="/static/images/filled_heart.png" alt="Unfavorite heart"></button>
                             {% else %}
-                                <a href="{% url 'unfavorite_property' property.id %}"><img class="favorite-heart" src="/static/images/filled_heart.png" alt="Unfavorite heart"></a>
-                            {% endif %}
-
-                            {% if num_favorites > 0 %}
-                                <h6 id="num-favorites">{{ num_favorites }} </h6>
+                                <button id="fav-btn" data-href="{% url 'favorite_property' property.id %}" class="favorite-heart favorite-button hidden" type="submit" disabled><img class="favorite-heart" src="/static/images/unfilled_heart.png" alt="Favorite heart"></button>
+                                <button id="unfav-btn" data-href="{% url 'unfavorite_property' property.id %}" class="favorite-heart unfavorite-button" type="submit"><img class="favorite-heart" src="/static/images/filled_heart.png" alt="Unfavorite heart"></button>
                             {% endif %}
                         {% else %}
                             <a href="{% url 'login' %}"><img class="favorite-heart" src="/static/images/unfilled_heart.png" alt="Favorite heart"></a>
-                            {% if num_favorites > 0 %}
-                                <h6 id="num-favorites">{{ num_favorites }} </h6>
-                            {% endif %}
                         {% endif %}
+                        <h6 id="num-favorites">{{ num_favorites }}</h6>
                         <h5 class="card-title">{{ property.name }}</h5>
                         <p class="card-text">{{ property.address }}</p>
                         <p class="card-text">{{ property.description }}</p>

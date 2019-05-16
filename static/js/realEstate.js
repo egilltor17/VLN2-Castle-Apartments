@@ -14,6 +14,9 @@ $(document).ready(function () {
     let msg_area = $('#msg-area');
     let loading_elem = $('#loading');
     let result_elem = $('#result');
+    let fav_button = $('.favorite-button');
+    let unfav_button = $('.unfavorite-button');
+    let num_favorites = $('#num-favorites');
     msg_area.append(loading_elem);
     msg_area.append(result_elem);
     let url_parts = $(location).attr('href').split("/");
@@ -67,7 +70,6 @@ $(document).ready(function () {
     //
     if (window.location.pathname === '/property/') {
         $.ajax({
-            url: '/property/',
             type: 'GET',
             data: 'initial_filter',
             cache: false,
@@ -121,7 +123,6 @@ $(document).ready(function () {
                     country: selected_country,
                     city: selected_city
                 },
-                url: '/property',
                 beforeSend: function () {
                     municipality_dropdown.find('option').not(':first').remove();
                     city_dropdown.find('option').not(':first').remove();
@@ -133,10 +134,9 @@ $(document).ready(function () {
                     let municiHTML = ``;
                     let cityHTML = ``;
                     for (let i = 0; i < resp.data.length; i++) {
-                        if (resp.data[i].municipalities == null) {
-                            cityHTML += `<option value="${resp.data[i].cities}">${resp.data[i].cities}</option>`
-                        } else {
+                        if (resp.data[i].municipalities !== null) {
                             municiHTML += `<option value="${resp.data[i].municipalities}">${resp.data[i].municipalities}</option>`
+                            cityHTML += `<option value="${resp.data[i].cities}">${resp.data[i].cities}</option>`
                         }
                     }
                     municipality_dropdown.append(municiHTML);
@@ -166,7 +166,6 @@ $(document).ready(function () {
                     enable_cities: '',
                     municipality: selected_municipality,
                 },
-                url: '/property',
                 beforeSend: function () {
                     city_dropdown.find('option').not(':first').remove();
                     postcode_dropdown.find('option').not(':first').remove();
@@ -202,7 +201,6 @@ $(document).ready(function () {
                     enable_postcodes: '',
                     city: selected_city,
                 },
-                url: '/property',
                 beforeSend: function () {
                     disableInput();
                 },
@@ -277,7 +275,62 @@ $(document).ready(function () {
             filter(e);
         }
     });
+    //
+    //
+    //Favorite Functions
+    //
+    //
+    fav_button.on('click', function(e){
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        let token = Cookies.get('csrftoken');
+        let fav_num = parseInt(num_favorites.text());
+        $.ajax({
+            headers: { "X-CSRFToken": token },
+            url: $(this).attr('data-href'),
+            type: 'POST',
+            data: {fav :''},
+            success: function() {
+                fav_button.prop('disabled', true);
+                hideElem(fav_button);
+                unfav_button.prop('disabled', false);
+                showElem(unfav_button);
+                num_favorites.html(++fav_num)
+            },
+            error: function(xhr, status, error){
+                console.error(error)
+            }
 
+        })
+    });
+    unfav_button.on('click', function(e){
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        let token = Cookies.get('csrftoken');
+        let fav_num = parseInt(num_favorites.text());
+        $.ajax({
+            headers: { "X-CSRFToken": token },
+            url: $(this).attr('data-href'),
+            type: 'POST',
+            data: {unfav: ''},
+            success: function() {
+                showElem(fav_button);
+                unfav_button.prop('disabled', true);
+                hideElem(unfav_button);
+                fav_button.prop('disabled', false);
+                num_favorites.html(--fav_num);
+            },
+            error: function(xhr, status, error){
+                console.error(error)
+            }
+
+        })
+    });
+    //
+    //
+    //Purchase functions
+    //
+    //
     function purchaseStep1() {
         $('#purchase-paragraph').replaceWith('<h3 id="purchase-paragraph"></h3>');
         $('.purchase-property-form :input').prop('disabled', false);
