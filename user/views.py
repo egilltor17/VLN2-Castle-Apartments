@@ -28,6 +28,7 @@ def profile(request):
     return render(request, 'user/profile.html', context)
 
 
+
 def seller_profile(request, user_id):
     if request.user.id == user_id:  # Seller is redirected to his own profile
         return redirect('user-profile')

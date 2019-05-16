@@ -17,3 +17,13 @@
 #sign-up-button {
     display: block;
 }
+
+#register-container {
+    width: 20rem;
+}
+
+@media screen and (max-width: 375px) {
+    #register-container{
+        width: 100%;
+    }
+}
