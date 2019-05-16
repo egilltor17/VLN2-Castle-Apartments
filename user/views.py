@@ -12,35 +12,36 @@ from user.forms.registration_form import ProfileForm, UserForm
 
 @login_required
 def profile(request):
-    pks = [recently_viewed.property_id for recently_viewed in RecentlyViewed.objects.filter(user_id=request.user.id).order_by('-timestamp')]
-    preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(pks)])# To hold the order by timestamp
-    properties = Property.objects.filter(pk__in=pks).order_by(preserved)[:10]
+    # Get all recently viewed properties for the user logged in
+    pks = [rec.property_id for rec in RecentlyViewed.objects.filter(user_id=request.user.id).order_by('-timestamp')]
+    # To hold the order by timestamp
+    preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(pks)])
+    recently_viewed_properties = Property.objects.filter(pk__in=pks).order_by(preserved)[:10]
 
-    #Get all favorites for the user logged in
-    pks2 = [favorite.property_id for favorite in Favorites.objects.filter(user_id=request.user.id)]
+    # Get all favorites for the user logged in
+    pks2 = [fav.property_id for fav in Favorites.objects.filter(user_id=request.user.id)]
     favorites = Property.objects.filter(pk__in=pks2)
 
-    #Get all purchased properties for the user logged in
+    # Get all purchased properties for the user logged in
     purchased_properties = Purchase.objects.filter(userInfo_id=request.user.id)
 
     context = {'properties': Property.objects.filter(seller=request.user).order_by('-dateCreated'),
-               'profile': 'active',
-               'recently_viewed_properties': properties,
+               'recently_viewed_properties': recently_viewed_properties,
                'favorites': favorites,
                'purchased_properties': purchased_properties}
     return render(request, 'user/profile.html', context)
 
 
-def view_other_profiles(request, user_id):
-    context = {'properties': Property.objects.filter(seller__pk=user_id).order_by('-dateCreated'),
-               'seller': User.objects.get(pk=user_id)}
+def seller_profile(request, user_id):
     if request.user.id == user_id:
         return redirect('user-profile')
+    context = {'properties': Property.objects.filter(seller__pk=user_id).order_by('-dateCreated'),
+               'seller': User.objects.get(pk=user_id)}
     return render(request, 'user/sellerProfile.html', context)
 
 
 @login_required
-def editProfile(request):
+def edit_profile(request):
     profile_instance = Profile.objects.get(pk=request.user.pk)
     if request.method == 'POST':
         profile_form = ProfileForm(instance=profile_instance, data=request.POST, files=request.FILES)
@@ -56,12 +57,12 @@ def editProfile(request):
             return redirect('user-profile')
         else:
             context = {'profile_form': profile_form, 'user_form': user_form}
-            return render(request, 'user/editProfile.html', context)
-    return render(request, 'user/editProfile.html', {
-        'profile': 'active',
-        'profile_form': ProfileForm(instance=profile_instance),
-        'user_form': UserForm(instance=request.user)
-    })
+            return render(request, 'user/edit-profile.html', context)
+    else:
+        context = {'profile_form': ProfileForm(instance=profile_instance),
+                   'user_form': UserForm(instance=request.user),}
+        return render(request, 'user/edit-profile.html', context)
+
 
 def register(request):
     if request.method == 'POST':

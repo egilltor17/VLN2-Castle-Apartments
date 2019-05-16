@@ -158,7 +158,7 @@ def unfavorite_property(request, prop_id):
 
 
 @login_required
-def create(request):
+def create_property(request):
     images_form_set = modelformset_factory(PropertyImage, fields=('image',), extra=5)
     if request.method == 'POST':
         address_form = AddressForm(data=request.POST)
@@ -194,7 +194,7 @@ def create(request):
 
 
 @login_required
-def update(request, prop_id):
+def update_property(request, prop_id):
     property_instance = Property.objects.get(pk=prop_id)
     images_form_set = inlineformset_factory(Property, PropertyImage, fields=('image',))
     if request.user.id != property_instance.seller.id:
@@ -222,8 +222,9 @@ def update(request, prop_id):
                         'property_form': property_form,
                         'image_form': image_form, }
             return render(request, 'realEstate/edit-property.html', context)
-    context = {'pk': prop_id,
-               'address_form': AddressForm(instance=property_instance.address),
-               'property_form': PropertyForm(instance=property_instance),
-               'image_form': images_form_set(instance=property_instance), }
-    return render(request, 'realEstate/edit-property.html', context)
+    else:
+        context = {'pk': prop_id,
+                   'address_form': AddressForm(instance=property_instance.address),
+                   'property_form': PropertyForm(instance=property_instance),
+                   'image_form': images_form_set(instance=property_instance), }
+        return render(request, 'realEstate/edit-property.html', context)
