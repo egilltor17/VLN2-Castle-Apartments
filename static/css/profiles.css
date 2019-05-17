@@ -84,3 +84,7 @@ a:hover {
 .small-property-image {
     border-radius: 3px 0 0 0;
 }
+
+#see-receipt-button, #edit-property-button {
+    margin-top: 10px;
+}

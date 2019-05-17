@@ -271,7 +271,12 @@
                 {% endfor %}
             </div>
         </fieldset>
+
         <input type="search" name="search_box" class="form-control" id="search-box" placeholder="Search by name/description/address..."/>
-        <input type = "submit" value="Search" class="btn btn-primary pull-right" id="filter_props">
+        <div id="search-button-container">
+            <input type = "submit" value="Clear Filters" class="btn btn-primary pull-right" id="clear_button">
+            <input type = "submit" value="Search" class="btn btn-primary pull-right" id="filter_props">
+        </div>
+
     </form>
 </div>

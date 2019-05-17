@@ -4,7 +4,7 @@
     <h3>Thank you for purchasing your property with Castle Apartments!</h3>
 
     <div id="purchase-property-info-container">
-        <h4>Your Reciept</h4>
+        <h4>Your Receipt</h4>
         <div class="box card receipt" id="receipt-container">
             <div id="image-and-date-container">
                 <img id="logo-receipt" src="/static/images/logo_receipt.png" alt="Castle Apartments Logo">
@@ -16,7 +16,7 @@
             SSN: {{ purchase.SSN }} <br>
             Email: {{ purchase.userInfo.email }}<br>
             Address: {{ purchase.paymentInfo.address }}</p>
-            <table class="table">
+            <table class="table" id="receipt-table">
                 <thead>
                     <tr>
                         <th scope="col">Property</th>
@@ -38,7 +38,35 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>Total price:</td>
+                        <td><b>Total price </b></td>
+                        <td>{{ property.price }} $</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table" id="mini-receipt-table">
+                <tbody>
+                    <tr>
+                        <td><b>Property name</b></td>
+                        <td><a href="{% url 'property-details' property.id %}" class="link-to-property"><p> {{ property.name }}</p></a></td>
+                    </tr>
+                    <tr>
+                        <td><b>Address</b></td>
+                        <td>{{ property.address }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Size</b></td>
+                        <td>{{ property.squareMeters }}m<sup>2</sup></td>
+                    </tr>
+                    <tr>
+                        <td><b>Type</b></td>
+                        <td>{{ property.type }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Price</b></td>
+                        <td>{{ property.price }} $</td>
+                    </tr>
+                    <tr>
+                        <td id="total-price"><b>Total price</b></td>
                         <td>{{ property.price }} $</td>
                     </tr>
                 </tbody>
