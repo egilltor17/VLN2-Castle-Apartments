@@ -11,6 +11,10 @@
     width: 40%;
 }
 
+#edit-profile-button, #view-profile-button {
+    margin: 2.5px;
+}
+
 /* So active/sold listing/recently viewed header and add property button is in line with rest of page */
 #active-listings-header, #sold-listings-header, #add-property-button, #recently-viewed-header  {
     padding-left: 20px;
