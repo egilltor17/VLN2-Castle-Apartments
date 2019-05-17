@@ -1,7 +1,7 @@
 #logo-receipt {
-    width: 17rem;
-    height: 5rem;
-    float: left;
+    position: relative;
+    width: 10rem;
+    height: 3rem;
 }
 
 #receipt-container {
@@ -23,4 +23,21 @@
 #buyer-heading {
     margin-top: 15px;
     margin-bottom: 10px;
+}
+
+#receipt-table {
+    width: 100%;
+}
+
+#mini-receipt-table {
+    display: none;
+}
+
+@media screen and (max-width: 772px){
+    #receipt-table {
+        display: none;
+    }
+    #mini-receipt-table {
+        display: block;
+    }
 }
