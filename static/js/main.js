@@ -261,7 +261,7 @@ $(document).ready(function () {
             request_data[obj.name] = obj.value
         });
         $.ajax({
-            url: '/property?' + $.param(request_data),
+            url: '/property/?' + $.param(request_data),
             type: 'GET',
             beforeSend: function () {
                 hideElem(result_elem);
