@@ -271,7 +271,7 @@ $(document).ready(function () {
                 disableInput();
             },
             success: function (resp) {
-                let newHTML = resp.data.map(propertyHTML(d));
+                let newHTML = resp.data.map(propertyHTML);
                 if (newHTML === undefined || newHTML.length === 0) {
                     msg_area.append(showElem(result_elem.html('<h3>No results found!</h3>')));
                 } else {
