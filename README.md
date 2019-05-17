@@ -91,10 +91,10 @@ The project uses Django, Python and PostgreSQL.
 9. Other
    1. The website has an About Us page.
    2. The admin can add attributes, edit, create and delete properties and users through the admin site.
-   3. 404 error pages give a custom error page instead of the standard one. [*](#appendix)
-   4. 500 error pages give a custom error page instead of the standard one. [*](#appendix)
+   3. 404 error pages give a custom error page instead of the standard one. [*](#addendum)
+   4. 500 error pages give a custom error page instead of the standard one. [*](#addendum)
 
 ### [Requirements from Design Report](https://github.com/egilltor17/VLN2-Castle-Apartments/wiki/Requirements-from-Design-Report)
 
-### Appendix
+### Addendum
 However Django does not use this with Debug set to True.
