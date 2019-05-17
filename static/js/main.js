@@ -98,6 +98,7 @@ $(document).ready(function () {
                 hideElem(loading_elem);
                 msg_area.append(showElem(result_elem.html('<h3>An error occurred, please try again.</h3>')));
                 enableInput();
+
             },
         });
     }
