@@ -30,11 +30,11 @@ class PropertyForm(ModelForm):
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
             'description': widgets.Textarea(attrs={'class': 'form-control'}),
             'type': widgets.TextInput(attrs={'class': 'form-control'}),
-            'price': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
-            'nrBedrooms': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
-            'nrBathrooms': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
-            'squareMeters': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
-            'constructionYear': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'price': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0', 'max': '999999999999'}),
+            'nrBedrooms': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0', 'max': '999999999999'}),
+            'nrBathrooms': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0', 'max': '999999999999'}),
+            'squareMeters': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0', 'max': '999999999999'}),
+            'constructionYear': widgets.NumberInput(attrs={'class': 'form-control', 'min': '0', 'max': '999999999999'}),
             'attributes': widgets.CheckboxSelectMultiple(attrs={}),
         }
 

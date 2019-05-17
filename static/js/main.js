@@ -45,7 +45,7 @@ $(document).ready(function () {
     function propertyHTML(d) {
         return `<a href="/property/${d.id}" class="link-to-property">
                     <div class="card property">
-                        <img class="property-img" src="${d.firstImage}"/>
+                        <img class="property-img" src="${d.firstImage}" alt="Property Image"/>
                         <div class="card-body">  
                             <div id="property-name-address">
                                 <div id="property-name">  
@@ -56,8 +56,8 @@ $(document).ready(function () {
                                 </div>
                             </div>
                             <div id="property-price-info">
-                                <p>Size: ${d.squareMeters}m<sup>2</sup>, ${d.type}, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms</p>
-                                <p class="card-subtitle mb-2">Price: ${d.price} $</p>
+                                <p>Size: ${d.squareMeters}m<sup>2</sup>, ${d.type}, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms <br>
+                                Price: ${d.price} $</p>
                             </div>
                         </div>
                     </div>
@@ -130,11 +130,14 @@ $(document).ready(function () {
                 success: function (resp) {
                     let municiHTML = ``;
                     let cityHTML = ``;
-                    for (let i = 0; i < resp.data.length; i++) {
-                        if (resp.data[i].municipalities !== null) {
-                            municiHTML += `<option value="${resp.data[i].municipalities}">${resp.data[i].municipalities}</option>`
-                            cityHTML += `<option value="${resp.data[i].cities}">${resp.data[i].cities}</option>`
+                    for (let i = 0; i < resp.data.municipalities.length; i++) {
+                        if (resp.data.municipalities[i] !== null) {
+                            municiHTML += `<option value="${resp.data.municipalities[i]}">${resp.data.municipalities[i]}</option>`
                         }
+                    }
+                    for (let i = 0; i < resp.data.cities.length; i++) {
+                        cityHTML += `<option value="${resp.data.cities[i]}">${resp.data.cities[i]}</option>`
+
                     }
                     municipality_dropdown.append(municiHTML);
                     city_dropdown.append(cityHTML);
@@ -334,7 +337,7 @@ $(document).ready(function () {
         $('#purchase-confirm').prop('style', 'display: none');
     }
     function purchasestep2() {
-        $('#purchase-paragraph').replaceWith('<h3 id="purchase-paragraph">Is this information correct?</h3>');
+        $('#purchase-paragraph').replaceWith('<h3 id="purchase-paragraph">Is this information correct? Press "Confirm" to finish your purchase.</h3>');
         $('.purchase-property-form :input').prop('disabled', true);
         $('#purchase-cancel').prop('disabled', false).prop('style', 'display: none');
         $('#purchase-continue').prop('disabled', false).prop('style', 'display: none');
