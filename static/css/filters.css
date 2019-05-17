@@ -47,10 +47,15 @@ h3, #attributes {
     }
 }
 
-/* Center filter button*/
-#filter_props {
+/* Center filter buttons*/
+#search-button-container {
+    text-align: center;
     display: block;
-    margin: 15px auto 5px;
+    margin: auto;
+}
+
+#clear_button, #filter_props {
+    margin: 10px;
 }
 
 .select-style {
