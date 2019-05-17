@@ -69,10 +69,11 @@ The project uses Django, Python and PostgreSQL.
    1. The user can put a property up for sale.
    2. The user can edit a property he has put up for sale.
 4. User profile pages
-   1. The user can both view his own private profile (with more information and editing abilities) and his seller profile (how other users will see him).
-   2. The user can view his active listings on his profile page.
-   3. The user can view the properties he has sold on his profile page.
-   4. The user can view the properties he has purchased on his private profile page.
+   1. The user can view his own private profile (with more information and editing abilities.
+   2. The user can view his own seller profile (how other users will see him).
+   3. The user can view his active listings on his profile page.
+   4. The user can view the properties he has sold on his profile page.
+   5. The user can view the properties he has purchased on his private profile page.
 5. Favourites
    1. The user can add a property to favourites and unfavourite it.
    2. The user can view his favourite properties on his private profile page.
