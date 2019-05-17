@@ -339,7 +339,7 @@ $(document).ready(function () {
         $('#purchase-confirm').prop('style', 'display: none');
     }
     function purchasestep2() {
-        $('#purchase-paragraph').replaceWith('<h3 id="purchase-paragraph">Is this information correct?</h3>');
+        $('#purchase-paragraph').replaceWith('<h3 id="purchase-paragraph">Is this information correct? Press "Confirm" to finish your purchase.</h3>');
         $('.purchase-property-form :input').prop('disabled', true);
         $('#purchase-cancel').prop('disabled', false).prop('style', 'display: none');
         $('#purchase-continue').prop('disabled', false).prop('style', 'display: none');
