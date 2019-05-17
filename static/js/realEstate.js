@@ -323,7 +323,6 @@ $(document).ready(function () {
             error: function(xhr, status, error){
                 console.error(error)
             }
-
         })
     });
     //
@@ -366,6 +365,14 @@ $(document).ready(function () {
         }
     });
     $('.submit-button').on('click', function (e) {
-        $('.submit-button').prop('disabled', true);
-    })
+        console.log('submitting');
+        setTimeout(function () {
+            console.log('Locking');
+            $('.submit-button').prop('disabled', true);
+        }, 10);
+        setTimeout(function () {
+            console.log('unLocking');
+            $('.submit-button').prop('disabled', false);
+        }, 5000);
+    });
 });
