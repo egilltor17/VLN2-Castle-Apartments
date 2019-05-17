@@ -38,7 +38,7 @@ def purchase(request, prop_id):
             pur.property_id = prop_id
             pur.userInfo_id = request.user.id
             pur.save()
-            return redirect('review/' + str(pur.pk))
+            return redirect('receipt/' + str(pur.pk))
         else:
             # The user reenters invalid information.
             context = {'property': get_object_or_404(Property, pk=prop_id),

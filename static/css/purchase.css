@@ -11,6 +11,7 @@
 #purchase-property-info-container {
     width: 30%;
     float: right;
+    position: fixed;
 }
 
 #purchase-info-container, #purchase-property-info-container {
@@ -54,6 +55,7 @@
     #purchase-property-info-container {
         width: 100%;
         float: none;
+        position: relative;
     }
 }
 

@@ -10,11 +10,7 @@
         <div id="result" class="hidden"></div>
     </div>
     <div class="card-deck property-overview">
-        {% for property in properties %}
-            {% if not property.sold %}
-                {% include 'realEstate/single-property.html' with property=property %}
-            {% endif %}
-        {% endfor %}
+        <!-- AJAX request will place properties here -->
     </div>
 
 {% endblock %}
