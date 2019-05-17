@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block content %}
 
+{% block content %}
 
     <link rel="stylesheet" type="text/css" href="/static/css/purchase.css">
     <div id="purchase-container">
@@ -24,8 +24,6 @@
             <div id="purchase-property-info-container">
                 <h3>Your Purchase</h3>
                 <div class="box card property-info" id="property-info-card">
-                    <!--<img  class="purchase-property-img" src="{{property.propertyimage_set.first.image}}">-->
-
                     <a href="{% url 'property-details' property.id %}" class="link-to-property">
                         <h4> {{ property.name }}</h4>
                     </a>
