@@ -80,12 +80,9 @@ $(document).ready(function () {
                 disableInput();
             },
             success: function (resp) {
-                let newHTML = resp.data.map(function (d) {
-                    return propertyHTML(d);
-                });
+                let newHTML = resp.data.map(propertyHTML(d));
                 if (newHTML === undefined || newHTML.length === 0) {
                     msg_area.append(showElem(result_elem.html('<h3>No results found!</h3>')));
-
                 } else {
                     property_overview.append(newHTML.join(''));
                     search_box.val('');
@@ -246,9 +243,7 @@ $(document).ready(function () {
                 disableInput();
             },
             success: function (resp) {
-                let newHTML = resp.data.map(function (d) {
-                    return propertyHTML(d)
-                });
+                let newHTML = resp.data.map(propertyHTML(d));
                 if (newHTML === undefined || newHTML.length === 0) {
                     msg_area.append(showElem(result_elem.html('<h3>No results found!</h3>')));
                 } else {
@@ -365,13 +360,10 @@ $(document).ready(function () {
         }
     });
     $('.submit-button').on('click', function (e) {
-        console.log('submitting');
         setTimeout(function () {
-            console.log('Locking');
             $('.submit-button').prop('disabled', true);
         }, 10);
         setTimeout(function () {
-            console.log('unLocking');
             $('.submit-button').prop('disabled', false);
         }, 5000);
     });
