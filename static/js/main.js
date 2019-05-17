@@ -92,7 +92,8 @@ $(document).ready(function () {
             },
             complete: function () {
                 hideElem(loading_elem);
-                enableInput();
+                country_dropdown.prop('disabled', false);
+                filter_button.prop('disabled', false);
             },
             error: function (xhr, status, error) {
                 hideElem(loading_elem);
@@ -115,6 +116,9 @@ $(document).ready(function () {
             country_dropdown.nextAll().eq(1).empty();
             municipality_dropdown.nextAll().eq(1).empty();
             city_dropdown.nextAll().eq(1).empty();
+            municipality_dropdown.prop('disabled', true);
+            city_dropdown.prop('disabled', true);
+            postcode_dropdown.prop('disabled', true);
             municipality_dropdown.find('option').not(':first').remove();
             city_dropdown.find('option').not(':first').remove();
             postcode_dropdown.find('option').not(':first').remove();
@@ -282,7 +286,11 @@ $(document).ready(function () {
             },
             complete: function () {
                 hideElem(loading_elem);
-                enableInput();
+                country_dropdown.prop('disabled', false);
+                filter_button.prop('disabled', false);
+                if (country_dropdown.val() !== ""){
+                    enableInput();
+                }
             },
             error: function (xhr, status, error) {
                 msg_area.append(showElem(result_elem.html('<h3>An error occurred, please try again.</h3>')));
