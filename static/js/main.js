@@ -4,6 +4,8 @@ $(document).ready(function () {
     //Variables
     //
     //
+    let filter_form = $('#filter-form');
+    let clear_form_button = $('#clear_button');
     let search_box = $('#search-box');
     let country_dropdown = $('#country_dropd');
     let municipality_dropdown = $('#municipality_dropd');
@@ -17,7 +19,6 @@ $(document).ready(function () {
     let fav_button = $('.favorite-button');
     let unfav_button = $('.unfavorite-button');
     let num_favorites = $('#num-favorites');
-    let drop_msg = $('#dropd-msg');
     msg_area.append(loading_elem);
     msg_area.append(result_elem);
     let url_parts = $(location).attr('href').split("/");
@@ -81,7 +82,7 @@ $(document).ready(function () {
                 disableInput();
             },
             success: function (resp) {
-                let newHTML = resp.data.map(propertyHTML(d));
+                let newHTML = resp.data.map(propertyHTML);
                 if (newHTML === undefined || newHTML.length === 0) {
                     msg_area.append(showElem(result_elem.html('<h3>No results found!</h3>')));
                 } else {
@@ -254,7 +255,7 @@ $(document).ready(function () {
         country_dropdown.nextAll().eq(1).empty();
         municipality_dropdown.nextAll().eq(1).empty();
         city_dropdown.nextAll().eq(1).empty();
-        let filter = $('#filter-form').serializeArray();
+        let filter = filter_form.serializeArray();
         let request_data = {};
         $(filter).each(function (index, obj) {
             request_data[obj.name] = obj.value
@@ -296,6 +297,23 @@ $(document).ready(function () {
         if (e.which === 13) {
             filter(e);
         }
+    });
+    //
+    //
+    //Clear Form Function
+    //
+    //
+    clear_form_button.on('click', function(e){
+        e.preventDefault();
+        country_dropdown.nextAll().eq(1).empty();
+        municipality_dropdown.nextAll().eq(1).empty();
+        city_dropdown.nextAll().eq(1).empty();
+        municipality_dropdown.find('option').not(':first').remove();
+        city_dropdown.find('option').not(':first').remove();
+        postcode_dropdown.find('option').not(':first').remove();
+        filter_form.each(function (){
+            this.reset();
+        })
     });
     //
     //
