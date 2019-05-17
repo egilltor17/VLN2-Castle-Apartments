@@ -79,7 +79,17 @@ The project uses Django, Python and PostgreSQL.
    2. The user can view his favourite properties on his private profile page.
    3. An AJAX request is used to update the favourite status and count when a user favourites/unfavourites a property.
 6. Filters
-   1. The website has multiple filters: some are a dropdown, some are checkboxes and the user can also search by text.
+   1. The website has multiple filters: some are a dropdown, some are checkboxes and the user can also search by text. The additional filters are:
+      1. Country
+      2. Municipality
+      3. City
+      4. Size
+      5. Bedroom count
+      6. Bathroom count
+      7. Construction year
+      8. Type
+      9. Order by date added (New)
+      10. Attributes
    2. Searching for properties is done with an AJAX request.
    3. AJAX filter updates for country/municipality/city/postal code are conditional.
 7. Accessibility
