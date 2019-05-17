@@ -3,6 +3,12 @@ SC-T-220-VLN2\
 Reykjavik University\
 17. 5. 2019
 
+## About
+
+Castle Apartments is a real estate website where users can buy and sell properties.\
+The website was created by students during a three week course at Reykjavik University.\
+The project uses Django, Python and PostgreSQL.
+
 ## Requirements
 
 ### Featural demands fulfilled
