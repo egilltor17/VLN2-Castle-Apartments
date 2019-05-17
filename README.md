@@ -19,7 +19,7 @@
 - [x] 14 | A buyer should be able to buy a property
 - [x] 15 | A buyer should be able to fill in his personal info when buying a property: street name, house number, city, country, postal code, social security number
 - [x] 16 | A buyer should be able to pay with a credit card
-- [x]* 17 | A buyer should be able to review his purchase before confirming it
+- [x] 17 | A buyer should be able to review his purchase before confirming it
 - [x] 18 | A buyer should be able to confirm his purchase
 - [ ] 19 | The site should send a confirmation mail after a buyer has bought a property
 
@@ -54,10 +54,10 @@
 - [x] 5  | Django Model API must be used
 - [x] 6  | The MTV pattern must be used 
 - [x] 7  | Git is mandatory for version control and GitHub for a repository
-- [ ] 8  | All exceptions should be handled in a proper manner
-- [ ] 9  | The site should be designed for mobiles, laptops, desktops and tablets in mind
-- [ ] 10 | The site should be user friendly and simple to use
+- [x] * 8  | All exceptions should be handled in a proper manner
+- [x] 9  | The site should be designed for mobiles, laptops, desktops and tablets in mind
+- [x] 10 | The site should be user friendly and simple to use
 
 ### Priority B requirements
 - [ ] 11 | The site should be able to have 5.000 users at the same time on it. 
-- [ ] 12 | The site should not take longer than 2 seconds to respond to mouse clicks
+- [x] 12 | The site should not take longer than 2 seconds to respond to mouse clicks
