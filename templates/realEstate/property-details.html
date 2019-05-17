@@ -108,7 +108,7 @@
         <div class="photoGallery">
         {% for property_image in property.propertyimage_set.all %}
             <div>
-                <img class="property-img" src="{{ property_image.image }} alt="Property Image""/>
+                <img class="property-img" src="{{ property_image.image }}" alt="Property Image"/>
             </div>
         {% endfor %}
         </div>
