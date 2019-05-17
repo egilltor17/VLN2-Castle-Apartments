@@ -45,7 +45,7 @@ $(document).ready(function () {
     function propertyHTML(d) {
         return `<a href="/property/${d.id}" class="link-to-property">
                     <div class="card property">
-                        <img class="property-img" src="${d.firstImage}"/>
+                        <img class="property-img" src="${d.firstImage}" alt="Property Image"/>
                         <div class="card-body">  
                             <div id="property-name-address">
                                 <div id="property-name">  
@@ -56,8 +56,8 @@ $(document).ready(function () {
                                 </div>
                             </div>
                             <div id="property-price-info">
-                                <p>Size: ${d.squareMeters}m<sup>2</sup>, ${d.type}, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms</p>
-                                <p class="card-subtitle mb-2">Price: ${d.price} $</p>
+                                <p>Size: ${d.squareMeters}m<sup>2</sup>, ${d.type}, ${d.nrBedrooms} bedrooms, ${d.nrBathrooms} bathrooms <br>
+                                Price: ${d.price} $</p>
                             </div>
                         </div>
                     </div>
