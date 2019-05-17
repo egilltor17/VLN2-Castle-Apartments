@@ -17,6 +17,7 @@ $(document).ready(function () {
     let fav_button = $('.favorite-button');
     let unfav_button = $('.unfavorite-button');
     let num_favorites = $('#num-favorites');
+    let dropd_err = $('#dropd-error');
     msg_area.append(loading_elem);
     msg_area.append(result_elem);
     let url_parts = $(location).attr('href').split("/");
@@ -74,8 +75,8 @@ $(document).ready(function () {
             data: 'initial_filter',
             cache: false,
             beforeSend: function () {
-                property_overview.html('');
-                result_elem.html('');
+                property_overview.empty();
+                result_elem.empty();
                 showElem(loading_elem);
                 disableInput();
             },
@@ -124,6 +125,7 @@ $(document).ready(function () {
                     city: selected_city
                 },
                 beforeSend: function () {
+                    country_dropdown.nextAll().eq(1).empty();
                     municipality_dropdown.find('option').not(':first').remove();
                     city_dropdown.find('option').not(':first').remove();
                     postcode_dropdown.find('option').not(':first').remove();
@@ -133,6 +135,7 @@ $(document).ready(function () {
                 success: function (resp) {
                     let municiHTML = ``;
                     let cityHTML = ``;
+                    let postcodeHTML = ``;
                     for (let i = 0; i < resp.data.municipalities.length; i++) {
                         if (resp.data.municipalities[i] !== null) {
                             municiHTML += `<option value="${resp.data.municipalities[i]}">${resp.data.municipalities[i]}</option>`
@@ -142,15 +145,21 @@ $(document).ready(function () {
                         cityHTML += `<option value="${resp.data.cities[i]}">${resp.data.cities[i]}</option>`
 
                     }
+                    for (let i = 0; i < resp.data.postcodes.length; i++) {
+                        postcodeHTML += `<option value="${resp.data.postcodes[i]}">${resp.data.postcodes[i]}</option>`
+
+                    }
+
                     municipality_dropdown.append(municiHTML);
                     city_dropdown.append(cityHTML);
+                    postcode_dropdown.append(postcodeHTML);
                 },
                 complete: function () {
                     enableInput();
                 },
                 error: function (xhr, status, error) {
                     // TODO: show toastr
-                    municipality_dropdown.after('<p>An error occurred, try again.</p>')
+                    country_dropdown.nextAll().eq(1).html('An error has occurred, please try again.');
                     enableInput();
                 },
             })
@@ -170,6 +179,7 @@ $(document).ready(function () {
                     municipality: selected_municipality,
                 },
                 beforeSend: function () {
+                    municipality_dropdown.nextAll().eq(1).empty();
                     city_dropdown.find('option').not(':first').remove();
                     postcode_dropdown.find('option').not(':first').remove();
                     disableInput();
@@ -186,7 +196,7 @@ $(document).ready(function () {
                 },
                 error: function (xhr, status, error) {
                     // TODO: show toastr
-                    console.error(error);
+                    municipality_dropdown.nextAll().eq(1).html('An error has occurred, please try again.');
                     enableInput();
                 },
             })
@@ -205,6 +215,8 @@ $(document).ready(function () {
                     city: selected_city,
                 },
                 beforeSend: function () {
+                    city_dropdown.nextAll().eq(1).empty();
+                    postcode_dropdown.find('option').not(':first').remove();
                     disableInput();
                 },
                 success: function (resp) {
@@ -219,7 +231,7 @@ $(document).ready(function () {
                 },
                 error: function (xhr, status, error) {
                     // TODO: show toastr
-                    console.error(error);
+                    city_dropdown.nextAll().eq(1).html('An error has occurred, please try again.');
                     enableInput();
                 },
             })
@@ -243,8 +255,8 @@ $(document).ready(function () {
             type: 'GET',
             beforeSend: function () {
                 hideElem(result_elem);
-                property_overview.html('');
-                result_elem.html('');
+                property_overview.empty();
+                result_elem.empty();
                 showElem(loading_elem);
                 disableInput();
             },
