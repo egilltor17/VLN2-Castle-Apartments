@@ -44,7 +44,7 @@ a:hover {
 }
 
 #right-column {
-    width:40%
+    width:40%;
 }
 
 @media screen and (max-width: 992px) {
