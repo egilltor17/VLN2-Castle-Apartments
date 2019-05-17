@@ -3,6 +3,8 @@
     border: 1px solid #dbdbdb;
     border-radius: 4px;
     padding: 15px;
+    justify-content: space-between;
+    display: flex;
 }
 /* Center headers and attributes*/
 h3, #attributes {
@@ -14,14 +16,17 @@ h3, #attributes {
 }
 
 #first-column {
-    width: 22%;
+    display: inline-block;
+    width: 25%;
 }
 
 #second-column {
-    width: 38%;
+    display: inline-block;
+    width: 35%;
 }
 
 #third-column {
+    display: inline-block;
     width: 25%;
 }
 
