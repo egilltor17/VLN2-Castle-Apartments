@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+
 {% block content %}
     <link rel="stylesheet" type="text/css" href="/static/css/purchase_review.css">
-    <h3>Thank you for purchasing your property with Castle Apartments!</h3>
 
+    <h3>Thank you for purchasing your property with Castle Apartments!</h3>
     <div id="purchase-property-info-container">
         <h4>Your Receipt</h4>
         <div class="box card receipt" id="receipt-container">
@@ -43,6 +44,7 @@
                     </tr>
                 </tbody>
             </table>
+            <!-- Hidden until screen size is too small then receipt table is hidden instead -->
             <table class="table" id="mini-receipt-table">
                 <tbody>
                     <tr>
