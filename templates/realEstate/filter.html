@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="column" id="first-column">
                     <label>
-                        Country
+                        Country:
                         <select id="country_dropd" name="country" class="select-style">
                             <option value="" selected>All</option>
                             {% for countries in country_list %}
@@ -17,7 +17,7 @@
                     <br>
 
                     <label>
-                        Municipality
+                        Municipality:
                         <select id="municipality_dropd" name="municipality" class="select-style">
                             <option value="" selected>All</option>
                         </select>
@@ -25,7 +25,7 @@
                     <br>
 
                     <label>
-                        City
+                        City:
                         <select id="city_dropd" name="city" class="select-style">
                             <option value="" selected>All</option>
                         </select>
@@ -33,7 +33,7 @@
                     <br>
 
                     <label>
-                        Post Code
+                        Post Code:
                         <select id="postcode_dropd" name="postcode" class="select-style">
                             <option value="" selected>All</option>
                         </select>
@@ -42,7 +42,7 @@
 
                 <div class="column" id="second-column">
                     <label>
-                        Price from
+                        Price from:
                         <select id="price_from_dropd" name="price_from" class="select-style">
                             <option value="0" selected>0</option>
                             <option value="10000">10000</option>
@@ -71,7 +71,7 @@
                         </select>
                     </label>
                     <label>
-                        to
+                        to:
                         <select id="price_to_dropd" name="price_to" class="select-style">
                             <option value="10000">10000</option>
                             <option value="20000">20000</option>
@@ -106,7 +106,7 @@
                     ($)<br>
 
                     <label>
-                        Size from
+                        Size from:
                         <select id="size_from_dropd" name="size_from" class="select-style">
                             <option value="0" selected>0</option>
                             <option value="60">60</option>
@@ -121,7 +121,7 @@
                         </select>
                     </label>
                     <label>
-                         to
+                         to:
                         <select id="size_to_dropd" name="size_to" class="select-style">
                             <option value="60">60</option>
                             <option value="70">70</option>
@@ -143,7 +143,7 @@
                     <br>
 
                     <label>
-                        Bedrooms from
+                        Bedrooms from:
                         <select id="bedrooms_from_dropd" name="bedrooms_from" class="select-style">
                             <option value="0" selected>0</option>
                             <option value="1">1</option>
@@ -159,7 +159,7 @@
                         </select>
                     </label>
                     <label>
-                         to
+                         to:
                         <select id="bedrooms_to_dropd" name="bedrooms_to" class="select-style">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -177,7 +177,7 @@
                     <br>
 
                     <label>
-                        Bathrooms from
+                        Bathrooms from:
                         <select id="bathrooms_from_dropd" name="bathrooms_from" class="select-style">
                             <option value="0" selected>0</option>
                             <option value="1">1</option>
@@ -193,7 +193,7 @@
                         </select>
                     </label>
                     <label>
-                         to
+                         to:
                         <select id="bathrooms_to_dropd" name="bathrooms_to" class="select-style">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -213,7 +213,7 @@
                 <div class="column" id="third-column">
                     Construction year<br>
                     <label>
-                        from
+                        from:
                         <select id="year_built_from_dropd" name="year_built_from" class="select-style">
                                 <option value="0">0</option>
                             {% for construction_years in year_built_list %}
@@ -222,7 +222,7 @@
                         </select>
                     </label>
                     <label>
-                         to
+                         to:
                         <select id="year_built_to_dropd" name="year_built_to" class="select-style">
                             {% for construction_years in year_built_list %}
                                 <option value="{{ construction_years.constructionYear }}">{{ construction_years.constructionYear }}</option>
@@ -233,7 +233,7 @@
                     <br>
 
                     <label>
-                        Type
+                        Type:
                         <select id="type_dropd" name="type" class="select-style">
                             <option value="" selected>All</option>
                             {% for types in type_list %}
@@ -244,7 +244,7 @@
                     <br>
 
                     <label>
-                        Order by
+                        Order by:
                         <select id="order_by_dropd" name="order" class="select-style">
                             <option value="-id" selected>New</option>
                             <option value="name">Name</option>
