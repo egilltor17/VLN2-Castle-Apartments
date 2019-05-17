@@ -86,39 +86,60 @@ def index(request):
         # All attributes
         attr_query_set = [x for x in request.GET if x.isdigit()]
         filters = request.GET
-        # Giant filter query using all the elements of the filter form
-        filter_query = Q().add(Q(name__icontains=filters.get('search_box')), Q.OR)\
-            .add(Q(description__icontains=filters.get('search_box')), Q.OR)\
-            .add(Q(address__streetName__icontains=filters.get('search_box')), Q.AND)\
-            .add(Q(address__country__contains=filters.get('country')), Q.AND)\
-            .add(Q(address__city__contains=filters.get('city')), Q.AND)\
-            .add(Q(address__postCode__contains=filters.get('postcode')), Q.AND)\
-            .add(Q(price__gte=filters.get('price_from')), Q.AND)\
-            .add(Q(price__lte=filters.get('price_to')), Q.AND)\
-            .add(Q(squareMeters__gte=filters.get('size_from')), Q.AND)\
-            .add(Q(squareMeters__lte=filters.get('size_to')), Q.AND)\
-            .add(Q(nrBedrooms__gte=filters.get('bedrooms_from')), Q.AND)\
-            .add(Q(nrBedrooms__lte=filters.get('bedrooms_to')), Q.AND)\
-            .add(Q(nrBathrooms__gte=filters.get('bathrooms_from')), Q.AND)\
-            .add(Q(nrBathrooms__lte=filters.get('bathrooms_to')), Q.AND)\
-            .add(Q(constructionYear__gte=filters.get('year_built_from')), Q.AND)\
-            .add(Q(constructionYear__lte=filters.get('year_built_to')), Q.AND)\
-            .add(Q(type__contains=filters.get('type')), Q.AND)
-        # To avoid none values for municipalities in the query string
-        if filters.get('municipality') == "":
-            filter_query.add(Q(address__municipality__contains=filters.get('municipality')), Q.OR)\
-                .add(Q(address__municipality__isnull=True), Q.AND)
-        else:
-            filter_query.add(Q(address__municipality__contains=filters.get('municipality')), Q.AND)
 
         if attr_query_set:
             # Filters with search and attribute checkboxes
-            properties = [property_to_json(x) for x in property_db.filter(filter_query
+            properties = [property_to_json(x) for x in property_db.filter(
+                # Giant filter query using all the elements of the filter form
+                Q(name__icontains=filters.get('search_box')) |
+                Q(description__icontains=filters.get('search_box')),
+                Q(address__country__contains=filters.get('country')),
+                # To avoid none values for municipalities in the query string
+                ( Q(address__municipality__contains=filters.get('municipality')) |
+                  Q(address__municipality__isnull=True)
+                  if filters.get('municipality') == "" else
+                  Q(address__municipality__contains=filters.get('municipality')) ),
+                Q(address__city__contains=filters.get('city')),
+                Q(address__postCode__contains=filters.get('postcode')),
+                Q(price__gte=filters.get('price_from')),
+                Q(price__lte=filters.get('price_to')),
+                Q(squareMeters__gte=filters.get('size_from')),
+                Q(squareMeters__lte=filters.get('size_to')),
+                Q(nrBedrooms__gte=filters.get('bedrooms_from')),
+                Q(nrBedrooms__lte=filters.get('bedrooms_to')),
+                Q(nrBathrooms__gte=filters.get('bathrooms_from')),
+                Q(nrBathrooms__lte=filters.get('bathrooms_to')),
+                Q(constructionYear__gte=filters.get('year_built_from')),
+                Q(constructionYear__lte=filters.get('year_built_to')),
+                Q(type__contains=filters.get('type'))
             ).filter(attributes__id__in=attr_query_set).annotate(num_attributes=Count('attributes')
             ).filter(num_attributes=len(attr_query_set)).order_by(request.GET.get('order'))]
         else:
             # Filters with search and without attribute checkboxes
-            properties = [property_to_json(x) for x in property_db.filter(filter_query).order_by(request.GET.get('order'))]
+            properties = [property_to_json(x) for x in property_db.filter(
+                # Giant filter query using all the elements of the filter form
+                Q(name__icontains=filters.get('search_box')) |
+                Q(description__icontains=filters.get('search_box')),
+                Q(address__country__contains=filters.get('country')),
+                # To avoid none values for municipalities in the query string
+                ( Q(address__municipality__contains=filters.get('municipality')) |
+                  Q(address__municipality__isnull=True)
+                  if filters.get('municipality') == "" else
+                  Q(address__municipality__contains=filters.get('municipality')) ),
+                Q(address__city__contains=filters.get('city')),
+                Q(address__postCode__contains=filters.get('postcode')),
+                Q(price__gte=filters.get('price_from')),
+                Q(price__lte=filters.get('price_to')),
+                Q(squareMeters__gte=filters.get('size_from')),
+                Q(squareMeters__lte=filters.get('size_to')),
+                Q(nrBedrooms__gte=filters.get('bedrooms_from')),
+                Q(nrBedrooms__lte=filters.get('bedrooms_to')),
+                Q(nrBathrooms__gte=filters.get('bathrooms_from')),
+                Q(nrBathrooms__lte=filters.get('bathrooms_to')),
+                Q(constructionYear__gte=filters.get('year_built_from')),
+                Q(constructionYear__lte=filters.get('year_built_to')),
+                Q(type__contains=filters.get('type'))
+            ).order_by(request.GET.get('order'))]
         return JsonResponse({'data': properties})
 
     context = {'country_list': country_list,
