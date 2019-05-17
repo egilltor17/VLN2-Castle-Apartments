@@ -17,7 +17,7 @@ $(document).ready(function () {
     let fav_button = $('.favorite-button');
     let unfav_button = $('.unfavorite-button');
     let num_favorites = $('#num-favorites');
-    let dropd_err = $('#dropd-error');
+    let drop_msg = $('#dropd-msg');
     msg_area.append(loading_elem);
     msg_area.append(result_elem);
     let url_parts = $(location).attr('href').split("/");
@@ -113,6 +113,9 @@ $(document).ready(function () {
         let selected_country = country_dropdown.val();
         let selected_city = city_dropdown.val();
         if (selected_country === "") {
+            country_dropdown.nextAll().eq(1).empty();
+            municipality_dropdown.nextAll().eq(1).empty();
+            city_dropdown.nextAll().eq(1).empty();
             municipality_dropdown.find('option').not(':first').remove();
             city_dropdown.find('option').not(':first').remove();
             postcode_dropdown.find('option').not(':first').remove();
@@ -169,6 +172,9 @@ $(document).ready(function () {
     municipality_dropdown.change(function () {
         let selected_municipality = municipality_dropdown.val();
         if (selected_municipality === "") {
+            country_dropdown.nextAll().eq(1).empty();
+            municipality_dropdown.nextAll().eq(1).empty();
+            city_dropdown.nextAll().eq(1).empty();
             city_dropdown.find('option').not(':first').remove();
             postcode_dropdown.find('option').not(':first').remove();
         } else {
@@ -206,6 +212,9 @@ $(document).ready(function () {
     city_dropdown.change(function () {
         let selected_city = city_dropdown.val();
         if (selected_city === "") {
+            country_dropdown.nextAll().eq(1).empty();
+            municipality_dropdown.nextAll().eq(1).empty();
+            city_dropdown.nextAll().eq(1).empty();
             postcode_dropdown.find('option').not(':first').remove();
         } else {
             $.ajax({
@@ -245,6 +254,9 @@ $(document).ready(function () {
     function filter(e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
+        country_dropdown.nextAll().eq(1).empty();
+        municipality_dropdown.nextAll().eq(1).empty();
+        city_dropdown.nextAll().eq(1).empty();
         let filter = $('#filter-form').serializeArray();
         let request_data = {};
         $(filter).each(function (index, obj) {
