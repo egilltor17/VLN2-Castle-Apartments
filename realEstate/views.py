@@ -151,22 +151,28 @@ def property_details(request, prop_id):
                'num_favorites': num_favorites}
     return render(request, 'realEstate/property-details.html', context)
 
-
 @login_required()
 def favorite_property(request, prop_id):
-    property = get_object_or_404(Property, pk=prop_id)
-    favorite = Favorites()
-    favorite.property = property
-    favorite.user = request.user
-    favorite.save()
-    return redirect('property-details', prop_id)
+    if request.is_ajax() and request.method == 'POST' and 'fav' in request.POST:
+        property = get_object_or_404(Property, pk=prop_id)
+        favorite = Favorites()
+        favorite.property = property
+        favorite.user = request.user
+        favorite.save()
+        return HttpResponse()
+    else:
+        return redirect('property-details', prop_id)
 
 
 @login_required()
+
 def unfavorite_property(request, prop_id):
-    favorite = get_object_or_404(Favorites, property_id=prop_id, user_id=request.user)
-    favorite.delete()
-    return redirect('property-details', prop_id)
+    if request.is_ajax() and request.method == 'POST' and 'unfav' in request.POST:
+        favorite = get_object_or_404(Favorites, property_id=prop_id, user_id=request.user)
+        favorite.delete()
+        return HttpResponse()
+    else:
+        return redirect('property-details', prop_id)
 
 
 @login_required

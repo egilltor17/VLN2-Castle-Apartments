@@ -39,6 +39,15 @@
     .carousel-img {
         max-height: 10rem;
     }
+    .photoGallery img {
+        width: 19rem;
+    }
+}
+
+@media screen and (min-width: 760px) and (max-width: 1200px) {
+    .photoGallery img {
+        width: 25rem;
+    }
 }
 
 .card-horizontal {
@@ -47,9 +56,12 @@
 }
 
 .favorite-heart {
+    background: transparent;
+    border: none;
     float: right;
     width: 2rem;
 }
+
 
 #num-favorites {
     float: right;
