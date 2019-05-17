@@ -4,6 +4,8 @@ $(document).ready(function () {
     //Variables
     //
     //
+    let filter_form = $('#filter-form');
+    let clear_form_button = $('#clear_button');
     let search_box = $('#search-box');
     let country_dropdown = $('#country_dropd');
     let municipality_dropdown = $('#municipality_dropd');
@@ -74,13 +76,13 @@ $(document).ready(function () {
             data: 'initial_filter',
             cache: false,
             beforeSend: function () {
-                property_overview.html('');
-                result_elem.html('');
+                property_overview.empty();
+                result_elem.empty();
                 showElem(loading_elem);
                 disableInput();
             },
             success: function (resp) {
-                let newHTML = resp.data.map(propertyHTML(d));
+                let newHTML = resp.data.map(propertyHTML);
                 if (newHTML === undefined || newHTML.length === 0) {
                     msg_area.append(showElem(result_elem.html('<h3>No results found!</h3>')));
                 } else {
@@ -109,6 +111,9 @@ $(document).ready(function () {
         let selected_country = country_dropdown.val();
         let selected_city = city_dropdown.val();
         if (selected_country === "") {
+            country_dropdown.nextAll().eq(1).empty();
+            municipality_dropdown.nextAll().eq(1).empty();
+            city_dropdown.nextAll().eq(1).empty();
             municipality_dropdown.find('option').not(':first').remove();
             city_dropdown.find('option').not(':first').remove();
             postcode_dropdown.find('option').not(':first').remove();
@@ -121,6 +126,7 @@ $(document).ready(function () {
                     city: selected_city
                 },
                 beforeSend: function () {
+                    country_dropdown.nextAll().eq(1).empty();
                     municipality_dropdown.find('option').not(':first').remove();
                     city_dropdown.find('option').not(':first').remove();
                     postcode_dropdown.find('option').not(':first').remove();
@@ -130,6 +136,7 @@ $(document).ready(function () {
                 success: function (resp) {
                     let municiHTML = ``;
                     let cityHTML = ``;
+                    let postcodeHTML = ``;
                     for (let i = 0; i < resp.data.municipalities.length; i++) {
                         if (resp.data.municipalities[i] !== null) {
                             municiHTML += `<option value="${resp.data.municipalities[i]}">${resp.data.municipalities[i]}</option>`
@@ -139,15 +146,21 @@ $(document).ready(function () {
                         cityHTML += `<option value="${resp.data.cities[i]}">${resp.data.cities[i]}</option>`
 
                     }
+                    for (let i = 0; i < resp.data.postcodes.length; i++) {
+                        postcodeHTML += `<option value="${resp.data.postcodes[i]}">${resp.data.postcodes[i]}</option>`
+
+                    }
+
                     municipality_dropdown.append(municiHTML);
                     city_dropdown.append(cityHTML);
+                    postcode_dropdown.append(postcodeHTML);
                 },
                 complete: function () {
                     enableInput();
                 },
                 error: function (xhr, status, error) {
                     // TODO: show toastr
-                    municipality_dropdown.after('<p>An error occurred, try again.</p>')
+                    country_dropdown.nextAll().eq(1).html('An error has occurred, please try again.');
                     enableInput();
                 },
             })
@@ -157,6 +170,9 @@ $(document).ready(function () {
     municipality_dropdown.change(function () {
         let selected_municipality = municipality_dropdown.val();
         if (selected_municipality === "") {
+            country_dropdown.nextAll().eq(1).empty();
+            municipality_dropdown.nextAll().eq(1).empty();
+            city_dropdown.nextAll().eq(1).empty();
             city_dropdown.find('option').not(':first').remove();
             postcode_dropdown.find('option').not(':first').remove();
         } else {
@@ -167,6 +183,7 @@ $(document).ready(function () {
                     municipality: selected_municipality,
                 },
                 beforeSend: function () {
+                    municipality_dropdown.nextAll().eq(1).empty();
                     city_dropdown.find('option').not(':first').remove();
                     postcode_dropdown.find('option').not(':first').remove();
                     disableInput();
@@ -183,7 +200,7 @@ $(document).ready(function () {
                 },
                 error: function (xhr, status, error) {
                     // TODO: show toastr
-                    console.error(error);
+                    municipality_dropdown.nextAll().eq(1).html('An error has occurred, please try again.');
                     enableInput();
                 },
             })
@@ -193,6 +210,9 @@ $(document).ready(function () {
     city_dropdown.change(function () {
         let selected_city = city_dropdown.val();
         if (selected_city === "") {
+            country_dropdown.nextAll().eq(1).empty();
+            municipality_dropdown.nextAll().eq(1).empty();
+            city_dropdown.nextAll().eq(1).empty();
             postcode_dropdown.find('option').not(':first').remove();
         } else {
             $.ajax({
@@ -202,6 +222,8 @@ $(document).ready(function () {
                     city: selected_city,
                 },
                 beforeSend: function () {
+                    city_dropdown.nextAll().eq(1).empty();
+                    postcode_dropdown.find('option').not(':first').remove();
                     disableInput();
                 },
                 success: function (resp) {
@@ -216,7 +238,7 @@ $(document).ready(function () {
                 },
                 error: function (xhr, status, error) {
                     // TODO: show toastr
-                    console.error(error);
+                    city_dropdown.nextAll().eq(1).html('An error has occurred, please try again.');
                     enableInput();
                 },
             })
@@ -230,7 +252,10 @@ $(document).ready(function () {
     function filter(e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
-        let filter = $('#filter-form').serializeArray();
+        country_dropdown.nextAll().eq(1).empty();
+        municipality_dropdown.nextAll().eq(1).empty();
+        city_dropdown.nextAll().eq(1).empty();
+        let filter = filter_form.serializeArray();
         let request_data = {};
         $(filter).each(function (index, obj) {
             request_data[obj.name] = obj.value
@@ -240,8 +265,8 @@ $(document).ready(function () {
             type: 'GET',
             beforeSend: function () {
                 hideElem(result_elem);
-                property_overview.html('');
-                result_elem.html('');
+                property_overview.empty();
+                result_elem.empty();
                 showElem(loading_elem);
                 disableInput();
             },
@@ -272,6 +297,23 @@ $(document).ready(function () {
         if (e.which === 13) {
             filter(e);
         }
+    });
+    //
+    //
+    //Clear Form Function
+    //
+    //
+    clear_form_button.on('click', function(e){
+        e.preventDefault();
+        country_dropdown.nextAll().eq(1).empty();
+        municipality_dropdown.nextAll().eq(1).empty();
+        city_dropdown.nextAll().eq(1).empty();
+        municipality_dropdown.find('option').not(':first').remove();
+        city_dropdown.find('option').not(':first').remove();
+        postcode_dropdown.find('option').not(':first').remove();
+        filter_form.each(function (){
+            this.reset();
+        })
     });
     //
     //

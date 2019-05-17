@@ -13,6 +13,8 @@
                                 <option value="{{ countries.address.country }}">{{ countries.address.country }}</option>
                             {% endfor %}
                         </select>
+                        <br>
+                        <span id="dropd-msg"></span>
                     </label>
                     <br>
 
@@ -21,14 +23,18 @@
                         <select id="municipality_dropd" name="municipality" class="select-style">
                             <option value="" selected>All</option>
                         </select>
+                        <br>
+                        <span id="dropd-msg"></span>
                     </label>
                     <br>
 
                     <label>
                         City:
                         <select id="city_dropd" name="city" class="select-style">
-                            <option value="" selected>All</option>
+                            <option value="" selected>All</option><br>
                         </select>
+                        <br>
+                        <span id="dropd-msg"></span>
                     </label>
                     <br>
 

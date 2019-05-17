@@ -59,12 +59,11 @@ def index(request):
     if request.is_ajax() and 'enable_municipalities' in request.GET:
         municipalities = property_db.filter(address__country__contains=request.GET.get('country')).distinct('address__municipality')
         municipality_list = [x.address.municipality for x in municipalities]
-        print(municipalities)
         cities = property_db.filter(address__country__contains=request.GET.get('country')).distinct('address__city')
         city_list = [x.address.city for x in cities]
-        print(municipality_list, city_list)
-        return JsonResponse({'data': {'municipalities': municipality_list, 'cities': city_list}})
-
+        postcodes = property_db.filter(address__country__contains=request.GET.get('country')).distinct('address__postCode')
+        postcode_list = [x.address.postCode for x in postcodes]
+        return JsonResponse({'data': {'municipalities': municipality_list, 'cities': city_list, 'postcodes': postcode_list}})
     # Load all cities for a country & municipalities to pre populate its drop down
     if request.is_ajax() and 'enable_cities' in request.GET:
         cities = property_db.filter(address__municipality__contains=request.GET.get('municipality')).distinct('address__city')
