@@ -57,19 +57,18 @@ def index(request):
 
     # Load all municipalities & cities for a country to pre populate their drop downs
     if request.is_ajax() and 'enable_municipalities' in request.GET:
-        country = request.GET.get('country')
-        city = request.GET.get('city')
-        municipality_city_list = [
-            {'municipalities': x.address.municipality,
-             'cities': x.address.city}
-            for x in property_db.filter(Q(address__country__contains=country),
-                                        Q(address__city__contains=city)).distinct('address__municipality')]
-        return JsonResponse({'data': municipality_city_list})
+        municipalities = property_db.filter(address__country__contains=request.GET.get('country')).distinct('address__municipality')
+        municipality_list = [x.address.municipality for x in municipalities]
+        print(municipalities)
+        cities = property_db.filter(address__country__contains=request.GET.get('country')).distinct('address__city')
+        city_list = [x.address.city for x in cities]
+        print(municipality_list, city_list)
+        return JsonResponse({'data': {'municipalities': municipality_list, 'cities': city_list}})
 
     # Load all cities for a country & municipalities to pre populate its drop down
     if request.is_ajax() and 'enable_cities' in request.GET:
-        cites = property_db.filter(address__municipality__contains=request.GET.get('municipality')).distinct('address__city')
-        city_list = [x.address.city for x in cites]
+        cities = property_db.filter(address__municipality__contains=request.GET.get('municipality')).distinct('address__city')
+        city_list = [x.address.city for x in cities]
         return JsonResponse({'data': city_list})
 
     # Load all postcodes for a country & municipalities to pre populate its drop down

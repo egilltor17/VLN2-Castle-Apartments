@@ -133,11 +133,14 @@ $(document).ready(function () {
                 success: function (resp) {
                     let municiHTML = ``;
                     let cityHTML = ``;
-                    for (let i = 0; i < resp.data.length; i++) {
-                        if (resp.data[i].municipalities !== null) {
-                            municiHTML += `<option value="${resp.data[i].municipalities}">${resp.data[i].municipalities}</option>`
-                            cityHTML += `<option value="${resp.data[i].cities}">${resp.data[i].cities}</option>`
+                    for (let i = 0; i < resp.data.municipalities.length; i++) {
+                        if (resp.data.municipalities[i] !== null) {
+                            municiHTML += `<option value="${resp.data.municipalities[i]}">${resp.data.municipalities[i]}</option>`
                         }
+                    }
+                    for (let i = 0; i < resp.data.cities.length; i++) {
+                        cityHTML += `<option value="${resp.data.cities[i]}">${resp.data.cities[i]}</option>`
+
                     }
                     municipality_dropdown.append(municiHTML);
                     city_dropdown.append(cityHTML);
